@@ -1,2 +1,2 @@
-# oh-my-fish-config.linux
-My configuration for the OhMyFish on linux
+# oh-my-fish-config.mac
+My configuration for the OhMyFish on mac
