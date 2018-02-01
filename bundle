@@ -1,4 +1,4 @@
-package apt
+package brew
 package config
 package gh
 package gi

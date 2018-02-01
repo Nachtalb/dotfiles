@@ -16,5 +16,13 @@ if test -d /opt/etcher-cli
     set -gx PATH /opt/etcher-cli $PATH
 end
 
+# GH config
+set -gx GH_BASE_DIR '/Users/bernd/Development'
+
+# Load pyenv
+status --is-interactive; and source (pyenv init -|psub)
+status --is-interactive; and source (pyenv virtualenv-init -|psub)
+
 source ~/.config/omf/abbreviations.fish
 source ~/.config/omf/hooks.fish
+source ~/.config/omf/servers.fish
