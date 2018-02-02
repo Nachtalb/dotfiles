@@ -4,6 +4,9 @@ set -gx PYTHONDONTWRITEBYTECODE 1
 # Disable default virtualenv prompt
 set -x VIRTUAL_ENV_DISABLE_PROMPT 1
 
+# Lang setting
+set -gx LC_ALL en_US.UTF-8
+set -gx LANG en_US.UTF-8
 
 set -gx VISUAL vim
 set -gx EDITOR $VISUAL
