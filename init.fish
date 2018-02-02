@@ -23,6 +23,9 @@ set -gx GH_BASE_DIR '/Users/bernd/Development'
 status --is-interactive; and source (pyenv init -|psub)
 status --is-interactive; and source (pyenv virtualenv-init -|psub)
 
+# Load GPG
+set -gx GPG_TTY (tty)
+
 source ~/.config/omf/abbreviations.fish
 source ~/.config/omf/hooks.fish
 source ~/.config/omf/servers.fish
