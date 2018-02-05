@@ -29,10 +29,8 @@ alias fm 'sudo python /Users/bernd/.config/omf/scripts/fakemail.py --path "/User
 abbr preview='/Applications/Preview.app/Contents/MacOS/Preview'
 abbr c='charm'
 
-# Aptitude
-abbr aup 'sudo apt update && sudo apt list --upgradable -a && sudo apt dist-upgrade && sudo apt autoclean && sudo apt autoremove'
-abbr update 'sudo apt update'
-abbr upgrade 'sudo apt upgrade'
+# Brew 
+abbr bup 'brew update; brew upgrade; brew cleanup; brew cask cleanup'
 
 # GIT
 # rebase
