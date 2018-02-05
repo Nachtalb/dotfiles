@@ -44,6 +44,8 @@ abbr gcaa 'git commit -S --all --amend --no-edit'
 abbr gc 'git commit -S -m'
 # pull
 abbr gpl 'git pull'
+# reset
+abbr grh 'git reset --hard'
 # push
 abbr gpf 'git push --sign=if-asked --force'
 abbr gp 'git push --sign=if-asked'
