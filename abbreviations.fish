@@ -41,7 +41,8 @@ abbr gri 'git rebase -S -i'
 abbr gra 'git rebase --abort'
 # commit
 abbr gaa 'git add .'
-abbr gca 'git commit -S --all --amend --no-edit'
+abbr gca 'git commit -S --amend --no-edit'
+abbr gcaa 'git commit -S --all --amend --no-edit'
 abbr gc 'git commit -S -m'
 # pull
 abbr gpl 'git pull'
