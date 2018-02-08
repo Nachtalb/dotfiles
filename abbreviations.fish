@@ -42,6 +42,8 @@ abbr gaa 'git add .'
 abbr gca 'git commit -S --amend --no-edit'
 abbr gcaa 'git commit -S --all --amend --no-edit'
 abbr gc 'git commit -S -m'
+# git fetch
+abbr gfa 'git fetch --all'
 # pull
 abbr gpl 'git pull'
 # reset
