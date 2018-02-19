@@ -21,6 +21,8 @@ end
 
 # GH config
 set -gx GH_BASE_DIR '/Users/bernd/Development'
+set -gx GL_BASE_DIR '/Users/bernd/Development'
+set -gx GB_BASE_DIR '/Users/bernd/Development'
 
 # Load pyenv
 status --is-interactive; and source (pyenv init -|psub)
