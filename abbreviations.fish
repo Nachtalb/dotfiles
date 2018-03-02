@@ -64,6 +64,8 @@ abbr gcp 'git cherry-pick -S '
 abbr gco 'git checkout'
 abbr gst 'git status'
 abbr gpu 'git pull'
+abbr gdf 'git diff'
+abbr gds 'git diff --staged'
 
 # Misc
 abbr fsize 'du -sh' # Show dictionary size
