@@ -11,7 +11,7 @@ set -gx LANG en_US.UTF-8
 set -gx VISUAL vim
 set -gx EDITOR $VISUAL
 
-set -gx LESSOPEN "| /usr/bin/source-highlight-esc.sh %s"
+set -gx LESSOPEN "| /usr/local/bin/source-highlight-esc.sh %s"
 set -gx LESS ' -R '
 
 # Add etcher-cli if available
