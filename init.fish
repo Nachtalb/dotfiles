@@ -1,8 +1,9 @@
 # Python developers otherwise
 set -gx PYTHONDONTWRITEBYTECODE 1
-
 # Disable default virtualenv prompt
 set -x VIRTUAL_ENV_DISABLE_PROMPT 1
+# Load pythonrc file
+set -gx PYTHONSTARTUP $HOME/.pythonrc
 
 # Lang setting
 set -gx LC_ALL en_US.UTF-8
