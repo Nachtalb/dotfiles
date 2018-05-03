@@ -32,6 +32,9 @@ set -gx GB_BASE_DIR '/Users/bernd/Development'
 status --is-interactive; and source (pyenv init -|psub)
 status --is-interactive; and source (pyenv virtualenv-init -|psub)
 
+# Load rbenv
+status --is-interactive; and source (rbenv init -|psub)
+
 # Load GPG
 set -gx GPG_TTY (tty)
 
