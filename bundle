@@ -4,7 +4,6 @@ package gh
 package gi
 package grc
 package jump
-package pbcopy
 package pyenv
 package python
 package spark
