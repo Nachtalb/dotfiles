@@ -16,10 +16,10 @@ abbr plone-setup 'pyenv local plone-env; printf "[buildout]\nextends =\n    deve
 abbr omr 'omf reload'
 
 # Basic Builtin
-abbr ls='ls -hC'
-abbr la='ls -ClAph'
-abbr lt='ls -ClAtph'
-abbr ll='la'
+abbr ls 'ls -hC'
+abbr la 'ls -ClAph'
+abbr lt 'ls -ClAtph'
+abbr ll 'la'
 abbr grep 'grep --color'
 abbr rmf 'rm -rf'
 abbr rtws 'sed -i \'s/[[:space:]]*\$//\''
