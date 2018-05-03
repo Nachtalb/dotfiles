@@ -62,6 +62,7 @@ abbr gl1 "git log --graph --abbrev-commit --decorate --format='%C(bold blue)%h%C
 abbr gl2 "git log --graph --abbrev-commit --decorate --format='%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all"
 abbr gcp 'git cherry-pick -S '
 abbr gco 'git checkout'
+abbr gcb 'git checkout -b'
 abbr gst 'git status'
 abbr gpu 'git pull'
 abbr gdf 'git diff'
