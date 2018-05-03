@@ -15,6 +15,9 @@ set -gx EDITOR $VISUAL
 set -gx LESSOPEN "| /usr/local/bin/source-highlight-esc.sh %s"
 set -gx LESS ' -R '
 
+# Add user local ~/bin/ to path
+set -gx PATH ~/bin/ $PATH
+
 # Add etcher-cli if available
 if test -d /opt/etcher-cli
     set -gx PATH /opt/etcher-cli $PATH
