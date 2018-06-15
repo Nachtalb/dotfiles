@@ -44,3 +44,6 @@ set -gx GPG_TTY (tty)
 source ~/.config/omf/abbreviations.fish
 source ~/.config/omf/hooks.fish
 source ~/.config/omf/servers.fish
+
+set -gx LDFLAGS -L/usr/local/opt/openssl/lib
+set -gx CPPFLAGS -I/usr/local/opt/openssl/include
