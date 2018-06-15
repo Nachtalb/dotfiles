@@ -5,6 +5,9 @@ set -x VIRTUAL_ENV_DISABLE_PROMPT 1
 # Load pythonrc file
 set -gx PYTHONSTARTUP $HOME/.pythonrc
 
+# Do not update on installation in homebrew
+set -gx HOMEBREW_NO_AUTO_UPDATE 1
+
 # Lang setting
 set -gx LC_ALL en_US.UTF-8
 set -gx LANG en_US.UTF-8
