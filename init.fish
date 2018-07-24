@@ -47,3 +47,6 @@ source ~/.config/omf/servers.fish
 
 set -gx LDFLAGS -L/usr/local/opt/openssl/lib
 set -gx CPPFLAGS -I/usr/local/opt/openssl/include
+
+# Set default java version
+set -gx JAVA_HOME (/usr/libexec/java_home -v 1.8)
