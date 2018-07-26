@@ -70,6 +70,7 @@ abbr gdf 'git diff'
 abbr gdfn 'git diff --name-status'
 abbr gds 'git diff --staged'
 abbr gdsn 'git diff --staged --name-status'
+abbr go 'git open'
 
 # Misc
 abbr fsize 'du -sh' # Show dictionary size
