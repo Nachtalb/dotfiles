@@ -51,8 +51,8 @@ abbr gpl 'git pull'
 # reset
 abbr grh 'git reset --hard'
 # push
-abbr gpf 'git push --sign=if-asked --force'
-abbr gp 'git push --sign=if-asked'
+abbr gpf 'git push --force'
+abbr gp 'git push'
 # stashing
 abbr gsa 'git stash save'
 abbr gsp 'git stash pop'
