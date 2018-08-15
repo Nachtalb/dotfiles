@@ -10,16 +10,6 @@ package spark
 package sublime
 package thefuck
 package weather
-theme batman
-theme bira
-theme bobthefish
-theme cbjohnson
 theme default
-theme edan
-theme emoji-powerline
-theme gentoo
 theme scorphish
-theme simple-ass-prompt
-theme toaster
-theme tomita
-theme zish
+theme shellder
