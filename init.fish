@@ -53,3 +53,6 @@ set -gx JAVA_HOME (/usr/libexec/java_home -v 1.8)
 
 # Set location of tasks to OneDrive
 set -gx TASKDATA ~/OneDrive/Tasks
+
+# Load Direnv
+eval (direnv hook fish)
