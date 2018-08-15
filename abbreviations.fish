@@ -10,7 +10,7 @@ abbr pinf 'bin/instance fg'
 # Misc
 abbr psi 'bin/solr-instance'
 abbr pt 'bin/test'
-abbr plone-setup 'pyenv local plone-env; printf "[buildout]\nextends =\n    development.cfg\n\n[omelette]\nrecipe =\n\n" > development_nick.cfg; ln -fs development_nick.cfg buildout.cfg; python bootstrap.py; bin/buildout;'
+abbr plone-setup 'pyenv local new-plone-env; printf "[buildout]\nextends =\n    development.cfg\n\n[omelette]\nrecipe =\n\n" > development_nick.cfg; ln -fs development_nick.cfg buildout.cfg; python bootstrap.py; bin/buildout;'
 abbr plone-resetup 'python bootstrap.py; bin/buildout'
 abbr plone-start 'bin/solr-instance start; bin/tika-server start 2> /dev/null &; bin/instance fg'
 
