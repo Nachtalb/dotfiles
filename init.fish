@@ -42,6 +42,7 @@ status --is-interactive; and source (rbenv init -|psub)
 set -gx GPG_TTY (tty)
 
 source ~/.config/omf/abbreviations.fish
+source ~/.config/omf/alias.fish
 source ~/.config/omf/hooks.fish
 source ~/.config/omf/servers.fish
 
