@@ -31,7 +31,7 @@ alias fm 'sudo python /Users/bernd/.config/omf/scripts/fakemail.py --path "/User
 # Applications
 abbr preview='/Applications/Preview.app/Contents/MacOS/Preview'
 
-# Brew 
+# Brew
 abbr bup 'brew update; brew upgrade; brew cleanup; brew cask cleanup'
 
 # GIT
