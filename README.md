@@ -82,4 +82,15 @@ gnupg			libtool			poppler			yarn
 gnutls			libunistring		postgresql		youtube-dl
 go			libusb			pth			zlib
 gobject-introspection	libvorbis		pup
+
+## Git Config
+```
+[user]
+    email = nickespig@gmail.com
+    name = Nick Espig
+    signingkey = E48DF13C07055D92
+[core]
+    excludesfile = /Users/bernd/Development/.global_gitignore
+[commit]
+    gpgsign = true
 ```
