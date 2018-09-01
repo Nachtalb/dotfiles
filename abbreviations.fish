@@ -47,7 +47,7 @@ abbr gc 'git commit -S -m'
 # git fetch
 abbr gfa 'git fetch --all'
 # pull
-abbr gpl 'git pull'
+abbr gpl 'git pull -r'
 # reset
 abbr grh 'git reset --hard'
 # push
@@ -65,7 +65,6 @@ abbr gcp 'git cherry-pick -S '
 abbr gco 'git checkout'
 abbr gcb 'git checkout -b ne/'
 abbr gst 'git status'
-abbr gpu 'git pull'
 abbr gdf 'git diff'
 abbr gdfn 'git diff --name-status'
 abbr gds 'git diff --staged'
