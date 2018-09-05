@@ -57,3 +57,8 @@ set -gx TASKDATA ~/OneDrive/Tasks
 
 # Load Direnv
 eval (direnv hook fish)
+
+# Load file that is not tracked by this repo, for machine specific stuff
+if test -e ~/.config/omf/user.fish
+    source ~/.config/omf/user.fish
+end
