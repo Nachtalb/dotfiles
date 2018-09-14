@@ -73,4 +73,4 @@ abbr go 'git open'
 
 # Misc
 abbr fsize 'du -sh' # Show dictionary size
-abbr ccat '/Users/bernd/.pyenv/versions/2.7.14/bin/pygmentize -g -O style=colorful,linenos=1'  # Check path in a new installtion
+abbr ccat '~/.pyenv/versions/2.7.14/bin/pygmentize -g -O style=colorful,linenos=1'  # Check path in a new installtion
