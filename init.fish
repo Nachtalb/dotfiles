@@ -62,3 +62,7 @@ eval (direnv hook fish)
 if test -e ~/.config/omf/user.fish
     source ~/.config/omf/user.fish
 end
+
+if test -f ~/.autojump/share/autojump/autojump.fish
+    source ~/.autojump/share/autojump/autojump.fish
+end
