@@ -25,8 +25,8 @@ abbr lt 'ls -ClAtph'
 abbr ll 'la'
 abbr rmf 'rm -rf'
 abbr rtws 'sed -i \'s/[[:space:]]*\$//\''
-alias fmb 'sudo python /Users/bernd/.config/omf/scripts/fakemail.py --path "/Users/bernd/Development/fakemail/" --background --open --port 25 --log "/Users/bernd/Development/fakemail/fakemail.log"'
-alias fm 'sudo python /Users/bernd/.config/omf/scripts/fakemail.py --path "/Users/bernd/Development/fakemail/" --open --port 25 --log "/Users/bernd/Development/fakemail/fakemail.log"'
+alias fmb 'sudo fakemail --path "~/Development/fakemail/" --background --port 25 --log "~/Development/fakemail/fakemail.log"'
+alias fm 'sudo fakemail --path "~/Development/fakemail/" --port 25 --log "~/Development/fakemail/fakemail.log"'
 
 # Applications
 abbr preview='/Applications/Preview.app/Contents/MacOS/Preview'
