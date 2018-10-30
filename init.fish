@@ -30,9 +30,9 @@ end
 set -gx PATH $PATH $HOME/.config/omf/scripts
 
 # GH config
-set -gx GH_BASE_DIR '/Users/bernd/Development'
-set -gx GL_BASE_DIR '/Users/bernd/Development'
-set -gx GB_BASE_DIR '/Users/bernd/Development'
+set -gx GH_BASE_DIR $HOME/Development
+set -gx GL_BASE_DIR $HOME/Development
+set -gx GB_BASE_DIR $HOME/Development
 
 # Load pyenv
 status --is-interactive; and source (pyenv init -|psub)
