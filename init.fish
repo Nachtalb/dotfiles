@@ -26,6 +26,9 @@ if test -d /opt/etcher-cli
     set -gx PATH /opt/etcher-cli $PATH
 end
 
+# Add scripts directory to PATH var
+set -gx PATH $PATH $HOME/.config/omf/scripts
+
 # GH config
 set -gx GH_BASE_DIR '/Users/bernd/Development'
 set -gx GL_BASE_DIR '/Users/bernd/Development'
