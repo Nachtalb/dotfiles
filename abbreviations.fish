@@ -10,10 +10,10 @@ abbr pinf 'bin/instance fg'
 # Misc
 abbr psi 'bin/solr-instance'
 abbr pt 'bin/test'
-abbr psp 'pyenv local new-plone-env ;and printf "[buildout]\nextends =\n    development.cfg\n\n[omelette]\nrecipe =\n\n" > development_nick.cfg ;and ln -fs development_nick.cfg buildout.cfg ;and python bootstrap.py ;and bin/buildout'
-abbr prs 'python bootstrap.py ;and bin/buildout'
-abbr psf 'bin/solr-instance start ;and bin/tika-server start 2> /dev/null & ;and bin/instance fg'
-abbr psm 'bin/solr-instance start ;and bin/tika-server start 2> /dev/null &'
+abbr psp 'pyenv local new-plone-env && printf "[buildout]\nextends =\n    development.cfg\n\n[omelette]\nrecipe =\n\n" > development_nick.cfg && ln -fs development_nick.cfg buildout.cfg && python bootstrap.py && bin/buildout'
+abbr prs 'python bootstrap.py && bin/buildout'
+abbr psf 'bin/solr-instance start && bin/tika-server start 2> /dev/null & && bin/instance fg'
+abbr psm 'bin/solr-instance start && bin/tika-server start 2> /dev/null &'
 
 # Oh my fish
 abbr omr 'omf reload'
@@ -32,7 +32,7 @@ alias fm 'sudo fakemail --path "~/Development/fakemail/" --port 25 --log "~/Deve
 abbr preview='/Applications/Preview.app/Contents/MacOS/Preview'
 
 # Brew
-abbr bup 'brew update ;and brew upgrade ;and brew cleanup ;and brew cask cleanup'
+abbr bup 'brew update && brew upgrade && brew cleanup && brew cask cleanup'
 
 # GIT
 # rebase
