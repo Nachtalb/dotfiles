@@ -27,7 +27,7 @@ if test -d /opt/etcher-cli
 end
 
 # Add scripts directory to PATH var
-set -gx PATH $PATH $HOME/.config/omf/scripts
+set -gx PATH $PATH $HOME/.config/omf/bin
 
 # GH config
 set -gx GH_BASE_DIR $HOME/Development
