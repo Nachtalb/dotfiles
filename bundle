@@ -1,9 +1,11 @@
 package brew
 package config
+package foreign-env
 package gh
 package gi
 package grc
 package jump
+package nvm
 package pyenv
 package python
 package spark
