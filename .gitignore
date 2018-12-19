@@ -1,3 +1,4 @@
 servers.fish
 user.fish
-user/
+user/*
+!user/.gitkeep

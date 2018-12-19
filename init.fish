@@ -47,7 +47,6 @@ set -gx GPG_TTY (tty)
 source ~/.config/omf/abbreviations.fish
 source ~/.config/omf/alias.fish
 source ~/.config/omf/hooks.fish
-source ~/.config/omf/servers.fish
 
 set -gx LDFLAGS -L/usr/local/opt/openssl/lib
 set -gx CPPFLAGS -I/usr/local/opt/openssl/include
@@ -61,9 +60,9 @@ set -gx TASKDATA ~/OneDrive/Tasks
 # Load Direnv
 eval (direnv hook fish)
 
-# Load file that is not tracked by this repo, for machine specific stuff
-if test -e ~/.config/omf/user.fish
-    source ~/.config/omf/user.fish
+# Load load untracked fish files in ./user folder
+for filename in user/*.fish
+    source $filename
 end
 
 if test -f ~/.autojump/share/autojump/autojump.fish
