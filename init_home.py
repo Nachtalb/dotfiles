@@ -4,8 +4,8 @@ import sys
 BASE_PATH = os.path.dirname(os.path.realpath(os.path.abspath(__file__)))
 HOME_PATH = os.path.expanduser('~')
 
-DOTFILES_HOME_PATH = os.path.join(BASE_PATH, 'home_dir')
-STRUCTURE_HOME_PATH = os.path.join(BASE_PATH, 'home_structure')
+DOTFILES_HOME_PATH = os.path.join(BASE_PATH, 'HOME_SYMLINKS')
+STRUCTURE_HOME_PATH = os.path.join(BASE_PATH, 'HOME_STRUCTURE')
 
 if not os.path.isdir(DOTFILES_HOME_PATH):
     print(f'No path {DOTFILES_HOME_PATH} found.')
