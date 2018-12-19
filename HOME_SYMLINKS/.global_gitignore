@@ -1,0 +1,31 @@
+# Jetbrains
+.idea
+
+# Python Related
+ENV
+venv
+.envrc
+.Python
+.pdb-pyhist
+.python-version
+
+# System artefacts
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# Misc
+.coverage
+*-COPY
+TEMP-*
+*.OLD
+*.BAK
+temp
+TEMP
+*.documents
+*.nick.*
+
+# Plone Specific
+development_nick.cfg
+update-demo.sh
+

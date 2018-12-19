@@ -1,0 +1,256 @@
+<component name="RunManager" selected="Bash.Format all XMLs">
+  <configuration name="Instance" type="BashConfigurationType" factoryName="Bash">
+    <module name="{{PROJECT_NAME}}" />
+    <option name="INTERPRETER_OPTIONS" value="-c" />
+    <option name="INTERPRETER_PATH" value="/bin/sh" />
+    <option name="PROJECT_INTERPRETER" value="false" />
+    <option name="WORKING_DIRECTORY" value="$MODULE_WORKING_DIR$" />
+    <option name="PARENT_ENVS" value="true" />
+    <option name="SCRIPT_NAME" value="$USER_HOME$/.config/omf/scripts/instance " />
+    <option name="PARAMETERS" value="" />
+    <method v="2" />
+  </configuration>
+  <configuration name="Change Instance Port" type="BashConfigurationType" factoryName="Bash" editBeforeRun="true">
+    <module name="{{PROJECT_NAME}}" />
+    <option name="INTERPRETER_OPTIONS" value="-c" />
+    <option name="INTERPRETER_PATH" value="/bin/sh" />
+    <option name="USE_PROJECT_INTERPRETER" value="false" />
+    <option name="WORKING_DIRECTORY" value="$MODULE_WORKING_DIR$" />
+    <option name="PARENT_ENVS" value="true" />
+    <option name="SCRIPT_NAME" value="gsed -i 's/address [[:digit:]]\+/address 8081/' parts/instance/etc/zope.conf" />
+    <option name="PARAMETERS" value="" />
+    <method v="2" />
+  </configuration>
+  <configuration name="Format all XMLs" type="BashConfigurationType" factoryName="Bash">
+    <module name="{{PROJECT_NAME}}" />
+    <option name="INTERPRETER_OPTIONS" value="" />
+    <option name="INTERPRETER_PATH" value="/bin/sh" />
+    <option name="USE_PROJECT_INTERPRETER" value="false" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/" />
+    <option name="PARENT_ENVS" value="true" />
+    <option name="SCRIPT_NAME" value="$PROJECT_DIR$/bin/format-all-xmls" />
+    <option name="PARAMETERS" value="" />
+    <method v="2" />
+  </configuration>
+  <configuration name="PRS" type="Multirun" factoryName="Multirun" separateTabs="true" startOneByOne="true" markFailedProcess="true" hideSuccessProcess="false" delayTime="0">
+    <runConfiguration name="Buildout" type="Python" />
+    <method v="2" />
+  </configuration>
+  <configuration name="PSM" type="Multirun" factoryName="Multirun" separateTabs="true" startOneByOne="false" markFailedProcess="true" hideSuccessProcess="false" delayTime="0">
+    <runConfiguration name="Solr FG" type="Python" />
+    <runConfiguration name="Tika Server Start" type="Python" />
+    <method v="2" />
+  </configuration>
+  <configuration name="Remote Debugger" type="PyRemoteDebugConfigurationType" factoryName="Python Remote Debug" singleton="true">
+    <option name="PORT" value="8888" />
+    <option name="HOST" value="localhost" />
+    <PathMappingSettings>
+      <option name="pathMappings">
+        <list />
+      </option>
+    </PathMappingSettings>
+    <option name="REDIRECT_OUTPUT" value="true" />
+    <option name="SUSPEND_AFTER_CONNECT" value="true" />
+    <method v="2" />
+  </configuration>
+  <configuration name="Buildout" type="PythonConfigurationType" factoryName="Python">
+    <module name="{{PROJECT_NAME}}" />
+    <option name="INTERPRETER_OPTIONS" value="" />
+    <option name="PARENT_ENVS" value="true" />
+    <envs>
+      <env name="PYTHONUNBUFFERED" value="1" />
+      <env name="MAGICK_HOME" value="/usr/local/opt/imagemagick@6/" />
+    </envs>
+    <option name="SDK_HOME" value="" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/" />
+    <option name="IS_MODULE_SDK" value="true" />
+    <option name="ADD_CONTENT_ROOTS" value="true" />
+    <option name="ADD_SOURCE_ROOTS" value="true" />
+    <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+    <option name="SCRIPT_NAME" value="$PROJECT_DIR$/bin/buildout" />
+    <option name="PARAMETERS" value="" />
+    <option name="SHOW_COMMAND_LINE" value="false" />
+    <option name="EMULATE_TERMINAL" value="true" />
+    <option name="MODULE_MODE" value="false" />
+    <option name="REDIRECT_INPUT" value="false" />
+    <option name="INPUT_FILE" value="" />
+    <method v="2" />
+  </configuration>
+  <configuration name="Create Upgradesetp" type="PythonConfigurationType" factoryName="Python" editBeforeRun="true" singleton="true">
+    <module name="{{PROJECT_NAME}}" />
+    <option name="INTERPRETER_OPTIONS" value="" />
+    <option name="PARENT_ENVS" value="true" />
+    <envs>
+      <env name="PYTHONUNBUFFERED" value="1" />
+      <env name="MAGICK_HOME" value="/usr/local/opt/imagemagick@6/" />
+    </envs>
+    <option name="SDK_HOME" value="" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/" />
+    <option name="IS_MODULE_SDK" value="true" />
+    <option name="ADD_CONTENT_ROOTS" value="true" />
+    <option name="ADD_SOURCE_ROOTS" value="true" />
+    <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+    <option name="SCRIPT_NAME" value="$PROJECT_DIR$/bin/upgrade" />
+    <option name="PARAMETERS" value="create -p {{UPGRADE_PATH}} NAME" />
+    <option name="SHOW_COMMAND_LINE" value="false" />
+    <option name="EMULATE_TERMINAL" value="false" />
+    <option name="MODULE_MODE" value="false" />
+    <option name="REDIRECT_INPUT" value="false" />
+    <option name="INPUT_FILE" value="" />
+    <method v="2" />
+  </configuration>
+  <configuration name="Install all upgrades" type="PythonConfigurationType" factoryName="Python" editBeforeRun="true">
+    <module name="{{PROJECT_NAME}}" />
+    <option name="INTERPRETER_OPTIONS" value="" />
+    <option name="PARENT_ENVS" value="true" />
+    <envs>
+      <env name="PYTHONUNBUFFERED" value="1" />
+      <env name="MAGICK_HOME" value="/usr/local/opt/imagemagick@6/" />
+    </envs>
+    <option name="SDK_HOME" value="" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/" />
+    <option name="IS_MODULE_SDK" value="true" />
+    <option name="ADD_CONTENT_ROOTS" value="true" />
+    <option name="ADD_SOURCE_ROOTS" value="true" />
+    <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+    <option name="SCRIPT_NAME" value="$PROJECT_DIR$/bin/upgrade" />
+    <option name="PARAMETERS" value="install --all-sites --proposed" />
+    <option name="SHOW_COMMAND_LINE" value="false" />
+    <option name="EMULATE_TERMINAL" value="false" />
+    <option name="MODULE_MODE" value="false" />
+    <option name="REDIRECT_INPUT" value="false" />
+    <option name="INPUT_FILE" value="" />
+    <method v="2" />
+  </configuration>
+  <configuration name="Instance FG" type="PythonConfigurationType" factoryName="Python" singleton="true">
+    <module name="{{PROJECT_NAME}}" />
+    <option name="INTERPRETER_OPTIONS" value="" />
+    <option name="PARENT_ENVS" value="true" />
+    <envs>
+      <env name="PYTHONUNBUFFERED" value="1" />
+      <env name="MAGICK_HOME" value="/usr/local/opt/imagemagick@6/" />
+    </envs>
+    <option name="SDK_HOME" value="" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/" />
+    <option name="IS_MODULE_SDK" value="true" />
+    <option name="ADD_CONTENT_ROOTS" value="true" />
+    <option name="ADD_SOURCE_ROOTS" value="true" />
+    <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+    <option name="SCRIPT_NAME" value="$PROJECT_DIR$/bin/instance" />
+    <option name="PARAMETERS" value="fg" />
+    <option name="SHOW_COMMAND_LINE" value="false" />
+    <option name="EMULATE_TERMINAL" value="false" />
+    <option name="MODULE_MODE" value="false" />
+    <option name="REDIRECT_INPUT" value="false" />
+    <option name="INPUT_FILE" value="" />
+    <method v="2" />
+  </configuration>
+  <configuration name="Solr FG" type="PythonConfigurationType" factoryName="Python">
+    <module name="{{PROJECT_NAME}}" />
+    <option name="INTERPRETER_OPTIONS" value="" />
+    <option name="PARENT_ENVS" value="true" />
+    <envs>
+      <env name="PYTHONUNBUFFERED" value="1" />
+      <env name="MAGICK_HOME" value="/usr/local/opt/imagemagick@6/" />
+    </envs>
+    <option name="SDK_HOME" value="" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/" />
+    <option name="IS_MODULE_SDK" value="true" />
+    <option name="ADD_CONTENT_ROOTS" value="true" />
+    <option name="ADD_SOURCE_ROOTS" value="true" />
+    <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+    <option name="SCRIPT_NAME" value="$PROJECT_DIR$/bin/solr-instance" />
+    <option name="PARAMETERS" value="fg" />
+    <option name="SHOW_COMMAND_LINE" value="false" />
+    <option name="EMULATE_TERMINAL" value="false" />
+    <option name="MODULE_MODE" value="false" />
+    <option name="REDIRECT_INPUT" value="false" />
+    <option name="INPUT_FILE" value="" />
+    <method v="2" />
+  </configuration>
+  <configuration name="Test" type="PythonConfigurationType" factoryName="Python" editBeforeRun="true">
+    <module name="{{PROJECT_NAME}}" />
+    <option name="INTERPRETER_OPTIONS" value="" />
+    <option name="PARENT_ENVS" value="true" />
+    <envs>
+      <env name="PYTHONUNBUFFERED" value="1" />
+      <env name="MAGICK_HOME" value="/usr/local/opt/imagemagick@6/" />
+    </envs>
+    <option name="SDK_HOME" value="" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/" />
+    <option name="IS_MODULE_SDK" value="true" />
+    <option name="ADD_CONTENT_ROOTS" value="true" />
+    <option name="ADD_SOURCE_ROOTS" value="true" />
+    <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+    <option name="SCRIPT_NAME" value="$PROJECT_DIR$/bin/test" />
+    <option name="PARAMETERS" value="" />
+    <option name="SHOW_COMMAND_LINE" value="false" />
+    <option name="EMULATE_TERMINAL" value="false" />
+    <option name="MODULE_MODE" value="false" />
+    <option name="REDIRECT_INPUT" value="false" />
+    <option name="INPUT_FILE" value="" />
+    <method v="2" />
+  </configuration>
+  <configuration name="Tika Server Start" type="PythonConfigurationType" factoryName="Python">
+    <module name="{{PROJECT_NAME}}" />
+    <option name="INTERPRETER_OPTIONS" value="" />
+    <option name="PARENT_ENVS" value="true" />
+    <envs>
+      <env name="PYTHONUNBUFFERED" value="1" />
+      <env name="MAGICK_HOME" value="/usr/local/opt/imagemagick@6/" />
+    </envs>
+    <option name="SDK_HOME" value="" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/" />
+    <option name="IS_MODULE_SDK" value="true" />
+    <option name="ADD_CONTENT_ROOTS" value="true" />
+    <option name="ADD_SOURCE_ROOTS" value="true" />
+    <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+    <option name="SCRIPT_NAME" value="$PROJECT_DIR$/bin/tika-server" />
+    <option name="PARAMETERS" value="start" />
+    <option name="SHOW_COMMAND_LINE" value="false" />
+    <option name="EMULATE_TERMINAL" value="false" />
+    <option name="MODULE_MODE" value="false" />
+    <option name="REDIRECT_INPUT" value="false" />
+    <option name="INPUT_FILE" value="" />
+    <method v="2" />
+  </configuration>
+  <configuration name="i18n-build" type="PythonConfigurationType" factoryName="Python">
+    <module name="{{PROJECT_NAME}}" />
+    <option name="INTERPRETER_OPTIONS" value="" />
+    <option name="PARENT_ENVS" value="true" />
+    <envs>
+      <env name="PYTHONUNBUFFERED" value="1" />
+      <env name="MAGICK_HOME" value="/usr/local/opt/imagemagick@6/" />
+    </envs>
+    <option name="SDK_HOME" value="" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/" />
+    <option name="IS_MODULE_SDK" value="true" />
+    <option name="ADD_CONTENT_ROOTS" value="true" />
+    <option name="ADD_SOURCE_ROOTS" value="true" />
+    <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+    <option name="SCRIPT_NAME" value="$PROJECT_DIR$/bin/i18n-build" />
+    <option name="PARAMETERS" value="" />
+    <option name="SHOW_COMMAND_LINE" value="false" />
+    <option name="EMULATE_TERMINAL" value="true" />
+    <option name="MODULE_MODE" value="false" />
+    <option name="REDIRECT_INPUT" value="false" />
+    <option name="INPUT_FILE" value="" />
+    <method v="2" />
+  </configuration>
+  <list>
+    <item itemvalue="Bash.Change Instance Port" />
+    <item itemvalue="Bash.Instance" />
+    <item itemvalue="Bash.Format all XMLs" />
+    <item itemvalue="Multirun.PRS" />
+    <item itemvalue="Multirun.PSM" />
+    <item itemvalue="Python.Instance FG" />
+    <item itemvalue="Python.Buildout" />
+    <item itemvalue="Python.i18n-build" />
+    <item itemvalue="Python.Create Upgradesetp" />
+    <item itemvalue="Python.Install all upgrades" />
+    <item itemvalue="Python.Solr FG" />
+    <item itemvalue="Python.Tika Server Start" />
+    <item itemvalue="Python.Test" />
+    <item itemvalue="Python Remote Debug.Remote Debugger" />
+  </list>
+</component>
