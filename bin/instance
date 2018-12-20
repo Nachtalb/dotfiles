@@ -133,11 +133,11 @@ def check_running_ports():
         if process.cwd() == WORKING_DIR:
             logger.warning(f'Current instance already running: PID={pid} URL=http://localhost:{port}')
             if yes_no_input_dialog('Should the instance be killed?'):
-                process_to_kill = get_process_of_current_script_running(process)
-                if not process_to_kill:
-                    process_to_kill = process
-
                 try:
+                    process_to_kill = get_process_of_current_script_running(process)
+                    if not process_to_kill:
+                        process_to_kill = process
+
                     for child in process_to_kill.children(recursive=True):
                         child.terminate()
 
