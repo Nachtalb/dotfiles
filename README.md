@@ -2,6 +2,12 @@
 
 Create default home structure and symlinks by running `init_home.py` with Python3.
 
+Install pyenv:
+```
+$ curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
+```
+
+
 ---
 
 ```
