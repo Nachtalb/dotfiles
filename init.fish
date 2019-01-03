@@ -65,6 +65,11 @@ for filename in ~/.config/omf/user/*.fish
     source $filename
 end
 
+# Load load tracked fish files in ./scripts folder
+for file in ~/.config/omf/scripts/*.fish
+    source $file
+end
+
 if test -f ~/.autojump/share/autojump/autojump.fish
     source ~/.autojump/share/autojump/autojump.fish
 end
