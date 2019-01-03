@@ -61,7 +61,7 @@ set -gx TASKDATA ~/OneDrive/Tasks
 eval (direnv hook fish)
 
 # Load load untracked fish files in ./user folder
-for filename in user/*.fish
+for filename in ~/.config/omf/user/*.fish
     source $filename
 end
 
