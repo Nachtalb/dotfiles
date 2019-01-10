@@ -19,18 +19,31 @@ import xml.etree.ElementTree as ET
 BASE_PATH = os.path.abspath(os.path.dirname(os.path.realpath(__file__)))
 
 
-def yes_no_repeat(string, default=True):
-    ok_answer = None
-    yes_no_str = 'Y/n' if default else 'y/N'
-    while ok_answer is None:
+def yes_no_repeat(string, default=True, show_help=False, additional_options=None):
+    additional_options = additional_options or {}
+    yes_no = ['Y', 'n'] if default else ['y', 'N']
+    yes_no_str = '/'.join(yes_no + list(additional_options))
+
+    help_string = 'y = Yes | n = No'
+    for short, options in additional_options.items():
+        if 'help' in options:
+            help_string += f' | {short.lower()} = {options["help"]}'
+
+    if show_help:
+        print(help_string)
+
+    while True:
         answer = input(f'{string} [{yes_no_str}]: ').lower()
+        for short, options in additional_options.items():
+            if answer in list(map(str.lower, options['accept'])):
+                return options['value']
+
         if answer in ['yes', 'y']:
-            ok_answer = True
+            return True
         elif answer in ['no', 'n']:
-            ok_answer = False
+            return False
         elif answer == '':
-            ok_answer = default
-    return ok_answer
+            return default
 
 
 if __name__ == '__main__':
@@ -71,6 +84,8 @@ if __name__ == '__main__':
         workspace_root.append(new_run_manager_root)
         print('Copied configurations over')
     else:
+        replace_all = None
+        replace_none = None
         for configuration in new_configurations:
             if configuration.tag != 'configuration':
                 continue
@@ -79,8 +94,31 @@ if __name__ == '__main__':
             if workspace_run_manager:
                 existing = workspace_run_manager.find(f'configuration[@name=\'{name}\']')
 
-                if existing:
-                    if yes_no_repeat(f'Replace configuration "{name}"?'):
+                if not replace_none and existing:
+                    answer = False
+                    if replace_all is None and replace_none is None:
+                        answer = yes_no_repeat(f'Replace configuration "{name}"?', show_help=True, additional_options={
+                            'r': {
+                                'accept': ['replace', 'r', 'replace remaining'],
+                                'value': 1,
+                                'help': 'Replace remaining',
+                            },
+                            's': {
+                                'accept': ['skip', 's', 'skip remaining'],
+                                'value': -1,
+                                'help': 'Skip remaining',
+                            },
+                        })
+                        if answer is 1:
+                            replace_all = True
+                            answer = True
+                        elif answer is -1:
+                            replace_none = True
+                            continue
+                    elif not replace_all:
+                        answer = yes_no_repeat(f'Replace configuration "{name}"?')
+
+                    if replace_all or answer:
                         workspace_run_manager.remove(existing)
                     else:
                         continue
