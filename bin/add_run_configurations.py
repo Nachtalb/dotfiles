@@ -18,6 +18,9 @@ import xml.etree.ElementTree as ET
 
 BASE_PATH = os.path.abspath(os.path.dirname(os.path.realpath(__file__)))
 
+REPLACE_ALL = None
+REPLACE_NONE = None
+
 
 def yes_no_repeat(string, default=True, show_help=False, additional_options=None):
     additional_options = additional_options or {}
@@ -50,8 +53,14 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Add run configuration to project')
     parser.add_argument('path', help='Path to project')
     parser.add_argument('name', help='Project Name', nargs='?')
+    parser.add_argument('-r', '--replace-all', help='Replace all', action='store_true')
+    parser.add_argument('-s', '--skip-all', help='Skip all', action='store_true')
 
     args = parser.parse_args()
+    if args.skip_all:
+        REPLACE_NONE = True
+    if args.replace_all:
+        REPLACE_ALL = True
 
     project_path = os.path.realpath(args.path.strip())
     workspace_path = os.path.join(project_path, '.idea', 'workspace.xml')
@@ -84,8 +93,6 @@ if __name__ == '__main__':
         workspace_root.append(new_run_manager_root)
         print('Copied configurations over')
     else:
-        replace_all = None
-        replace_none = None
         for configuration in new_configurations:
             if configuration.tag != 'configuration':
                 continue
@@ -94,9 +101,9 @@ if __name__ == '__main__':
             if workspace_run_manager:
                 existing = workspace_run_manager.find(f'configuration[@name=\'{name}\']')
 
-                if not replace_none and existing:
+                if not REPLACE_NONE and existing:
                     answer = False
-                    if replace_all is None and replace_none is None:
+                    if REPLACE_ALL is None and REPLACE_NONE is None:
                         answer = yes_no_repeat(f'Replace configuration "{name}"?', show_help=True, additional_options={
                             'r': {
                                 'accept': ['replace', 'r', 'replace remaining'],
@@ -110,15 +117,15 @@ if __name__ == '__main__':
                             },
                         })
                         if answer is 1:
-                            replace_all = True
+                            REPLACE_ALL = True
                             answer = True
                         elif answer is -1:
-                            replace_none = True
+                            REPLACE_NONE = True
                             continue
-                    elif not replace_all:
+                    elif not REPLACE_ALL:
                         answer = yes_no_repeat(f'Replace configuration "{name}"?')
 
-                    if replace_all or answer:
+                    if REPLACE_ALL or answer:
                         workspace_run_manager.remove(existing)
                     else:
                         continue
