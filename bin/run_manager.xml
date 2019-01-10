@@ -6,7 +6,7 @@
     <option name="PROJECT_INTERPRETER" value="false" />
     <option name="WORKING_DIRECTORY" value="$MODULE_WORKING_DIR$" />
     <option name="PARENT_ENVS" value="true" />
-    <option name="SCRIPT_NAME" value="$USER_HOME$/.config/omf/scripts/instance " />
+    <option name="SCRIPT_NAME" value="$USER_HOME$/.config/omf/bin/instance " />
     <option name="PARAMETERS" value="" />
     <method v="2" />
   </configuration>
