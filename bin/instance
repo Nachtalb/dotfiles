@@ -49,6 +49,9 @@ RUNNING = False
 ZOPE_CONF_ADDRESS_REGEX = re.compile('address\s(\d\d\d\d)')
 
 
+KILL_OTHERS = False
+
+
 def yes_no_input_dialog(question, default=True):
     no = ['no', 'n']
     yes = ['yes', 'y']
@@ -126,13 +129,17 @@ def get_process_of_current_script_running(process):
 
 
 def check_running_ports():
+    global KILL_OTHERS
     ports_pid_tuples = local_running_ports()
 
     for port, pid in ports_pid_tuples:
         process = psutil.Process(pid)
         if process.cwd() == WORKING_DIR:
             logger.warning(f'Current instance already running: PID={pid} URL=http://localhost:{port}')
-            if yes_no_input_dialog('Should the instance be killed?'):
+            if KILL_OTHERS or yes_no_input_dialog('Should the instance be killed?'):
+                if KILL_OTHERS:
+                    logger.warning(f'Instance PID={pid} will be automatically killed due to --autokill')
+
                 try:
                     process_to_kill = get_process_of_current_script_running(process)
                     if not process_to_kill:
@@ -206,7 +213,15 @@ def exit_gracefully(*args, **kwargs):
 
 
 def main():
-    global RUNNING, DEFAULT_INSTANCE_PORT
+    global RUNNING, DEFAULT_INSTANCE_PORT, KILL_OTHERS
+    if '--help' in sys.argv or '-h' in sys.argv:
+        print('instance --autokill / -a\n'
+              '--autokill / -a\tkills other instances automatically without asking first.')
+        return
+    if '--autokill' in sys.argv or '-a' in sys.argv:
+        KILL_OTHERS = True
+        logger.warning('Autokill set to true')
+
     logger.info(f'Working dir: {WORKING_DIR}')
 
     check_path(ZOPE_CONF_PATH, 'Zope config')
