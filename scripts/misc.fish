@@ -32,3 +32,11 @@ function always-on
         send-key 'sudo running-sites' C-m \; \
         select-pane -t 0 \;
 end
+
+function junk
+    # Move files to Mac Trash instead of deleting them completely
+    for item in $argv
+        echo "Trashing: $item"
+        mv "$item" ~/.Trash/
+    end
+end
