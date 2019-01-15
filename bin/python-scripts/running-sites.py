@@ -35,9 +35,14 @@ class LocalRunningSitesHandler(BaseHTTPRequestHandler):
         result_html = ''
         domain = self.domain()
         for port in ports:
-            path = self.custom_path(port)
+            service, path = self.custom_service(port)
             link = f'http://{domain}:{port}{path}'
-            title = self.get_title(link)
+
+            if service == 'solr' and domain != 'localhost':  # not allowed from outside localhost
+                title = self.get_title(f'http://localhost:{port}{path}')
+                title += ' <small>Does not accept requests from clients other than host</small>'
+            else:
+                title = self.get_title(link)
 
             text = f'{domain}:{port}'
             text = f'{title} ({text})' if title else text
@@ -45,12 +50,12 @@ class LocalRunningSitesHandler(BaseHTTPRequestHandler):
             result_html += f'<a href="{link}" target="_blank">{text}</a></br>'
         return result_html
 
-    def custom_path(self, port):
-        path = ''
+    def custom_service(self, port):
+        path = ('', '')
         if port == '8983':  # solr
-            path = '/solr'
+            path = ('solr', '/solr')
         if port == '3000':  # Bumblebee Foreman
-            path = '/admin'
+            path = ('Bumblebee', '/admin')
         return path
 
     def get_title(self, url, timeout=1):
@@ -64,7 +69,7 @@ class LocalRunningSitesHandler(BaseHTTPRequestHandler):
 
     def local_running_ports(self):
         # Ports running on .*
-        netstat_ports = check_output('netstat -vanp tcp | grep -E "\*\.[138]\d{3,4}.*LISTEN" | cut -d. -f2 | cut -d* -f1', shell=True)
+        netstat_ports = check_output('netstat -vanp tcp | grep -E "\*\.[138]\d{3,5}.*LISTEN" | cut -d. -f2 | cut -d* -f1', shell=True)
         # Ports running on IP Address
         netstat_ports += check_output('netstat -vanp tcp | grep -E "\.8983.*LISTEN" | cut -d. -f5 | cut -d* -f1', shell=True)
 
