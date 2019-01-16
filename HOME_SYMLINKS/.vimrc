@@ -7,12 +7,14 @@ syntax on
 filetype plugin indent on
 
 autocmd BufNewFile,BufRead *.zcml set syntax=xml
+autocmd BufNewFile,BufRead *.fish set syntax=sh
 
 color desert
 
 set cursorline
 hi CursorLine cterm=none ctermbg=236
 hi ErrorMsg ctermfg=255
+hi CursorLineNR ctermbg=red
 
 " File, Open dialog set to current file dir
 set browsedir=buffer
@@ -33,7 +35,7 @@ let g:python_recommended_style = 0
 
 " Show tabs / newlines / trailing whitespaces etc.
 set list
-set listchars=tab:>-,trail:~,extends:>,precedes:<
+set listchars=tab:>-,eol:↵,trail:~,extends:>,precedes:<
 
 " Trim whitespaces
 function TrimWhiteSpace()
@@ -55,3 +57,10 @@ nnoremap <Leader>w :let _save_pos=getpos(".") <Bar>
     \ unlet _s<Bar>
     \ call setpos('.', _save_pos)<Bar>
     \ unlet _save_pos<CR><CR>
+
+" Fish Compatibility
+
+"" Set internal shell of vim to bash instead of vim
+if &shell =~# 'fish$'
+    :set shell=bash
+endif
