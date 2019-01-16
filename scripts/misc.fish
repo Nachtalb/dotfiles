@@ -9,7 +9,11 @@ end
 
 function always-on
     # Open tmux 'always-on' or create it and auto run all necessary functions
-    if tmux ls | grep 'always-on'
+    if tmux has-session -t always-on
+        if echo $TMUX
+            tmux switch-client -t always-on
+            return
+        end
         tmux a -t always-on
         return
     end
