@@ -1,43 +1,143 @@
-set number
-set mouse=
-set paste
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => General
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" With a map leader it's possible to do extra key combinations
+" like <leader>w saves the current file
+let mapleader = ","
 
 execute pathogen#infect()
+
+" Fast saving
+nmap <leader>w :w!<cr>
+
+" :W sudo saves the file
+" (useful for handling the permission-denied error)
+command W w !sudo tee % > /dev/null
+
+" Auto reda outside changes of file
+set autoread
+
+" Use the the_silver_searcher if possible (much faster than Ack)
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep --smart-case'
+endif
+
+"" Set internal shell of vim to bash instead of vim
+if &shell =~# 'fish$'
+    :set shell=bash
+endif
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => VIM user interface
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+set number
+set mouse=
+
+" Search
+set incsearch
+set hlsearch
+
+"" turn off search highlight
+nnoremap <leader><space> :nohlsearch<CR>
+
+"" Ignore case when searching
+set ignorecase
+
+" Turn on wildmenu
+set wildmenu
+
+" Ignore compiled files
+set wildignore=*.o,*~,*.pyc
+set wildignore+=*/.hg/*,*/.svn/*,*/.DS_Store
+
+" Turn on ruler
+set ruler
+
+" File, Open dialog set to current file dir
+set browsedir=buffer
+
+" Configure backspace so it acts as it should act
+set backspace=eol,start,indent
+set whichwrap+=<,>,h,l
+
+" Show tabs / newlines / trailing whitespaces etc.
+set list
+set listchars=tab:>-,eol:↵,trail:~,extends:>,precedes:<
+
+" Add a bit extra margin to the left
+set foldcolumn=1
+
+" Disable code folding
+set nofoldenable
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Colors and Fonts
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Syntax
 syntax on
 filetype plugin indent on
 
 autocmd BufNewFile,BufRead *.zcml set syntax=xml
 autocmd BufNewFile,BufRead *.fish set syntax=sh
 
+" Theme
 color desert
 
 set cursorline
-hi CursorLine cterm=none ctermbg=236
+hi CursorLine cterm=underline  ctermbg=Black
 hi ErrorMsg ctermfg=255
-hi CursorLineNR ctermbg=red
+hi CursorLineNR cterm=underline ctermbg=red ctermfg=DarkGrey
 
-" File, Open dialog set to current file dir
-set browsedir=buffer
+hi Search cterm=NONE ctermfg=DarkGrey ctermbg=LightGrey
+hi IncSearch cterm=NONE ctermfg=DarkGrey ctermbg=LightRed
+
+hi MatchParen ctermfg=DarkGrey
+
+" Set utf8 as standard encoding and en_US as the standard language
+set encoding=utf8
+
+" Use Unix as the standard file type
+set ffs=unix,dos,mac
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Files, backups and undo
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Turn backup off, since most stuff is in SVN, git et.c anyway...
+set nobackup
+set nowb
+set noswapfile
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Text, tab and indent related
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"" Disable python plugin defined tab withs
+let g:python_recommended_style = 0
+
+
+"" When searching try to be smart about cases
+set smartcase
+
+" For regular expressions turn magic on
+set magic
 
 " Auto close html tags
 iabbrev </ </<C-X><C-O>
 
 " Tabs widths
-:set tabstop=4
-:set shiftwidth=4
-:set expandtab
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set expandtab
 
-" Delete empty lines with backspace
-set backspace=indent,eol,start
-
-" Disable python plugin defined tab withs
-let g:python_recommended_style = 0
-
-" Show tabs / newlines / trailing whitespaces etc.
-set list
-set listchars=tab:>-,eol:↵,trail:~,extends:>,precedes:<
-
-" Trim whitespaces
+" Trim WhiteSpace
 function TrimWhiteSpace()
   %s/\s*$//
   ''
@@ -58,9 +158,146 @@ nnoremap <Leader>w :let _save_pos=getpos(".") <Bar>
     \ call setpos('.', _save_pos)<Bar>
     \ unlet _save_pos<CR><CR>
 
-" Fish Compatibility
 
-"" Set internal shell of vim to bash instead of vim
-if &shell =~# 'fish$'
-    :set shell=bash
+""""""""""""""""""""""""""""""
+" => Visual mode related
+""""""""""""""""""""""""""""""
+" Visual mode pressing * or # searches for the current selection
+" Super useful! From an idea by Michael Naumann
+vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
+vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Plugin related
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Use the the_silver_searcher if possible (much faster than Ack)
+if executable('ag')
+    " Use ag over grep
+    set grepprg=ag\ --nogroup\ --nocolor
+
+    let g:ackprg = 'ag --vimgrep --smart-case'
+
+    " Use ag in CtrlP for listing files. Lightning fast and respects ."gitignore"
+    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+    " ag is fast enough that CtrlP doesn't need to cache
+    let g:ctrlp_use_caching = 0
 endif
+
+" CtrlP configuration
+let g:ctrlp_working_path_mode = 0  " respect working dir changes
+let g:ctrlp_show_hidden = 1
+let g:ctrlp_max_height = 20
+let g:ctrlp_custom_ignore = 'node_modules\|^\.DS_Store\|^\.git\|^\.coffee'
+
+" AutoPais
+let g:AutoPairsFlyMode = 0
+let g:AutoPairsShortcutBackInsert = '<M-b>'
+
+let g:NERDTreeWinPos = "right"
+let NERDTreeShowHidden=1
+let NERDTreeIgnore = ['\.pyc$', '__pycache__']
+let g:NERDTreeWinSize=35
+map <leader>nn :NERDTreeToggle<cr>
+map <leader>nf :NERDTreeFind<cr>
+
+
+""""""""""""""""""""""""""""""
+" => Status line
+""""""""""""""""""""""""""""""
+" Always show the status line
+set laststatus=2
+
+" Format the status line
+set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Editing mappings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Remap VIM 0 to first non-blank character
+map 0 ^
+
+noremap <Leader>cw :let @" = expand("%")<CR>
+noremap <Leader>cf :let @" = expand("%:p")<CR>
+
+" Change working directory to parent dir
+" %=current file, p=get full path, h=get dirname
+noremap <Leader>cp :cd ..<CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Misc
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Remove the Windows ^M - when the encodings gets messed up
+noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
+
+" Toggle paste mode on and off
+map <leader>pp :setlocal paste!<cr>
+
+" Quickly open a buffer for scribble
+map <leader>q :e ~/buffer<cr>
+
+" Quickly open a markdown buffer for scribble
+map <leader>x :e ~/buffer.md<cr>
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Helper functions
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Returns true if paste mode is enabled
+function! HasPaste()
+    if &paste
+        return 'PASTE MODE  '
+    endif
+    return ''
+endfunction
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Fast editing and reloading of vimrc configs
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+map <leader>e :e! ~/.config/omf/HOME_SYMLINKS/.vimrc<cr>
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Turn persistent undo on
+"    means that you can undo even when you close a buffer/VIM
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+try
+    set undodir=~/.vim_runtime/temp_dirs/undodir
+    set undofile
+catch
+endtry
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Command mode related
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Bash like keys for the command line
+cnoremap <C-A>        <Home>
+cnoremap <C-E>        <End>
+cnoremap <C-K>        <C-U>
+
+cnoremap <C-P> <Up>
+cnoremap <C-N> <Down>
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => General abbreviations
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+ab xdate <c-r>=strftime("%d/%m/%y %H:%M:%S")<cr>
+ab pdb import pdb; pdb.set_trace(
+
+
+""""""""""""""""""""""""""""""
+" => Python section
+""""""""""""""""""""""""""""""
+let python_highlight_all = 1
+au FileType python syn keyword pythonDecorator True None False self
+
+au BufNewFile,BufRead *.jinja set syntax=htmljinja
+au BufNewFile,BufRead *.mako set ft=mako
+
+au FileType python map <buffer> <leader>C ?class<CR>
+au FileType python map <buffer> <leader>D ?def<CR>
