@@ -79,3 +79,5 @@ end
 if test -f ~/.autojump/share/autojump/autojump.fish
     source ~/.autojump/share/autojump/autojump.fish
 end
+
+tmux-terminal-color  # set the $TERM to screen-color256 when inside $TMUX

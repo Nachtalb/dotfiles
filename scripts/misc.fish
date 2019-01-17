@@ -44,3 +44,9 @@ function junk
         mv "$item" ~/.Trash/
     end
 end
+
+function tmux-terminal-color
+    if set -q TMUX
+            set -gx TERM screen-256color
+    end
+end
