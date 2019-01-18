@@ -6,10 +6,10 @@
 # site is already running on a port, it tells you so. In this case it gives you
 # a link to the running instance and the PID, so you can kill it more easily if
 # you which to do so. Only ports starting with 80 are evaluated.
-import fileinput
 import logging
 import os
 import re
+import shutil
 import signal
 import sys
 from subprocess import check_output
@@ -46,8 +46,8 @@ INSTANCE_PATH = os.path.join(WORKING_DIR, 'bin/instance')
 DEFAULT_INSTANCE_PORT = 8080
 RUNNING = False
 
-ZOPE_CONF_ADDRESS_REGEX = re.compile('address\s(\d\d\d\d)')
-
+ZOPE_CONF_ADDRESS_REGEX = re.compile('<http-server>.*\n\s*((address)\s(.*))\n</http-server>')
+ZOPE_CONF_ADDRESS_TEMPLATE = '<http-server>\n  address {port}\n</http-server>'
 
 KILL_OTHERS = False
 
@@ -109,13 +109,21 @@ def local_running_ports():
 
 
 def get_port_from_zope_conf():
-    with open(ZOPE_CONF_PATH, 'r') as zope_conf:
-        content = zope_conf.read()
+    with open(ZOPE_CONF_PATH, mode='r') as zope_file:
+        content = zope_file.read()
         result = ZOPE_CONF_ADDRESS_REGEX.search(content)
+
         if not result:
-            return
-        if result.groups():
-            return int(result.groups()[0])
+            print(f'Zope Confg has no port defined {ZOPE_CONF_PATH}')
+            sys.exit(1)
+
+        port = result.groups()[-1]
+        port = re.sub('\D', '', port)
+        if not port:
+            print(f'Zope Config has no valid port defined {ZOPE_CONF_PATH}')
+            sys.exit(1)
+
+        return int(port)
 
 
 def get_process_of_current_script_running(process):
@@ -150,8 +158,12 @@ def check_running_ports():
 
                     process_to_kill.wait()
                     process_to_kill.terminate()
-                except psutil.NoSuchProcess:
+                except (psutil.NoSuchProcess, psutil.AccessDenied):
                     # Process has already finished after bin/instance was terminated
+                    logger.warning(f'Tried to kill process PID={pid} but could not do it. Maybe the process was '
+                                   f'already stopped in the meantime.')
+                    if KILL_OTHERS:
+                        logger.warning('We still try to start it up again. Due to Autokill mode.')
                     pass
             else:
                 sys.exit(0)
@@ -176,29 +188,29 @@ def get_working_port(default_port):
 
 
 def replace_zope_conf_port(new_port):
-    port_set = False
+    backup_file = ZOPE_CONF_PATH + '.bak'
+    shutil.copy(ZOPE_CONF_PATH, backup_file)
+
     try:
-        with fileinput.FileInput(ZOPE_CONF_PATH, inplace=True, backup='.bak') as zope_conf:
-            for line in zope_conf:
-                regex_result = ZOPE_CONF_ADDRESS_REGEX.search(line)
-                if regex_result and regex_result.groups():
-                    old_port = int(regex_result.groups()[0])
+        with open(ZOPE_CONF_PATH, mode='r+') as zope_file:
+            content = zope_file.read()
+            zope_file.seek(0)
+            result = ZOPE_CONF_ADDRESS_REGEX.search(content)
 
-                    if old_port != new_port:
-                        print(line.replace(str(old_port), str(new_port)), end='')
-                        port_set = True
-                        continue
-                print(line, end='')
-    except Exception as error:
-        backup_file = ZOPE_CONF_PATH + '.bak'
-        if os.path.isfile(backup_file):
-            logger.fatal('An error occurred, reset zope.conf')
-            shutil.move(backup_file, ZOPE_CONF_PATH)
-
-        raise error
-
-    if port_set:
-        logger.info(f'Setting port in {ZOPE_CONF_PATH} from {old_port} to {new_port}')
+            if not result:
+                raise ValueError('no port')
+            old_port = result.groups()[-1]
+            try:
+                content = ZOPE_CONF_ADDRESS_REGEX.sub(ZOPE_CONF_ADDRESS_TEMPLATE.format(port=new_port), content)
+                zope_file.write(content)
+                logger.info(f'Setting port in {ZOPE_CONF_PATH} from {old_port} to {new_port}')
+            except ValueError:
+                raise ValueError('no port')
+    except (Exception, BaseException) as e:
+        if hasattr(e, 'args') and 'no port' in e.args:
+            print(f'No valid port defined in zope conf file: "{ZOPE_CONF_PATH}"')
+        shutil.copy(backup_file, ZOPE_CONF_PATH)
+        raise e
 
 
 def exit_gracefully(*args, **kwargs):
