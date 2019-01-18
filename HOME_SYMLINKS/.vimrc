@@ -1,7 +1,6 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 " With a map leader it's possible to do extra key combinations
 " like <leader>w saves the current file
 let mapleader = ","
@@ -73,6 +72,9 @@ set foldcolumn=1
 " Disable code folding
 set nofoldenable
 
+" Do not wrap lines
+set nowrap
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
@@ -91,7 +93,7 @@ color desert
 set cursorline
 hi CursorLine cterm=underline  ctermbg=Black
 hi ErrorMsg ctermfg=255
-hi CursorLineNR cterm=underline ctermbg=red ctermfg=DarkGrey
+hi CursorLineNR cterm=underline ctermbg=red ctermfg=Yellow
 
 hi Search cterm=NONE ctermfg=DarkGrey ctermbg=LightGrey
 hi IncSearch cterm=NONE ctermfg=DarkGrey ctermbg=LightRed
@@ -103,6 +105,9 @@ set encoding=utf8
 
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
+
+set colorcolumn=80,90,120
+hi ColorColumn cterm=underline ctermbg=Black
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -166,7 +171,7 @@ nnoremap <Leader>w :let _save_pos=getpos(".") <Bar>
 " Super useful! From an idea by Michael Naumann
 vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
 vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
-
+noremap <Leader> a :pwd<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugin related
@@ -226,6 +231,15 @@ noremap <Leader>cf :let @" = expand("%:p")<CR>
 " %=current file, p=get full path, h=get dirname
 noremap <Leader>cp :cd ..<CR>
 
+" Write buffer if updated on CTRL-s
+inoremap <C-s> <C-o>:update<CR>
+noremap <C-s> :update<CR>
+
+" Quit buffer with CTRL-q
+inoremap <C-q> <C-o>:q<CR>
+noremap <C-q> :q<CR>
+
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Misc
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -253,6 +267,12 @@ function! HasPaste()
     return ''
 endfunction
 
+" Auto reload ~/.vimrc
+augroup myvimrchooks
+    au!
+    autocmd bufwritepost .vimrc source ~/.vimrc
+augroup END
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Fast editing and reloading of vimrc configs
@@ -264,6 +284,7 @@ map <leader>e :e! ~/.config/omf/HOME_SYMLINKS/.vimrc<cr>
 " => Turn persistent undo on
 "    means that you can undo even when you close a buffer/VIM
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 try
     set undodir=~/.vim_runtime/temp_dirs/undodir
     set undofile
@@ -287,12 +308,13 @@ cnoremap <C-N> <Down>
 " => General abbreviations
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 ab xdate <c-r>=strftime("%d/%m/%y %H:%M:%S")<cr>
-ab pdb import pdb; pdb.set_trace(
+ab pdb import pdb; pdb.set_trace()
 
 
 """"""""""""""""""""""""""""""
 " => Python section
 """"""""""""""""""""""""""""""
+
 let python_highlight_all = 1
 au FileType python syn keyword pythonDecorator True None False self
 
