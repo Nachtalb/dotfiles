@@ -39,7 +39,7 @@ def fix_path(source_file=None, destination_file=None):
         original_egg = latest_pycharm_app / 'Contents/debug-eggs/pycharm-debug.egg'
 
     if not original_egg.exists():
-        print('Could not find latest PyCharm')
+        print(f'No "pycharm-debug.egg" in latest PyCharm version found "{latest_pycharm_app.name}"')
         return
 
     link_path = Path(destination_file or DESTINATION_LOCATION)
