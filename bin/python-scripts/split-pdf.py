@@ -1,4 +1,4 @@
-#!/Users/bernd/.pyenv/versions/py3-scripts/bin/python
+#!/Users/bernd/.pyenv/versions/Scripts/bin/python
 import argparse
 import os
 

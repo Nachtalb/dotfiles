@@ -1,5 +1,4 @@
-#!/Users/bernd/.pyenv/versions/running_sites/bin/python
-from functools import lru_cache
+#!/Users/bernd/.pyenv/versions/Scripts/bin/python
 from http.server import BaseHTTPRequestHandler
 from http.server import HTTPServer
 from requests.exceptions import ReadTimeout
