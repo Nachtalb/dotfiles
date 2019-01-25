@@ -3,15 +3,15 @@
 # fakemail (Python version)
 #
 # Compatible with python 3.7
-
-
 import asyncore
-import getopt
 import os
 import signal
 import smtpd
 import socket
 import sys
+from argparse import ArgumentParser, SUPPRESS
+
+PROG_NAME = 'Fakemail'
 
 
 class FakeServer(smtpd.SMTPServer):
@@ -43,21 +43,9 @@ class FakeServer(smtpd.SMTPServer):
         message("Incoming mail dispatched")
 
 
-def usage():
-    print("Usage: %s [OPTIONS]" % os.path.basename(sys.argv[0]))
-    print("""
-OPTIONS
-        --host=<localdomain>
-        --port=<port number>
-        --path=<path to save mails>
-        --log=<optional file to append messages to>
-        --onlylog
-        --background""")
-
-
 def quit(reason=None):
-    global progname
-    text = "Stopping %s" % progname
+    global PROG_NAME
+    text = "Stopping %s" % PROG_NAME
     if reason is not None:
         text += ": %s" % reason
     message(text)
@@ -87,36 +75,6 @@ def handle_signals():
         signal.signal(sig, signal_handler)
 
 
-def read_command_line():
-    global log_file, onlylog
-    try:
-        optlist, args = getopt.getopt(sys.argv[1:], "",
-                                      ["host=", "port=", "path=", "log=",
-                                       "onlylog", "background"])
-    except getopt.GetoptError:
-        usage()
-        sys.exit(2)
-    # Set defaults
-    host = "localhost"
-    port = 8025
-    path = os.getcwd()
-    background = False
-    for opt, arg in optlist:
-        if opt == "--host":
-            host = arg
-        elif opt == "--port":
-            port = int(arg)
-        elif opt == "--path":
-            path = arg
-        elif opt == "--log":
-            log_file = arg
-        elif opt == "--onlylog":
-            onlylog = True
-        elif opt == "--background":
-            background = True
-    return host, port, path, background
-
-
 def become_daemon():
     # See "Python Standard Library", pg. 29, O'Reilly, for more
     # info on the following.
@@ -135,18 +93,36 @@ def become_daemon():
     sys.stderr = DevNull()
 
 
+def parse_args():
+    working_dir = os.getcwd()
+
+    parser = ArgumentParser(PROG_NAME, add_help=False)
+    parser.add_argument('--help', action='help', default=SUPPRESS, help='Show this help message and exit')
+    parser.add_argument('-h', '--host', default='localhost', help='SMTP server host')
+    parser.add_argument('-p', '--port', default=8025, type=int, help='SMTP server port')
+    parser.add_argument('-o', '--output', default=working_dir, help='Save mails to files at given path')
+    parser.add_argument('-l', '--log', help='Log to given file')
+    parser.add_argument('-O', '--only-log', action='store_true', help='Do not save mails as files')
+    parser.add_argument('-b', '--background', action='store_true', help='Run in background')
+    return parser.parse_args()
+
+
 def main():
-    global progname
+    global log_file, onlylog
+    args = parse_args()
+
+    log_file = args.log
+    onlylog = args.only_log
+
     handle_signals()
-    host, port, path, background = read_command_line()
-    message("Starting %s" % progname)
-    if background:
+    message("Starting %s" % PROG_NAME)
+    if args.background:
         become_daemon()
     try:
-        server = FakeServer((host, port), None, path)
+        server = FakeServer((args.host, args.port), None, args.output)
     except socket.error as e:
         quit(str(e))
-    message("Listening on port %d" % port)
+    message("Listening on port %d" % args.port)
     try:
         asyncore.loop()
     except KeyboardInterrupt:
@@ -154,5 +130,4 @@ def main():
 
 
 if __name__ == "__main__":
-    progname = os.path.basename(sys.argv[0])
     main()
