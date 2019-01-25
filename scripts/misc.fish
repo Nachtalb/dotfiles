@@ -18,7 +18,7 @@ function always-on
         return
     end
 
-    tmux server
+    set -ul TMUX
     tmux new-session -s always-on -c '/Users/bernd/Development/local-always-on-sites' \; \
         split-window -v \; \
         send-key 'cd bgbern.ng && bin/solr-instance fg' C-m \; \
