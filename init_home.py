@@ -44,7 +44,9 @@ def recursive_get_file(path, ignore_current=False, dirs=True, files=True):
 
 
 def create_symlink(source, target):
-    if os.path.isdir(target) and os.path.realpath(target) == source:
+    if os.path.islink(source):
+        return  create_symlink(os.path.realpath(os.path.join(DOTFILES_HOME_PATH, source)), target)
+    elif os.path.isdir(target) and os.path.realpath(target) == source:
         return LINK_EXISTS
     elif os.path.isdir(target) and os.path.realpath(target) != source:
         return DIR_EXISTS
@@ -64,7 +66,6 @@ def print_title(message):
 
 print_title('CREATING STRUCTURE')
 source_length = len(max(recursive_get_file(STRUCTURE_HOME_PATH, True, files=False), key=len))
-
 for directory in recursive_get_file(STRUCTURE_HOME_PATH, True, files=False):
     target = os.path.join(HOME_PATH, directory.replace(STRUCTURE_HOME_PATH + '/', ''))
     state = NOT_EXISTS
