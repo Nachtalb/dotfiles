@@ -13,7 +13,7 @@ from argparse import ArgumentParser, SUPPRESS
 
 PROG_NAME = 'Fakemail'
 ONLY_LOG = False
-LOG_FILE = os.path.join(os.getcwd(), 'fakemail.log')
+LOG_FILE = None
 
 
 class FakeServer(smtpd.SMTPServer):
@@ -101,7 +101,11 @@ def parse_args():
     parser.add_argument('-l', '--log', help='Log to given file')
     parser.add_argument('-O', '--only-log', action='store_true', help='Do not save mails as files')
     parser.add_argument('-b', '--background', action='store_true', help='Run in background')
-    return parser.parse_args()
+
+    args = parser.parse_args()
+    if args.background:
+        args.log = args.log or os.path.join(os.getcwd(), 'fakemail.log')
+    return args
 
 
 def main():
