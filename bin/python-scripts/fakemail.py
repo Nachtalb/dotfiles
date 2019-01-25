@@ -28,28 +28,28 @@ class FakeServer(smtpd.SMTPServer):
 
         for recipient in rcpttos:
             if ONLY_LOG:
-                message('Mail destined for %s' % recipient)
+                message(f'Mail destined for {recipient}')
             else:
                 str_data = data.decode('utf-8')
 
-                message('Capturing mail to %s' % recipient)
+                message(f'Capturing mail to {recipient}' )
                 count = self.RECIPIENT_COUNTER.get(recipient, 0) + 1
                 self.RECIPIENT_COUNTER[recipient] = count
-                filename = os.path.join(self.path, '%s.%s' % (recipient, count))
+                filename = os.path.join(self.path, f'{recipient}.{count}')
                 filename = filename.replace('<', '').replace('>', '')
                 f = open(filename, 'w')
                 f.write(str_data + '\n')
                 print(str_data)
                 f.close()
-                message('Mail to %s saved' % recipient)
+                message(f'Mail to {recipient} saved')
         message('Incoming mail dispatched')
 
 
 def quit(reason=None):
     global PROG_NAME
-    text = 'Stopping %s' % PROG_NAME
+    text = f'Stopping {PROG_NAME}'
     if reason is not None:
-        text += ': %s' % reason
+        text += f': {reason}'
     message(text)
     sys.exit()
 
@@ -112,7 +112,7 @@ def main():
     ONLY_LOG = args.only_log
 
     handle_signals()
-    message('Starting %s' % PROG_NAME)
+    message(f'Starting {PROG_NAME}')
     if args.background:
         become_daemon()
     try:
