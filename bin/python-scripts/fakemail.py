@@ -24,40 +24,40 @@ class FakeServer(smtpd.SMTPServer):
         self.path = path
 
     def process_message(self, peer, mailfrom, rcpttos, data, **kwargs):
-        message("Incoming mail")
+        message('Incoming mail')
 
         for recipient in rcpttos:
             if ONLY_LOG:
-                message("Mail destined for %s" % recipient)
+                message('Mail destined for %s' % recipient)
             else:
                 str_data = data.decode('utf-8')
 
-                message("Capturing mail to %s" % recipient)
+                message('Capturing mail to %s' % recipient)
                 count = self.RECIPIENT_COUNTER.get(recipient, 0) + 1
                 self.RECIPIENT_COUNTER[recipient] = count
-                filename = os.path.join(self.path, "%s.%s" % (recipient, count))
-                filename = filename.replace("<", "").replace(">", "")
-                f = open(filename, "w")
+                filename = os.path.join(self.path, '%s.%s' % (recipient, count))
+                filename = filename.replace('<', '').replace('>', '')
+                f = open(filename, 'w')
                 f.write(str_data + '\n')
                 print(str_data)
                 f.close()
-                message("Mail to %s saved" % recipient)
-        message("Incoming mail dispatched")
+                message('Mail to %s saved' % recipient)
+        message('Incoming mail dispatched')
 
 
 def quit(reason=None):
     global PROG_NAME
-    text = "Stopping %s" % PROG_NAME
+    text = 'Stopping %s' % PROG_NAME
     if reason is not None:
-        text += ": %s" % reason
+        text += ': %s' % reason
     message(text)
     sys.exit()
 
 
 def message(text):
     if LOG_FILE is not None:
-        f = open(LOG_FILE, "a")
-        f.write(text + "\n")
+        f = open(LOG_FILE, 'a')
+        f.write(text + '\n')
         f.close()
 
     if not ONLY_LOG:
@@ -112,19 +112,19 @@ def main():
     ONLY_LOG = args.only_log
 
     handle_signals()
-    message("Starting %s" % PROG_NAME)
+    message('Starting %s' % PROG_NAME)
     if args.background:
         become_daemon()
     try:
         server = FakeServer((args.host, args.port), None, args.output)
     except socket.error as e:
         quit(str(e))
-    message("Listening on port %d" % args.port)
+    message('Listening on port %d' % args.port)
     try:
         asyncore.loop()
     except KeyboardInterrupt:
         quit()
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
