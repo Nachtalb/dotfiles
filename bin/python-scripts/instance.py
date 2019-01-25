@@ -12,6 +12,7 @@ import re
 import shutil
 import signal
 import sys
+from argparse import ArgumentParser
 from subprocess import check_output
 
 import psutil
@@ -40,8 +41,8 @@ logging.basicConfig(stream=sys.stdout, level=logging.INFO, format='%(levelname)s
 logger = logging.getLogger()
 
 WORKING_DIR = os.getcwd()
-ZOPE_CONF_PATH = os.path.join(WORKING_DIR, 'parts/instance/etc/zope.conf')
-INSTANCE_PATH = os.path.join(WORKING_DIR, 'bin/instance')
+ZOPE_CONF_PATH = 'parts/instance/etc/zope.conf'
+INSTANCE_PATH = 'bin/instance'
 
 DEFAULT_INSTANCE_PORT = 8080
 RUNNING = False
@@ -225,16 +226,22 @@ def exit_gracefully(*args, **kwargs):
 
 
 def main():
-    global RUNNING, DEFAULT_INSTANCE_PORT, KILL_OTHERS
-    if '--help' in sys.argv or '-h' in sys.argv:
-        print('instance --autokill / -a\n'
-              '--autokill / -a\tkills other instances automatically without asking first.')
-        return
-    if '--autokill' in sys.argv or '-a' in sys.argv:
+    global RUNNING, DEFAULT_INSTANCE_PORT, KILL_OTHERS, WORKING_DIR, ZOPE_CONF_PATH, INSTANCE_PATH
+    parser = ArgumentParser('Plone Instance Starter')
+    parser.add_argument('-a', '--autokill', help='Kills other instances automatically without asking first',
+                        action='store_true')
+    parser.add_argument('-p', '--path', help='Use this give path as working dir')
+    args = parser.parse_args()
+
+    if args.autokill:
         KILL_OTHERS = True
         logger.warning('Autokill set to true')
 
+    WORKING_DIR = args.path or WORKING_DIR
     logger.info(f'Working dir: {WORKING_DIR}')
+
+    ZOPE_CONF_PATH = os.path.join(WORKING_DIR, ZOPE_CONF_PATH)
+    INSTANCE_PATH = os.path.join(WORKING_DIR, INSTANCE_PATH)
 
     check_path(ZOPE_CONF_PATH, 'Zope config')
     check_path(INSTANCE_PATH, 'Instance script')
