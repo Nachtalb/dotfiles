@@ -1,10 +1,8 @@
-#!/Users/bernd/.pyenv/versions/fakemail/bin/python
+#!/Users/bernd/.pyenv/versions/Scripts/bin/python
 #
 # fakemail (Python version)
 #
-# $Id: fakemail.py,v 1.1 2005/08/29 22:04:55 lastcraft Exp $
-#
-# Compatible with python 2.7
+# Compatible with python 3.7
 
 
 import asyncore
@@ -23,36 +21,38 @@ class FakeServer(smtpd.SMTPServer):
         smtpd.SMTPServer.__init__(self, localaddr, remoteaddr)
         self.path = path
 
-    def process_message(self, peer, mailfrom, rcpttos, data):
+    def process_message(self, peer, mailfrom, rcpttos, data, **kwargs):
         message("Incoming mail")
 
         for recipient in rcpttos:
             if onlylog:
                 message("Mail destined for %s" % recipient)
             else:
+                str_data = data.decode('utf-8')
+
                 message("Capturing mail to %s" % recipient)
                 count = self.RECIPIENT_COUNTER.get(recipient, 0) + 1
                 self.RECIPIENT_COUNTER[recipient] = count
                 filename = os.path.join(self.path, "%s.%s" % (recipient, count))
                 filename = filename.replace("<", "").replace(">", "")
-                f = file(filename, "w")
-                f.write(data + "\n")
-                print(data)
+                f = open(filename, "w")
+                f.write(str_data + '\n')
+                print(str_data)
                 f.close()
                 message("Mail to %s saved" % recipient)
         message("Incoming mail dispatched")
 
 
 def usage():
-    print "Usage: %s [OPTIONS]" % os.path.basename(sys.argv[0])
-    print """
+    print("Usage: %s [OPTIONS]" % os.path.basename(sys.argv[0]))
+    print("""
 OPTIONS
         --host=<localdomain>
         --port=<port number>
         --path=<path to save mails>
         --log=<optional file to append messages to>
         --onlylog
-        --background"""
+        --background""")
 
 
 def quit(reason=None):
@@ -71,12 +71,12 @@ onlylog = False
 def message(text):
     global log_file
     if log_file is not None:
-        f = file(log_file, "a")
+        f = open(log_file, "a")
         f.write(text + "\n")
         f.close()
 
-    if not(log_file and onlylog):
-        print text
+    if not (log_file and onlylog):
+        print(text)
 
 
 def handle_signals():
@@ -144,7 +144,7 @@ def main():
         become_daemon()
     try:
         server = FakeServer((host, port), None, path)
-    except socket.error, e:
+    except socket.error as e:
         quit(str(e))
     message("Listening on port %d" % port)
     try:
