@@ -60,7 +60,7 @@ def message(text):
         f.write(text + "\n")
         f.close()
 
-    if not (LOG_FILE and ONLY_LOG):
+    if not ONLY_LOG:
         print(text)
 
 
