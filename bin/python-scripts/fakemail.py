@@ -12,6 +12,8 @@ import sys
 from argparse import ArgumentParser, SUPPRESS
 
 PROG_NAME = 'Fakemail'
+ONLY_LOG = False
+LOG_FILE = os.path.join(os.getcwd(), 'fakemail.log')
 
 
 class FakeServer(smtpd.SMTPServer):
@@ -25,7 +27,7 @@ class FakeServer(smtpd.SMTPServer):
         message("Incoming mail")
 
         for recipient in rcpttos:
-            if onlylog:
+            if ONLY_LOG:
                 message("Mail destined for %s" % recipient)
             else:
                 str_data = data.decode('utf-8')
@@ -52,18 +54,13 @@ def quit(reason=None):
     sys.exit()
 
 
-log_file = None
-onlylog = False
-
-
 def message(text):
-    global log_file
-    if log_file is not None:
-        f = open(log_file, "a")
+    if LOG_FILE is not None:
+        f = open(LOG_FILE, "a")
         f.write(text + "\n")
         f.close()
 
-    if not (log_file and onlylog):
+    if not (LOG_FILE and ONLY_LOG):
         print(text)
 
 
@@ -108,11 +105,11 @@ def parse_args():
 
 
 def main():
-    global log_file, onlylog
+    global LOG_FILE, ONLY_LOG
     args = parse_args()
 
-    log_file = args.log
-    onlylog = args.only_log
+    LOG_FILE = args.log
+    ONLY_LOG = args.only_log
 
     handle_signals()
     message("Starting %s" % PROG_NAME)
