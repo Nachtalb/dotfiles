@@ -24,23 +24,23 @@ class FakeServer(smtpd.SMTPServer):
 
     def process_message(self, peer, mailfrom, rcpttos, data, **kwargs):
         self.logger.info('Incoming mail')
+        str_data = data.decode('utf-8').strip()
 
         for recipient in rcpttos:
-            if self.only_log:
-                self.logger.info(f'Mail destined for {recipient}')
-            else:
-                str_data = data.decode('utf-8')
+            self.logger.info(f'Mail to {recipient}')
 
-                self.logger.info(f'Capturing mail to {recipient}')
+            if not self.only_log:
                 count = self.RECIPIENT_COUNTER.get(recipient, 0) + 1
                 self.RECIPIENT_COUNTER[recipient] = count
-                filename = os.path.join(self.path, f'{recipient}.{count}')
+
+                filename = os.path.join(self.path, f'{recipient}.{count}.eml')
                 filename = filename.replace('<', '').replace('>', '')
-                f = open(filename, 'w')
-                f.write(str_data + '\n')
-                self.logger.info(str_data)
-                f.close()
-                self.logger.info(f'Mail to {recipient} saved')
+
+                with open(filename, 'w') as email_file:
+                    email_file.write(f'{str_data}\n')
+                self.logger.info(f'Mail saved to {filename}')
+
+        self.logger.info(f'\n{str_data}')
         self.logger.info('Incoming mail dispatched')
 
 
