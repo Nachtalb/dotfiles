@@ -45,6 +45,9 @@ if test -d /opt/etcher-cli
     set -gx PATH /opt/etcher-cli $PATH
 end
 
+# Enable iTerm2 tmux integration
+set -gx ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX 1
+
 
 ###############################################################################
 # Load tools                                                                  #
