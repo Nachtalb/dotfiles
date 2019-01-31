@@ -1,5 +1,8 @@
 #!/Users/bernd/.pyenv/versions/Scripts/bin/python
-# This script automatically links PyCharm's PyDevD egg to ~/Development/pycharm-debug.egg
+# Automatically links PyCharm's PyDevD egg to ~/Development/pycharm-debug.egg
+__author__ = 'Nachtalb'
+__version__ = '1.0.0'
+__date__ = '2019-01-31'
 
 import os
 import sys

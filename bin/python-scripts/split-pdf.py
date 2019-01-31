@@ -1,4 +1,9 @@
 #!/Users/bernd/.pyenv/versions/Scripts/bin/python
+# Split PDFs up into multiple PDFs by their page numbers
+__author__ = 'Nachtalb'
+__version__ = '1.0.0'
+__date__ = '2019-01-31'
+
 import argparse
 import os
 

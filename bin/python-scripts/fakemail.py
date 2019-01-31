@@ -1,6 +1,11 @@
 #!/Users/bernd/.pyenv/versions/Scripts/bin/python
 # Start a SMTP server that catches all emails and saves them to eml files.
-# Compatible with python 3.7
+# Original author was lastcraft but I completely rewrote it
+__author__ = 'Nachtalb'
+__credits__ = ['Nachtalb', 'lastcraft']
+__version__ = '2.0.0'
+__date__ = '2019-01-31'
+
 import asyncore
 import logging
 import os

@@ -6,6 +6,10 @@
 # site is already running on a port, it tells you so. In this case it gives you
 # a link to the running instance and the PID, so you can kill it more easily if
 # you which to do so. Only ports starting with 80 are evaluated.
+__author__ = 'Nachtalb'
+__version__ = '1.0.0'
+__date__ = '2019-01-31'
+
 import logging
 import os
 import re

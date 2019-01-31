@@ -11,6 +11,9 @@
 #
 # optional arguments:
 #   -h, --help  show this help message and exit
+__author__ = 'Nachtalb'
+__version__ = '1.0.0'
+__date__ = '2019-01-31'
 
 import argparse
 import os

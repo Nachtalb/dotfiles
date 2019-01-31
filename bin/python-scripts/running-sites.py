@@ -1,4 +1,9 @@
 #!/Users/bernd/.pyenv/versions/Scripts/bin/python
+# Show sites running locally filtered by their ports
+__author__ = 'Nachtalb'
+__version__ = '1.0.0'
+__date__ = '2019-01-31'
+
 from http.server import BaseHTTPRequestHandler
 from http.server import HTTPServer
 from requests.exceptions import ReadTimeout

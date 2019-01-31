@@ -1,5 +1,9 @@
 #!/Users/bernd/.pyenv/versions/Scripts/bin/python
 # Reload python code for plone by calling /reload?action=code
+__author__ = 'Nachtalb'
+__version__ = '1.0.0'
+__date__ = '2019-01-31'
+
 from argparse import ArgumentParser, SUPPRESS
 
 from requests_html import HTMLSession
