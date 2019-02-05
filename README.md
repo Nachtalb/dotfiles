@@ -62,38 +62,41 @@ $ npm ls -g --depth=0
 ```
 
 ```
-$ brew leaves                                                                                    0|14:27:28
+$ brew leaves
 
-antiword            weikengchen/caskformula/inkscape    pygobject3
-automake            intltool                            qt
-blueutil            jbig2dec                            ranger
-boost-build         jpeg-turbo                          rbenv
-bzip2               libexif                             redis
-ccache              libmagic                            rsync
-cmake               libvorbis                           sassc
-cmatrix             libvpx                              screenfetch
-ctags               libxmlsec1                          shellcheck
-direnv              libxslt                             sl
-docker              libyaml                             rockymadden/rockymadden/slack-cli
-docker-machine      links                               source-highlight
-docx2txt            lynx                                speedtest-cli
-fdk-aac             makedepend                          task
-ffmpeg              mongodb                             telegram-cli
-fftw                mysql                               telnet
-fontforge           nasm                                texi2html
-fswatch             ncdu                                tmux
-gawk                neofetch                            toilet
-ghostscript         nginx                               tree
-giflib              openldap                            ttfautohint
-gifsicle            openssl@1.1                         unar
-git                 opus                                unrar
-git-extras          orc                                 watch
-gnu-sed             p7zip                               wget
-gnupg               pandoc                              with-readline
-go                  perl                                wv
-grc                 pipes-sh                            xclip
-highlight           postgresql                          yarn
-htop                pth                                 youtube-dl
-hub                 pup                                 zlib
-imagemagick@6       py2cairo
-
+antiword             atool           autoconf-archive
+automake             blueutil        boost-build
+bzip2                ccache          cmake
+cmatrix              ctags           direnv
+docker               docker-machine  docx2txt
+elinks               exiftool        fdk-aac
+ffmpeg               fftw            fontforge
+fswatch              gawk            gdl
+ghostscript          gifsicle        git
+git-extras           gnu-sed         gnupg
+go                   grc             gsl
+gtkmm                gtkmm3          highlight
+htop                 hub             imagemagick@6
+intltool             jbig2dec        jpeg-turbo
+libexif              libmagic        libsoup
+libxmlsec1           libxslt         links
+little-cms           lynx            makedepend
+media-info           mongodb         mysql
+nasm                 ncdu            neofetch
+nginx                openldap        openssl@1.1
+orc                  p7zip           pandoc
+pipes-sh             poppler         popt
+postgresql           potrace         pth
+pup                  py2cairo        pygobject3
+ranger               rbenv           redis
+rsync                sassc           screenfetch
+shellcheck           sl              rockymadden/rockymadden/slack-cli
+source-highlight     speedtest-cli   task
+telegram-cli         telnet          texi2html
+the_silver_searcher  tmux            toilet
+transmission         tree            ttfautohint
+unar                 unrar           vim
+w3m                  watch           wget
+with-readline        wv              xclip
+yarn                 youtube-dl      zlib
+```
