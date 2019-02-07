@@ -2,7 +2,7 @@
 #    Abbreviations Config     #
 # # # # # # # # # # # # # # # #
 
-abbr gtemp 'cd /Users/bernd/Development/temp && rm test && echo 1 || touch test && git add . && git commit -S -m test && cd -' 
+abbr gtemp 'cd /Users/bernd/Development/temp && rm test && echo 1 || touch test && git add . && git commit -S -m test && cd -'
 
 # Buildout
 abbr pin 'bin/instance'
@@ -12,7 +12,6 @@ abbr pinf 'bin/instance fg'
 # Misc
 abbr psi 'bin/solr-instance'
 abbr pt 'bin/test'
-abbr psp 'pyenv local new-plone-env && printf "[buildout]\nextends =\n    development.cfg\n\n[omelette]\nrecipe =\n\n" > development_nick.cfg && ln -fs development_nick.cfg buildout.cfg && python bootstrap.py && bin/buildout'
 abbr prs 'python bootstrap.py && bin/buildout'
 abbr psf 'bin/solr-instance start && bin/tika-server start 2> /dev/null & && bin/instance fg'
 abbr psm 'bin/solr-instance start && bin/tika-server start 2> /dev/null &'

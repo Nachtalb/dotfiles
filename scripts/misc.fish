@@ -1,3 +1,5 @@
+set -g SCRIPTS_ASSETS_PATH (dirname (status --current-filename))/assets
+
 function tmux-4
     # Open a 2 by 2 tmux window
     tmux new-session $argv \; \
@@ -49,4 +51,12 @@ function tmux-terminal-color
     if set -q TMUX
             set -gx TERM screen-256color
     end
+end
+
+function psp
+    pyenv local new-plone-env
+    cp "$SCRIPTS_ASSETS_PATH/development.cfg" development_nick.cfg
+    ln -fs development_nick.cfg buildout.cfg
+    python bootstrap.py
+    bin/buildout
 end
