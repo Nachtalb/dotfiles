@@ -89,9 +89,9 @@ autocmd BufNewFile,BufRead *.fish set syntax=sh
 color desert
 
 set cursorline
-hi CursorLine cterm=underline  ctermbg=Black
+hi CursorLine cterm=NONE  ctermbg=Black
 hi ErrorMsg ctermfg=255
-hi CursorLineNR cterm=underline ctermbg=red ctermfg=Yellow
+hi CursorLineNR cterm=NONE ctermbg=red ctermfg=Yellow
 
 hi Search cterm=NONE ctermfg=DarkGrey ctermbg=LightGrey
 hi IncSearch cterm=NONE ctermfg=DarkGrey ctermbg=LightRed
@@ -105,7 +105,7 @@ set encoding=utf8
 set ffs=unix,dos,mac
 
 set colorcolumn=80,90,120
-hi ColorColumn cterm=underline ctermbg=Black
+hi ColorColumn cterm=NONE ctermbg=Black
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
