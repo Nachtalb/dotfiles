@@ -3,8 +3,8 @@
 # Original author was lastcraft but I completely rewrote it
 __author__ = 'Nachtalb'
 __credits__ = ['Nachtalb', 'lastcraft']
-__version__ = '2.0.0'
-__date__ = '2019-01-31'
+__version__ = '2.1.0'
+__date__ = '2019-02-19'
 
 import asyncore
 import logging
@@ -13,7 +13,9 @@ import signal
 import smtpd
 import socket
 import sys
+
 from argparse import ArgumentParser, SUPPRESS
+from subprocess import check_output
 
 PROG_NAME = 'Fakemail'
 
@@ -21,11 +23,12 @@ PROG_NAME = 'Fakemail'
 class FakeServer(smtpd.SMTPServer):
     RECIPIENT_COUNTER = {}
 
-    def __init__(self, host, port, path, only_log):
+    def __init__(self, host, port, path, only_log, open_mail):
         smtpd.SMTPServer.__init__(self, (host, port), None)
         self.logger = logging.getLogger(f'{PROG_NAME}Server')
         self.path = path
         self.only_log = only_log
+        self.open_mail = open_mail
 
     def process_message(self, peer, mailfrom, rcpttos, data, **kwargs):
         self.logger.info('Incoming mail')
@@ -43,22 +46,46 @@ class FakeServer(smtpd.SMTPServer):
 
                 with open(filename, 'w') as email_file:
                     email_file.write(f'{str_data}\n')
+
+                if self.open_mail:
+                    self.open_mail_file(filename)
                 self.logger.info(f'Mail saved to {filename}')
 
         self.logger.info(f'\n{str_data}')
         self.logger.info('Incoming mail dispatched')
 
+    def open_mail_file(self, filepath):
+        try:
+            self.logger.info(f'Open "{filepath}"')
+            command = None
+            if sys.platform == 'darwin':
+                command = ['open', filepath]
+            elif sys.platform == 'linux':
+                command = ['xdg-open', filepath]
+            elif sys.platform == 'win32':
+                # Why the empty string in the middle: https://stackoverflow.com/a/501295/5699307
+                command = ['start', '""', filepath]
+
+            if command is None:
+                self.logger.warning(f'Opening mails on platofmr "{sys.platform}" not supported.')
+            else:
+                check_output(command)
+        except FileNotFoundError:
+            self.logger.warning(f'Could not open mail ({filepath}), on platform "{sys.platform}" '
+                                f'with command "{" ".join(command)}"')
+
 
 class FakeMail:
 
     def __init__(self, host: str = None, port: int = None, output_dir: str = None, log_file: str = None,
-                 only_log: bool = False, background: bool = False):
+                 only_log: bool = False, background: bool = False, open_mail=False):
         self.host = host or 'localhost'
         self.port = port or 8025
         self.output_dir = output_dir
         self.log_file = log_file
         self.only_log = only_log
         self.background = background
+        self.open_mail = open_mail
 
         if self.background and not self.log_file:
             self.log_file = os.path.join(os.getcwd(), 'fakemail.log')
@@ -80,7 +107,7 @@ class FakeMail:
         if self.background:
             self.become_daemon()
         try:
-            self.server = FakeServer(self.host, self.port, self.output_dir, self.only_log)
+            self.server = FakeServer(self.host, self.port, self.output_dir, self.only_log, self.open_mail)
         except socket.error as e:
             self.quit(str(e))
 
@@ -168,11 +195,12 @@ def parse_args():
     parser.add_argument('-l', '--log', help='Log to given file')
     parser.add_argument('-O', '--only-log', action='store_true', help='Do not save mails as files')
     parser.add_argument('-b', '--background', action='store_true', help='Run in background')
+    parser.add_argument('-m', '--open-mail', action='store_true', help='Open mail with "open" macos / "xdg-open" unix')
 
     return parser.parse_args()
 
 
 if __name__ == '__main__':
     args = parse_args()
-    fakemail = FakeMail(args.host, args.port, args.output, args.log, args.only_log, args.background)
+    fakemail = FakeMail(args.host, args.port, args.output, args.log, args.only_log, args.background, args.open_mail)
     fakemail.start()
