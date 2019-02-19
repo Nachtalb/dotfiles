@@ -1,12 +1,14 @@
 #!/Users/bernd/.pyenv/versions/Scripts/bin/python
 # Reload python code for plone by calling /reload?action=code
 __author__ = 'Nachtalb'
-__version__ = '1.0.0'
-__date__ = '2019-01-31'
+__version__ = '1.0.1'
+__date__ = '2019-02-19'
+import sys
 
 from argparse import ArgumentParser, SUPPRESS
 
 from requests_html import HTMLSession
+from requests.exceptions import ConnectionError
 
 parser = ArgumentParser('Reload Plone', add_help=False)
 
@@ -19,7 +21,14 @@ parser.add_argument('-w', '--password', help='Password', default='admin')
 args = parser.parse_args()
 
 session = HTMLSession()
-response = session.get(f'http://{args.host}:{args.port}/reload?action=code', auth=(args.user, args.password))
+try:
+    response = session.get(f'http://{args.host}:{args.port}/reload?action=code', auth=(args.user, args.password))
+except ConnectionError:
+    print('Page not online')
+    sys.exit()
 
 reload_info = response.html.xpath('//pre', first=True)
-print(reload_info.full_text.strip())
+if reload_info is None:
+    print(response.html.text.strip())
+else:
+    print(reload_info.full_text.strip())
