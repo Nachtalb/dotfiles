@@ -1,8 +1,8 @@
 #!/Users/bernd/.pyenv/versions/Scripts/bin/python
 # Automatically links PyCharm's PyDevD egg to ~/Development/pycharm-debug.egg
 __author__ = 'Nachtalb'
-__version__ = '1.0.0'
-__date__ = '2019-01-31'
+__version__ = '1.0.1'
+__date__ = '2019-02-19'
 
 import os
 import sys
@@ -40,6 +40,9 @@ def fix_path(source_file=None, destination_file=None):
 
     if latest_pycharm_app and not original_egg:
         original_egg = latest_pycharm_app / 'Contents/debug-eggs/pycharm-debug.egg'
+
+        if not original_egg.exists():
+            original_egg = latest_pycharm_app / 'Contents/debug-eggs/pydevd-pycharm.egg'
 
     if not original_egg.exists():
         print(f'No "pycharm-debug.egg" in latest PyCharm version found "{latest_pycharm_app.name}"')
