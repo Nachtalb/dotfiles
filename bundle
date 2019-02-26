@@ -12,7 +12,6 @@ package pyenv
 package python
 package spark
 package sublime
-package tmux-zen
 package weather
 theme default
 theme scorphish

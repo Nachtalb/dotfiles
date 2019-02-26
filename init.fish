@@ -1,3 +1,20 @@
+# Initialize the current fish session and connect to the tmux session.
+# If we're not running in an interactive terminal, do nothing.
+if begin; not isatty; or not status --is-interactive; or test -n "$INSIDE_EMACS"; end
+  exit
+end
+
+# Connect to the TMUX session if it exists, or create it if it doesn't.
+if not set -q TMUX
+  set -l session_name local
+  if tmux has-session -t $session_name 2> /dev/null
+    exec env -- tmux new-session -t $session_name \; set destroy-unattached on \; new-window
+  else
+    exec env -- tmux new-session -s $session_name
+  end
+  exit
+end
+
 ###############################################################################
 # Colours                                                                     #
 ###############################################################################
