@@ -43,14 +43,20 @@ if ipython:
 else:
     # Simple `exit` and `clear` command for non ipython python cli
     class Quitter(object):
-        def __repr__(self):
+        def __call__(self):
             sys.exit()
+
+        def __repr__(self):
+            self()
 
     exit = Quitter()
 
     class Clear(object):
-        def __repr__(self):
+        def __call__(self):
             os.system('clear')
+
+        def __repr__(self):
+            self()
             return ''
 
     clear = Clear()
