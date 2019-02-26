@@ -45,12 +45,6 @@ function junk
     end
 end
 
-function tmux-terminal-color
-    if set -q TMUX
-            set -gx TERM screen-256color
-    end
-end
-
 function psp
     pyenv local new-plone-env
     cp "$SCRIPTS_ASSETS_PATH/development.cfg" development_nick.cfg
