@@ -33,8 +33,6 @@ function always-on
         send-key 'cd bgbern.ng && bin/tika-server start' C-m \; \
         select-pane -t 0 \; \
         split-window -h \; \
-        send-key 'htop' C-m \; \
-        split-window -v -p 25 \; \
         send-key 'sudo running-sites' C-m \; \
         select-pane -t 0 \;
 end
