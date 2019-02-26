@@ -35,8 +35,9 @@ $ screenfetch
 $ nvm use v8.14.0 
 $ npm ls -g --depth=0
 /Users/bernd/.nvm/versions/node/v8.14.0/lib
+├── @marp-team/marp-cli@0.0.15
 ├── browser-sync@2.26.3
-└── npm@6.4.1
+└── npm@6.7.0
 
 $ nvm use system 
 $ npm ls -g --depth=0
@@ -53,7 +54,7 @@ $ npm ls -g --depth=0
 ├── git-open@2.0.0
 ├── grunt@1.0.3
 ├── markdown-toc@1.2.0
-├── npm@6.4.1
+├── npm@6.5.0
 ├── phantomjs-prebuilt@2.1.14
 ├── prettier@1.15.1
 ├── prettier-cli@0.1.0
@@ -62,41 +63,34 @@ $ npm ls -g --depth=0
 ```
 
 ```
-$ brew leaves
+$ brew leaves | to-cols -n 4
 
-antiword             atool           autoconf-archive
-automake             blueutil        boost-build
-bzip2                ccache          cmake
-cmatrix              ctags           direnv
-docker               docker-machine  docx2txt
-elinks               exiftool        fdk-aac
-ffmpeg               fftw            fontforge
-fswatch              gawk            gdl
-ghostscript          gifsicle        git
-git-extras           gnu-sed         gnupg
-go                   grc             gsl
-gtkmm                gtkmm3          highlight
-htop                 hub             imagemagick@6
-intltool             jbig2dec        jpeg-turbo
-libexif              libmagic        libsoup
-libxmlsec1           libxslt         links
-little-cms           lynx            makedepend
-media-info           mongodb         mysql
-nasm                 ncdu            neofetch
-nginx                openldap        openssl@1.1
-orc                  p7zip           pandoc
-pipes-sh             poppler         popt
-postgresql           potrace         pth
-pup                  py2cairo        pygobject3
-ranger               rbenv           redis
-rsync                sassc           screenfetch
-shellcheck           sl              rockymadden/rockymadden/slack-cli
-source-highlight     speedtest-cli   task
-telegram-cli         telnet          texi2html
-the_silver_searcher  tmux            toilet
-transmission         tree            ttfautohint
-unar                 unrar           vim
-w3m                  watch           wget
-with-readline        wv              xclip
-yarn                 youtube-dl      zlib
+antiword           gifsicle        media-info    shellcheck
+atool              git             mongodb       sl
+autoconf-archive   git-extras      nasm          rockymadden/rockymadden/slack-cli
+automake           gnu-sed         ncdu          source-highlight
+blueutil           gnupg           neofetch      speedtest-cli
+boost-build        go              nginx         sphinx
+bzip2              grc             openldap      sphinx-doc
+ccache             groff           openssl@1.1   task
+cmake              gsl             orc           telegram-cli
+cmatrix            gtkmm           p7zip         telnet
+ctags              gtkmm3          pandoc        texi2html
+direnv             highlight       perl          the_silver_searcher
+docker             htop            pipes-sh      tmux
+docker-machine     hub             poppler       toilet
+docx2txt           imagemagick@6   popt          transmission
+doxygen            intltool        postgresql    tree
+elasticsearch      jbig2dec        potrace       ttfautohint
+elinks             jpeg-turbo      pth           unar
+exiftool           libexif         pup           unrar
+fdk-aac            libmagic        py2cairo      w3m
+ffmpeg             libsoup         pygobject3    watch
+fftw               libxmlsec1      ranger        wget
+fontforge          libxslt         rbenv         with-readline
+fswatch            links           redis         wv
+gawk               little-cms      rsync         xclip
+gdl                lynx            ruby          yarn
+ghostscript        makedepend      sassc         youtube-dl
+giflossy           mandoc          screenfetch   zlib
 ```
