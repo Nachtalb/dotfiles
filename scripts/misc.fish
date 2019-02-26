@@ -1,14 +1,5 @@
 set -g SCRIPTS_ASSETS_PATH (dirname (status --current-filename))/assets
 
-function tmux-4
-    # Open a 2 by 2 tmux window
-    tmux new-session $argv \; \
-            split-window -v \; \
-            split-window -h \; \
-            select-pane -t 0 \; \
-            split-window -h -b \;
-end
-
 function always-on
     # Open tmux 'always-on' or create it and auto run all necessary functions
     if tmux has-session -t always-on
