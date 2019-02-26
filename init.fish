@@ -26,6 +26,7 @@ set fish_color_autosuggestion grey
 # Set globals                                                                 #
 ###############################################################################
 set -gx PYTHONDONTWRITEBYTECODE 1  # Python won’t try to write .pyc or .pyo files on the import of source modules
+set -gx PYTHONUNBUFFERED 1  # Force stdin, stdout and stderr to be totally unbuffered.
 set -gx VIRTUAL_ENV_DISABLE_PROMPT 1  # Disable default virtualenv prompt
 set -gx PYTHONSTARTUP $HOME/.pythonrc  # Load pythonrc file
 set -gx HOMEBREW_NO_AUTO_UPDATE 1  # Do not update on installation in homebrew
