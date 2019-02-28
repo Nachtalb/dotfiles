@@ -204,6 +204,8 @@ noremap <C-s> :update<CR>
 inoremap <C-q> <C-o>:q<CR>
 noremap <C-q> :q<CR>
 
+" Autoclose xml tag with ,/
+imap ,/ </<C-X><C-O>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Misc
