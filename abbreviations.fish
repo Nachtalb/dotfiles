@@ -1,8 +1,6 @@
-# # # # # # # # # # # # # # # #
+###############################
 #    Abbreviations Config     #
-# # # # # # # # # # # # # # # #
-
-abbr gtemp 'cd /Users/bernd/Development/temp && rm test && echo 1 || touch test && git add . && git commit -S -m test && cd -'
+###############################
 
 # Buildout
 abbr pin 'bin/instance'
@@ -25,15 +23,11 @@ abbr la 'ls -ClAph'
 abbr lt 'ls -ClAtph'
 abbr ll 'la'
 abbr rmf 'rm -rf'
-abbr rtws 'sed -i \'s/[[:space:]]*\$//\''
-alias fmb 'sudo fakemail --path "~/Development/fakemail/" --background --port 25 --log "~/Development/fakemail/fakemail.log"'
-alias fm 'sudo fakemail --path "~/Development/fakemail/" --port 25 --log "~/Development/fakemail/fakemail.log"'
 
-# Applications
-abbr preview='/Applications/Preview.app/Contents/MacOS/Preview'
-
-# Brew
-abbr bup 'brew update && brew upgrade && brew cleanup && brew cask cleanup'
+# Apt
+abbr anstall 'sudo apt install '
+abbr apdate 'sudo apt update'
+abbd apgrade 'sudo apt upgrade'
 
 # GIT
 # rebase
@@ -73,7 +67,3 @@ abbr gdsn 'git diff --staged --name-status'
 abbr go 'git open'
 abbr gr 'git remote'
 abbr grv 'git remote -v'
-
-# Misc
-abbr fsize 'du -sh' # Show dictionary size
-abbr ccat '~/.pyenv/versions/2.7.14/bin/pygmentize -g -O style=colorful,linenos=1'  # Check path in a new installtion

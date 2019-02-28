@@ -1,2 +1,2 @@
-alias ranger='ranger --choosedir=$HOME/.rangerdir; cd (cat $HOME/.rangerdir)'
+alias ranger='ranger --choosedir=~/.rangerdir; cd (cat ~/.rangerdir)'
 alias c=clear

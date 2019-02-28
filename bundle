@@ -1,4 +1,4 @@
-package brew
+package colored-man-pages
 package config
 package extract
 package foreign-env
@@ -6,13 +6,15 @@ package fuck
 package gh
 package gi
 package grc
+package hash
 package jump
 package nvm
+package kill-on-port
+package pbcopy
+package peco
+package pisces
 package pyenv
 package python
 package spark
 package sublime
-package weather
-theme default
 theme scorphish
-theme shellder

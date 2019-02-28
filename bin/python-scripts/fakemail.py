@@ -1,4 +1,4 @@
-#!/Users/bernd/.pyenv/versions/Scripts/bin/python
+#!~/.pyenv/versions/Scripts/bin/python
 # Start a SMTP server that catches all emails and saves them to eml files.
 # Original author was lastcraft but I completely rewrote it
 __author__ = 'Nachtalb'

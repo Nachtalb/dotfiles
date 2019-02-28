@@ -4,7 +4,7 @@
     signingkey = E48DF13C07055D92
 
 [core]
-    excludesfile = /Users/bernd/.global_gitignore
+    excludesfile = ~/.global_gitignore
     autocrlf = input
 
 [commit]

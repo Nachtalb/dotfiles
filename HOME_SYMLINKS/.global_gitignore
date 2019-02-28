@@ -23,9 +23,9 @@ TEMP-*
 temp
 TEMP
 *.documents
-*.nick.*
+*.nachtalb.*
 
 # Plone Specific
-development_nick.cfg
+development_nachtalb.cfg
 update-demo.sh
 

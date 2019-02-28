@@ -1,4 +1,4 @@
-#!/Users/bernd/.pyenv/versions/Scripts/bin/python
+#!~/.pyenv/versions/Scripts/bin/python
 # Show sites running locally filtered by their ports
 __author__ = 'Nachtalb'
 __version__ = '1.0.0'

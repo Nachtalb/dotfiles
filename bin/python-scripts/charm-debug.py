@@ -1,5 +1,5 @@
-#!/Users/bernd/.pyenv/versions/Scripts/bin/python
-# Automatically links PyCharm's PyDevD egg to ~/Development/pycharm-debug.egg
+#!~/.pyenv/versions/Scripts/bin/python
+# Automatically links PyCharm's PyDevD egg to ~/src/pycharm-debug.egg
 __author__ = 'Nachtalb'
 __version__ = '1.0.1'
 __date__ = '2019-02-19'
@@ -12,8 +12,8 @@ from argparse import ArgumentParser
 from pathlib import Path
 
 HOME = Path(os.path.expanduser('~'))
-PYCHARM_INSTALLATION_LOCATION = Path(HOME) / 'Library/Application Support/JetBrains/Toolbox/apps/PyCharm-P/ch-0'
-DESTINATION_LOCATION = HOME / 'Development/pycharm-debug.egg'
+PYCHARM_INSTALLATION_LOCATION = Path(HOME) / '.local/share/JetBrains/Toolbox/apps/PyCharm-P/ch-0'
+DESTINATION_LOCATION = HOME / 'src/pycharm-debug.egg'
 
 
 def fix_path(source_file=None, destination_file=None):
@@ -39,10 +39,10 @@ def fix_path(source_file=None, destination_file=None):
         latest_pycharm_app = apps[-1]
 
     if latest_pycharm_app and not original_egg:
-        original_egg = latest_pycharm_app / 'Contents/debug-eggs/pycharm-debug.egg'
+        original_egg = latest_pycharm_app / 'debug-eggs/pycharm-debug.egg'
 
         if not original_egg.exists():
-            original_egg = latest_pycharm_app / 'Contents/debug-eggs/pydevd-pycharm.egg'
+            original_egg = latest_pycharm_app / 'debug-eggs/pydevd-pycharm.egg'
 
     if not original_egg.exists():
         print(f'No "pycharm-debug.egg" in latest PyCharm version found "{latest_pycharm_app.name}"')

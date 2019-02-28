@@ -1,4 +1,4 @@
-#!/Users/bernd/.pyenv/versions/Scripts/bin/python
+#!~/.pyenv/versions/Scripts/bin/python
 # Split text to cols
 import argparse
 import sys

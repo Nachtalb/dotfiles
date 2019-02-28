@@ -1,4 +1,4 @@
-#!/Users/bernd/.pyenv/versions/Scripts/bin/python
+#!~/.pyenv/versions/Scripts/bin/python
 # Adds various Plone related run configurations to to a Jetbrains Project.
 #
 # usage: add_run_configurations.py [-h] path [name]

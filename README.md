@@ -1,5 +1,4 @@
-# oh-my-fish-config.mac
-
+# Nachtalbs Linux Dotfiles
 Create default home structure and symlinks by running `init_home.py` with Python3.
 
 Install pyenv:
@@ -25,21 +24,21 @@ $ screenfetch
  /sssssssssssssssssssssss.      WM Theme: Blue
  :ssssssssssssssssssssssss-     Font: SFMono-Regular
   osssssssssssssssssssssssso/`  CPU: Intel Core i7-4870HQ @ 2.50GHz
-  `syyyyyyyyyyyyyyyyyyyyyyyy+`  GPU: AMD Radeon R9 M370X / Intel Iris Pro 
+  `syyyyyyyyyyyyyyyyyyyyyyyy+`  GPU: AMD Radeon R9 M370X / Intel Iris Pro
    `ossssssssssssssssssssss/    RAM: 8203MiB / 16384MiB
-     :ooooooooooooooooooo+.    
-      `:+oo+/:-..-:/+o+/-      
+     :ooooooooooooooooooo+.
+      `:+oo+/:-..-:/+o+/-
 ```
 
 ```
-$ nvm use v8.14.0 
+$ nvm use v8.14.0
 $ npm ls -g --depth=0
 /Users/bernd/.nvm/versions/node/v8.14.0/lib
 ├── @marp-team/marp-cli@0.0.15
 ├── browser-sync@2.26.3
 └── npm@6.7.0
 
-$ nvm use system 
+$ nvm use system
 $ npm ls -g --depth=0
 /usr/local/lib
 ├── @vue/cli@3.1.1

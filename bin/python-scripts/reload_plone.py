@@ -1,4 +1,4 @@
-#!/Users/bernd/.pyenv/versions/Scripts/bin/python
+#!~/.pyenv/versions/Scripts/bin/python
 # Reload python code for plone by calling /reload?action=code
 __author__ = 'Nachtalb'
 __version__ = '1.0.1'

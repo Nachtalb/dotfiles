@@ -1,4 +1,4 @@
-#!/Users/bernd/.pyenv/versions/Scripts/bin/python
+#!~/.pyenv/versions/Scripts/bin/python
 # Run bin/instance dynamically on an available port
 #
 # When the default port in the parts/instance/etc/zope.conf already in use, it
