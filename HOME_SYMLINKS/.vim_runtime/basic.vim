@@ -65,7 +65,7 @@ set list
 set listchars=tab:>-,eol:↵,trail:~,extends:>,precedes:<
 
 " Add a bit extra margin to the left
-set foldcolumn=1
+set foldcolumn=0
 
 " Disable code folding
 set nofoldenable
@@ -207,6 +207,13 @@ noremap <C-q> :q<CR>
 " Autoclose xml tag with ,/
 imap ,/ </<C-X><C-O>
 
+nnoremap <C-j> :m .+1<CR>==
+nnoremap <C-k> :m .-2<CR>==
+inoremap <C-j> <Esc>:m .+1<CR>==gi
+inoremap <C-k> <Esc>:m .-2<CR>==gi
+vnoremap <C-j> :m '>+1<CR>gv=gv
+vnoremap <C-k> :m '<-2<CR>gv=gv
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Misc
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -215,6 +222,9 @@ noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
 " Toggle paste mode on and off
 map <leader>pp :setlocal paste!<cr>
+
+" Toggle paste mode on and off
+map <leader>cc :setlocal number! <bar> :setlocal list! <bar> :GitGutterBufferToggle <cr>
 
 " Quickly open a buffer for scribble
 map <leader>q :e ~/buffer<cr>
