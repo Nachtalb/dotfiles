@@ -24,6 +24,8 @@ temp
 TEMP
 *.documents
 *.nick.*
+todo.md
+todo.rst
 
 # Plone Specific
 development_nick.cfg
