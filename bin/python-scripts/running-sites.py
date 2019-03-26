@@ -20,6 +20,7 @@ class LocalRunningSitesHandler(BaseHTTPRequestHandler):
         self.send_header('Content-type', 'text/html; charset=UTF-8')
         self.end_headers()
 
+        self.wfile.write(bytes('<link rel="icon" type="image/png" href="https://plone.org/favicon.ico">', 'utf-8'))
         self.wfile.write(bytes(self.local_running_sites_html(), 'utf-8'))
         return
 
