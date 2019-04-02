@@ -7,6 +7,7 @@ abbr gtemp 'cd /Users/bernd/Development/temp && rm test && echo 1 || touch test 
 # Buildout
 abbr pin 'bin/instance'
 abbr pbo 'bin/buildout'
+abbr pbn 'bin/buildout -N'
 # Instance
 abbr pinf 'bin/instance fg'
 # Misc
