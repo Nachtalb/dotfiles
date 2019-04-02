@@ -26,6 +26,7 @@ TEMP
 *.nick.*
 todo.md
 todo.rst
+message.txt
 
 # Plone Specific
 development_nick.cfg
