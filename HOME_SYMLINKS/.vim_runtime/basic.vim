@@ -61,8 +61,10 @@ set backspace=eol,start,indent
 set whichwrap+=<,>,h,l
 
 " Show tabs / newlines / trailing whitespaces etc.
+set encoding=utf-8
+
 set list
-set listchars=tab:>-,eol:↵,trail:~,extends:>,precedes:<
+set listchars=tab:‣\ ,eol:↵,trail:·,extends:»,precedes:«
 
 " Add a bit extra margin to the left
 set foldcolumn=0
@@ -169,7 +171,6 @@ nnoremap <Leader>w :let _save_pos=getpos(".") <Bar>
 " Super useful! From an idea by Michael Naumann
 vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
 vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
-noremap <Leader> a :pwd<CR>
 
 
 """"""""""""""""""""""""""""""
@@ -232,6 +233,8 @@ map <leader>q :e ~/buffer<cr>
 " Quickly open a markdown buffer for scribble
 map <leader>x :e ~/buffer.md<cr>
 
+noremap <leader>S :%s/\<<C-r><C-w>\>//g<Left><Left>
+noremap <leader>s /<C-r><C-w>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
@@ -245,10 +248,7 @@ function! HasPaste()
 endfunction
 
 " Auto reload ~/.vimrc
-augroup myvimrchooks
-    au!
-    autocmd bufwritepost .vimrc source ~/.vimrc
-augroup END
+autocmd BufWritePost .vimrc,basic.vim source ~/.vimrc
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
