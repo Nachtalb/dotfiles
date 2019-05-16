@@ -83,12 +83,14 @@ source ~/.config/omf/abbreviations.fish
 source ~/.config/omf/alias.fish
 source ~/.config/omf/hooks.fish
 
-# Pyenv
-status --is-interactive; and source (pyenv init - --no-rehash|psub)
-status --is-interactive; and source (pyenv virtualenv-init -|psub)
+if status is-interactive
+    # Pyenv
+    source (pyenv init - --no-rehash|psub)
+    source (pyenv virtualenv-init -|psub)
 
-# Rbevn
-status --is-interactive; and source (rbenv init -|psub)
+    # Rbevn
+    source (rbenv init -|psub)
+end
 
 # direnv
 eval (direnv hook fish)
