@@ -7,3 +7,5 @@ alias urlencode='python -c "import sys, urllib as ul; print(ul.quote_plus(sys.ar
 alias man vman
 
 alias n notify
+
+alias timestamp='date +%s'
