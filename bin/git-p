@@ -1,0 +1,2 @@
+#!/bin/sh
+git push $@ && notify "Push finished" "Git Push" || notify "Push Failed" "Git Push"
