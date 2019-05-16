@@ -42,4 +42,5 @@ function psp
     ln -fs development_nick.cfg buildout.cfg
     python bootstrap.py
     bin/buildout
+    notify Finished "Plone Setup"
 end
