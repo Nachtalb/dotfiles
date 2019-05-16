@@ -105,4 +105,3 @@ end
 if test -f ~/.autojump/share/autojump/autojump.fish
     source ~/.autojump/share/autojump/autojump.fish
 end
-
