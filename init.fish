@@ -39,6 +39,7 @@ set -gx JAVA_HOME (/usr/libexec/java_home -v 1.8)  # Set default java version
 # Expand $PATH
 set -gx PATH $PATH $HOME/.config/omf/bin
 set -gx PATH $PATH /usr/local/opt/sphinx-doc/bin
+set -gx PATH $PATH $HOME/.vim/bundle/vim-superman/bin
 set -gx PATH ~/bin/ $PATH
 
 # Lang setting
