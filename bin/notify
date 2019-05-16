@@ -1,0 +1,20 @@
+#!/bin/sh
+if [ $# -eq 0 ]
+  then
+    echo "No arguments supplied"
+    exit 1
+fi
+
+title="Notify"
+if [ -n "$2" ]
+then
+    title="$2"
+fi
+
+sound="Purr"
+if [ -n "$3" ]
+then
+    sound="$3"
+fi
+
+osascript -e "display notification \"$1\" with title \"$title\" sound name \"$sound\""
