@@ -84,7 +84,7 @@ source ~/.config/omf/alias.fish
 source ~/.config/omf/hooks.fish
 
 # Pyenv
-status --is-interactive; and source (pyenv init -|psub)
+status --is-interactive; and source (pyenv init - --no-rehash|psub)
 status --is-interactive; and source (pyenv virtualenv-init -|psub)
 
 # Rbevn
