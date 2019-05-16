@@ -106,6 +106,20 @@ set encoding=utf8
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
 
+
+fun! ToggleCC()
+  if &cc == ''
+    set colorcolumn=80,90,120
+  else
+    set colorcolumn=
+  endif
+endfun
+
+set colorcolumn=80,90,120
+hi ColorColumn cterm=NONE ctermbg=Black
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set colorcolumn=80,90,120
 hi ColorColumn cterm=NONE ctermbg=Black
 
@@ -225,7 +239,7 @@ noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 map <leader>pp :setlocal paste!<cr>
 
 " Toggle paste mode on and off
-map <leader>cc :setlocal number! <bar> :setlocal list! <bar> :GitGutterBufferToggle <cr>
+map <leader>cc :setlocal number! <bar> :setlocal list! <bar> :GitGutterBufferToggle <bar> :call ToggleCC()<cr>
 
 " Quickly open a buffer for scribble
 map <leader>q :e ~/buffer<cr>
