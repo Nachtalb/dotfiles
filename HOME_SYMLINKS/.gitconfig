@@ -6,6 +6,10 @@
 [core]
     excludesfile = /Users/bernd/.global_gitignore
     autocrlf = input
+    pager = view -
+
+[color]
+    ui = never
 
 [commit]
     gpgsign = true
