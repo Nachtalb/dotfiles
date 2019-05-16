@@ -1,3 +1,5 @@
+set TIME_START (python -c 'import time; print(int(time.time() * 1000))')
+
 # Initialize the current fish session and connect to the tmux session.
 # If we're not running in an interactive terminal, do nothing.
 function start-tmux
@@ -105,3 +107,6 @@ end
 if test -f ~/.autojump/share/autojump/autojump.fish
     source ~/.autojump/share/autojump/autojump.fish
 end
+set TIME_END (python -c 'import time; print(int(time.time() * 1000))')
+
+echo "It took:" (expr $TIME_END - $TIME_START) "ms to load the environment"
