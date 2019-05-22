@@ -12,7 +12,7 @@ abbr pbn 'bin/buildout -N && notify Finished Buildout || notify Failed Buildout'
 abbr pinf 'bin/instance fg'
 # Misc
 abbr psi 'bin/solr-instance'
-abbr pt 'bin/test'
+abbr pt 'bin/test && notify Finished Tests || notify Failed Tests'
 abbr prs 'python bootstrap.py && bin/buildout'
 abbr psf 'bin/solr-instance start && bin/tika-server start 2> /dev/null & && bin/instance fg'
 abbr psm 'bin/solr-instance start && bin/tika-server start 2> /dev/null &'
