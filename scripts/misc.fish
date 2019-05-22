@@ -38,7 +38,13 @@ end
 
 function psp
     pyenv local new-plone-env
-    cp "$SCRIPTS_ASSETS_PATH/development.cfg" development_nick.cfg
+    if not test -e development_nick.cfg
+        or test "-f" $argv[1]
+        cp "$SCRIPTS_ASSETS_PATH/development.cfg" development_nick.cfg
+    else
+        echo "development_nick.cfg already exists if you want it replaced use -f"
+    end
+
     ln -fs development_nick.cfg buildout.cfg
     python bootstrap.py
     bin/buildout
