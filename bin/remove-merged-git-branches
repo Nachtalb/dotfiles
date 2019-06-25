@@ -22,8 +22,8 @@ print_repo_path () {
 }
 
 print_branch_ref () {
-    remote=`dirname $1`
-    name=`basename $1`
+    remote=`echo $1 | rev | xargs basename | rev`
+    name=`echo $1 | rev | xargs dirname | rev`
     if [[ "$remote" == "." ]]; then
         echo -e " - \033[0;33m$name\033[0m"
     else
@@ -41,8 +41,9 @@ remove_local_branches () {
 
 remove_remote_branches () {
     for branch in $@; do
-        remote=`dirname $branch`
-        name=`basename $branch`
+        # ToDo: Fix for path branches like: ne/something
+        remote=`echo $branch | rev | xargs basename | rev`
+        name=`echo $branch | rev | xargs dirname | rev`
 
         echo -e "  $\033[0;35m git push $remote :$name\033[0m"
         git push $remote :$name
