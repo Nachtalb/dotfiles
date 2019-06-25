@@ -39,7 +39,7 @@ end
 function psp
     pyenv local new-plone-env
     if not test -e development_nick.cfg
-        or test "-f" $argv[1]
+        or test "-f" = $argv[1]
         cp "$SCRIPTS_ASSETS_PATH/development.cfg" development_nick.cfg
     else
         echo "development_nick.cfg already exists if you want it replaced use -f"
