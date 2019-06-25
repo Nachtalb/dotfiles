@@ -76,3 +76,7 @@
 [submodule "HOME_SYMLINKS/.vim/bundle/xmledit"]
 	path = HOME_SYMLINKS/.vim/bundle/xmledit
 	url = https://github.com/sukima/xmledit.git
+[submodule "HOME_SYMLINKS/wiki"]
+	path = HOME_SYMLINKS/wiki
+	url = git@github.com:Nachtalb/vimwiki.git
+	branch = master

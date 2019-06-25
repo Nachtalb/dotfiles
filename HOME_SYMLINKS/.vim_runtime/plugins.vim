@@ -94,8 +94,19 @@ noremap <C-q> :bdelete<CR>
 execute 'map <C-P> :FZF --inline-info --history=' . expand('~') . '/.fzf_history<CR>'
 
 " ==== VimWiki ====
-" Turn off creation of temporary wikis
 let g:vimwiki_global_ext = 0
+let g:vimwiki_list = [{
+                      \ 'path': '~/wiki',
+                      \ 'path_html': '~/wiki/html',
+                      \ 'auto_export': 1,
+                      \ 'auto_toc': 1,
+                    \ },
+                    \ {
+                      \ 'path': '~/pub_wiki',
+                      \ 'path_html': '~/pub_wiki/html',
+                      \ 'auto_export': 1,
+                      \ 'auto_toc': 1,
+                    \ }]
 " Auto convert wiki files to HTML
 autocmd BufWritePost *.wiki silent VimwikiAll2HTML
 
