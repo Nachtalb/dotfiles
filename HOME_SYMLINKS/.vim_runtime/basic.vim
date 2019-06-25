@@ -304,7 +304,7 @@ cnoremap <C-N> <Down>
 " => General abbreviations
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 ab xdate <c-r>=strftime("%d/%m/%y %H:%M:%S")<cr>
-ab pdb import pdb; pdb.set_trace()
+ab pdb __import__('pdb').set_trace()
 
 
 """"""""""""""""""""""""""""""
