@@ -25,6 +25,7 @@ if &shell =~# 'fish$'
     :set shell=bash
 endif
 
+set lazyredraw
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
