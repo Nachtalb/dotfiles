@@ -37,6 +37,7 @@ set mouse=
 " Search
 set incsearch
 set hlsearch
+set showcmd
 
 "" turn off search highlight
 nnoremap <leader><space> :nohlsearch<CR>
