@@ -1,0 +1,78 @@
+[submodule "HOME_SYMLINKS/.vim/bundle/Vundle.vim"]
+	path = HOME_SYMLINKS/.vim/bundle/Vundle.vim
+	url = https://github.com/VundleVim/Vundle.vim.git
+[submodule "HOME_SYMLINKS/.vim/bundle/ack.vim"]
+	path = HOME_SYMLINKS/.vim/bundle/ack.vim
+	url = https://github.com/mileszs/ack.vim.git
+[submodule "HOME_SYMLINKS/.vim/bundle/ale"]
+	path = HOME_SYMLINKS/.vim/bundle/ale
+	url = https://github.com/w0rp/ale.git
+[submodule "HOME_SYMLINKS/.vim/bundle/emmet-vim"]
+	path = HOME_SYMLINKS/.vim/bundle/emmet-vim
+	url = https://github.com/mattn/emmet-vim.git
+[submodule "HOME_SYMLINKS/.vim/bundle/fzf"]
+	path = HOME_SYMLINKS/.vim/bundle/fzf
+	url = https://github.com/junegunn/fzf.git
+[submodule "HOME_SYMLINKS/.vim/bundle/fzf.vim"]
+	path = HOME_SYMLINKS/.vim/bundle/fzf.vim
+	url = https://github.com/junegunn/fzf.vim.git
+[submodule "HOME_SYMLINKS/.vim/bundle/gundo.vim"]
+	path = HOME_SYMLINKS/.vim/bundle/gundo.vim
+	url = git@github.com:sjl/gundo.vim.git
+[submodule "HOME_SYMLINKS/.vim/bundle/indentpython.vim"]
+	path = HOME_SYMLINKS/.vim/bundle/indentpython.vim
+	url = https://github.com/vim-scripts/indentpython.vim.git
+[submodule "HOME_SYMLINKS/.vim/bundle/jedi-vim"]
+	path = HOME_SYMLINKS/.vim/bundle/jedi-vim
+	url = https://github.com/davidhalter/jedi-vim.git
+[submodule "HOME_SYMLINKS/.vim/bundle/mycomment.vim"]
+	path = HOME_SYMLINKS/.vim/bundle/mycomment.vim
+	url = https://github.com/neoclide/mycomment.vim.git
+[submodule "HOME_SYMLINKS/.vim/bundle/nerdtree"]
+	path = HOME_SYMLINKS/.vim/bundle/nerdtree
+	url = https://github.com/scrooloose/nerdtree.git
+[submodule "HOME_SYMLINKS/.vim/bundle/nerdtree-git-plugin"]
+	path = HOME_SYMLINKS/.vim/bundle/nerdtree-git-plugin
+	url = https://github.com/Xuyuanp/nerdtree-git-plugin.git
+[submodule "HOME_SYMLINKS/.vim/bundle/vimwiki"]
+	path = HOME_SYMLINKS/.vim/bundle/vimwiki
+	url = https://github.com/vimwiki/vimwiki.git
+[submodule "HOME_SYMLINKS/.vim/bundle/vim-airline"]
+	path = HOME_SYMLINKS/.vim/bundle/vim-airline
+	url = https://github.com/vim-airline/vim-airline.git
+[submodule "HOME_SYMLINKS/.vim/bundle/vim-airline-themes"]
+	path = HOME_SYMLINKS/.vim/bundle/vim-airline-themes
+	url = https://github.com/vim-airline/vim-airline-themes.git
+[submodule "HOME_SYMLINKS/.vim/bundle/vim-buftabline"]
+	path = HOME_SYMLINKS/.vim/bundle/vim-buftabline
+	url = https://github.com/ap/vim-buftabline.git
+[submodule "HOME_SYMLINKS/.vim/bundle/vim-fish"]
+	path = HOME_SYMLINKS/.vim/bundle/vim-fish
+	url = git@github.com:dag/vim-fish.git
+[submodule "HOME_SYMLINKS/.vim/bundle/vim-fugitive"]
+	path = HOME_SYMLINKS/.vim/bundle/vim-fugitive
+	url = https://github.com/tpope/vim-fugitive.git
+[submodule "HOME_SYMLINKS/.vim/bundle/vim-gitgutter"]
+	path = HOME_SYMLINKS/.vim/bundle/vim-gitgutter
+	url = git://github.com/airblade/vim-gitgutter.git
+[submodule "HOME_SYMLINKS/.vim/bundle/vim-lastplace"]
+	path = HOME_SYMLINKS/.vim/bundle/vim-lastplace
+	url = git://github.com/farmergreg/vim-lastplace.git
+[submodule "HOME_SYMLINKS/.vim/bundle/vim-multiple-cursors"]
+	path = HOME_SYMLINKS/.vim/bundle/vim-multiple-cursors
+	url = https://github.com/terryma/vim-multiple-cursors.git
+[submodule "HOME_SYMLINKS/.vim/bundle/vim-pdf"]
+	path = HOME_SYMLINKS/.vim/bundle/vim-pdf
+	url = https://github.com/makerj/vim-pdf.git
+[submodule "HOME_SYMLINKS/.vim/bundle/vim-rhubarb"]
+	path = HOME_SYMLINKS/.vim/bundle/vim-rhubarb
+	url = https://github.com/tpope/vim-rhubarb.git
+[submodule "HOME_SYMLINKS/.vim/bundle/vim-superman"]
+	path = HOME_SYMLINKS/.vim/bundle/vim-superman
+	url = https://github.com/jez/vim-superman
+[submodule "HOME_SYMLINKS/.vim/bundle/vim-unimpaired"]
+	path = HOME_SYMLINKS/.vim/bundle/vim-unimpaired
+	url = https://github.com/tpope/vim-unimpaired.git
+[submodule "HOME_SYMLINKS/.vim/bundle/xmledit"]
+	path = HOME_SYMLINKS/.vim/bundle/xmledit
+	url = https://github.com/sukima/xmledit.git
