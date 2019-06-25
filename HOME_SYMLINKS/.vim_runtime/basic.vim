@@ -156,9 +156,10 @@ iabbrev </ </<C-X><C-O>
 
 " Tabs widths
 set tabstop=4
-set shiftwidth=4
 set softtabstop=4
 set expandtab
+
+autocmd FileType *.html,*.xml,*.zcml,*.pt,*.js,*.css,*.scss,*.sass,*.less setlocal shiftwidth=2 tabstop=2, softtabstop=2
 
 " Trim WhiteSpace
 function TrimWhiteSpace()
