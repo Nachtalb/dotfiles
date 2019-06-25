@@ -1,0 +1,14 @@
+#!/usr/local/bin/gawk -f
+BEGIN {
+    out="";
+}
+{
+    if (match($0, "^ *'(.*)',$", ary)) {
+        out=out sprintf("%s,", ary[1]);
+    }
+}
+END {
+    gsub(/,?$/,"",out);
+    gsub(/^,?/,"",out);
+    print out;
+}
