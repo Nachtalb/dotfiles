@@ -1,0 +1,115 @@
+#!/usr/bin/env bash
+
+pwd=`pwd`
+
+if [[ -e ".git" ]]; then
+    repos=$pwd
+else
+    repos=`find $pwd -name '.git' -maxdepth 2 -exec dirname {} \;`
+fi
+
+if [[ $repos == "" ]]; then
+    echo "No repository found."
+    echo "Are you in the root of a repository or in a directory containing repositories?"
+    exit 1
+fi
+
+print_repo_path () {
+    dir=`dirname $1`
+    name=`basename $1`
+    current_branch=`git branch -vv | grep '^*' | sed -e 's/^\* \([^ ]*\).*/\1/'`
+    echo -e "\033[0;36m$dir/\033[0;32m$name\033[0m ($current_branch)"
+}
+
+print_branch_ref () {
+    remote=`dirname $1`
+    name=`basename $1`
+    if [[ "$remote" == "." ]]; then
+        echo -e " - \033[0;33m$name\033[0m"
+    else
+        remote_url=`git config --get remote.$remote.url`
+        echo -e " - \033[0;36m$remote/\033[0;31m$name \033[0m(\033[0;36m$remote_url\033[0m)"
+    fi
+}
+
+remove_local_branches () {
+    for branch in $@; do
+        echo -e "  $\033[0;35m git branch -d $branch\033[0m"
+        git branch -d $branch
+    done
+}
+
+remove_remote_branches () {
+    for branch in $@; do
+        remote=`dirname $branch`
+        name=`basename $branch`
+
+        echo -e "  $\033[0;35m git push $remote :$name\033[0m"
+        git push $remote :$name
+    done
+}
+
+fetch_repositories() {
+    for path in $repos; do
+        echo ""
+        cd $path
+        echo $path
+        echo -e "  $\033[0;35m git fetch -p\033[0m"
+        git fetch -p
+        echo ""
+    done
+    echo ""
+    echo ""
+}
+
+
+while true; do
+    read -p "Should the repositories be fetched in advance? " yn
+    case $yn in
+        [Yy]* ) fetch_repositories $repos; break;;
+        [Nn]* ) break;;
+        * ) echo "Please answer yes or no.";;
+    esac
+done
+
+for path in $repos; do
+    cd $path
+    # local branches
+    branches=`git branch --merged master | grep -v 'master' | grep -v HEAD | sed -e 's/\* //' | sed -e 's/ *//' | grep -v '\.x$'`
+    if [[ "$branches" != "" ]]; then
+        echo ""
+        print_repo_path $path
+        for branch in $branches; do
+            echo -e " - \033[0;33m$branch\033[0m"
+        done
+
+        while true; do
+            read -p "Delete those branches? " yn
+            case $yn in
+                [Yy]* ) remove_local_branches $branches; break;;
+                [Nn]* ) break;;
+                * ) echo "Please answer yes or no.";;
+            esac
+        done
+        echo ""
+    fi
+
+    branches=`git branch -r --merged master | grep -v 'master' | grep -v HEAD | sed -e 's/\* //' | sed -e 's/ *//' | grep -v '\.x$' | grep -e '^origin\/'`
+    if [[ "$branches" != "" ]]; then
+        echo ""
+        print_repo_path $path
+        for branch in $branches; do
+            print_branch_ref $branch
+        done
+
+        while true; do
+            read -p "Delete those branches? " yn
+            case $yn in
+                [Yy]* ) remove_remote_branches $branches; break;;
+                [Nn]* ) break;;
+                * ) echo "Please answer yes or no.";;
+            esac
+        done
+        echo ""
+    fi
+done
