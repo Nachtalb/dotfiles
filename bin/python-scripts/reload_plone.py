@@ -8,7 +8,7 @@ import sys
 from argparse import ArgumentParser, SUPPRESS
 
 from requests_html import HTMLSession
-from requests.exceptions import ConnectionError
+from requests.exceptions import ConnectionError, Timeout
 
 parser = ArgumentParser('Reload Plone', add_help=False)
 
@@ -22,8 +22,8 @@ args = parser.parse_args()
 
 session = HTMLSession()
 try:
-    response = session.get(f'http://{args.host}:{args.port}/reload?action=code', auth=(args.user, args.password))
-except ConnectionError:
+    response = session.get(f'http://{args.host}:{args.port}/reload?action=code', auth=(args.user, args.password), timeout=3)
+except (ConnectionError, Timeout):
     print('Page not online')
     sys.exit()
 

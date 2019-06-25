@@ -119,7 +119,7 @@ if __name__ == '__main__':
                                 'help': 'Skip remaining',
                             },
                         })
-                        if answer is 1:
+                        if answer == 1:
                             REPLACE_ALL = True
                             answer = True
                         elif answer is -1:
