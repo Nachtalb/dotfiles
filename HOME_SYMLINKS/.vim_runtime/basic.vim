@@ -125,6 +125,9 @@ endfunction
 " Autoremove trailing whitespaces on file save and other events
 autocmd FileWritePre,FileAppendPre,FileAppendPre,BufWritePre * call TrimWhiteSpace()
 
+set complete+=k                     " Scan the files given with the 'dictionary' option
+set iskeyword+=-                    " Include - in autocompletion otherwise - would act as a delimiter
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Visual mode related
