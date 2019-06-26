@@ -7,9 +7,10 @@ ab xdate <c-r>=strftime("%d/%m/%y %H:%M:%S")<cr>
 " Insert PDB statement
 ab pdb __import__('pdb').set_trace()
 
-""""""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Python section
-""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 let python_highlight_all = 1
 au FileType python syn keyword pythonDecorator True None False self
