@@ -78,6 +78,7 @@ abbr grv 'git remote -v'
 # Misc
 abbr fsize 'du -sh' # Show dictionary size
 abbr ccat '~/.pyenv/versions/2.7.14/bin/pygmentize -g -O style=colorful,linenos=1'  # Check path in a new installtion
+abbr ppy 'pyenv virtualenv 3.7.2 (basename  (pwd)) && pyenv local (basename  (pwd)) && pip install -U pip'
 
 # SSH shortcuts
 abbr vps 'ssh vps'
