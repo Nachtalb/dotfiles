@@ -36,7 +36,7 @@ if executable('ag')
     " Use ag over grep
     set grepprg=ag\ --nogroup\ --nocolor\ -U\ --follow
 
-    let g:ackprg='ag --vimgrep --smart-case -U --follow'
+    let g:ackprg='ag --vimgrep --smart-case -U --follow --ignore-dir testreports --ignore SOURCES.txt --ignore-dir var --ignore-dir .idea'
     if isdirectory('parts/omelette/')
         let plone_dir = trim(system('ls -1 -f | grep egg-info | cut -d. -f1'))
         let g:ackprg=g:ackprg . ' --ignore-dir /' . plone_dir
