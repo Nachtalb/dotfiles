@@ -34,9 +34,16 @@ let g:ackpreview = 1
 " Use silver searcher (ag) if available (much faster than Ack)
 if executable('ag')
     " Use ag over grep
-    set grepprg=ag\ --nogroup\ --nocolor
+    set grepprg=ag\ --nogroup\ --nocolor\ -U\ --follow
 
-    let g:ackprg='ag --vimgrep --smart-case -u --follow'
+    let g:ackprg='ag --vimgrep --smart-case -U --follow'
+    if isdirectory('parts/omelette/')
+        let plone_dir = trim(system('ls -1 -f | grep egg-info | cut -d. -f1'))
+        let g:ackprg=g:ackprg . ' --ignore-dir /' . plone_dir
+    endif
+
+    nnoremap <Leader>a :Ack <C-r><C-w>
+    nnoremap <Leader>A :Ack --ignore-dir tests <C-r><C-w>
 endif
 
 " ==== NERDTree ==== "
