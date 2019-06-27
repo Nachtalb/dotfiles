@@ -55,7 +55,7 @@ nnoremap <C-f> :NERDTreeFind<CR>
 let NERDTreeWinSize=35
 let NERDTreeWinPos = "left"
 let NERDTreeRespectWildIgnore = 0
-let NERDTreeIgnore = ['*\.pyc', '*\.pyo', '__pycache__', '\.idea', '\.git', '*\.so', '*\.swp', 'tmp', '\.DS_Store']
+let NERDTreeIgnore = ['\.pyc', '\.pyo', '__pycache__', '\.idea', '\.git', '\.so', '\.swp', 'tmp', '\.DS_Store']
 let NERDTreeAutoCenter = 1
 let NERDTreeSortHiddenFirst = 1
 let NERDTreeQuitOnOpen = 1
