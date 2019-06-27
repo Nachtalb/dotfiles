@@ -3,9 +3,9 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Insert current datetime when typing 25/06/19 22:01:37
-ab xdate <c-r>=strftime("%d/%m/%y %H:%M:%S")<cr>
+iab xdate <c-r>=strftime("%d/%m/%y %H:%M:%S")<cr>
 " Insert PDB statement
-ab pdb __import__('pdb').set_trace()
+iab pdb __import__('pdb').set_trace()
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
