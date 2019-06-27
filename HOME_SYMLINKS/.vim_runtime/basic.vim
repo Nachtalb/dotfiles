@@ -184,7 +184,7 @@ map <leader>pp :setlocal paste!<cr>
 " Prepaer for replace word under cursor
 noremap <leader>S :%s/\<<C-r><C-w>\>//g<Left><Left>
 " Prepare for to search for word under cursor
-noremap <leader>s /<C-r><C-w>
+noremap <leader>s /<C-r><C-w><CR>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
