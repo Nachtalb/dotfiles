@@ -14,19 +14,19 @@ $ curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installe
 $ screenfetch
 
                  -/+:.          bernd@bernd
-                :++++.          OS: 64bit Mac OS X 10.13.6 17G4015
-               /+++/.           Kernel: x86_64 Darwin 17.7.0
-       .:-::- .+/:-``.::-       Uptime: 3d 9h 37m
-    .:/++++++/::::/++++++/:`    Packages: 248
-  .:///////////////////////:`   Shell: fish i
-  ////////////////////////`     Resolution: 1920x1200 1920x1200
+                :++++.          OS: 64bit Mac OS X 10.14.5 18F132
+               /+++/.           Kernel: x86_64 Darwin 18.6.0
+       .:-::- .+/:-``.::-       Uptime: 51m
+    .:/++++++/::::/++++++/:`    Packages: 373
+  .:///////////////////////:`   Shell: fish 3.0.2-903-g2ca1bc43
+  ////////////////////////`     Resolution: 2880x1800
  -+++++++++++++++++++++++`      DE: Aqua
  /++++++++++++++++++++++/       WM: Quartz Compositor
  /sssssssssssssssssssssss.      WM Theme: Blue
- :ssssssssssssssssssssssss-     Font: SFMono-Regular
-  osssssssssssssssssssssssso/`  CPU: Intel Core i7-4870HQ @ 2.50GHz
-  `syyyyyyyyyyyyyyyyyyyyyyyy+`  GPU: AMD Radeon R9 M370X / Intel Iris Pro
-   `ossssssssssssssssssssss/    RAM: 8203MiB / 16384MiB
+ :ssssssssssssssssssssssss-     CPU: Intel Core i7-4870HQ @ 2.50GHz
+  osssssssssssssssssssssssso/`  GPU: AMD Radeon R9 M370X / Intel Iris Pro
+  `syyyyyyyyyyyyyyyyyyyyyyyy+`  RAM: 7341MiB / 16384MiB
+   `ossssssssssssssssssssss/
      :ooooooooooooooooooo+.
       `:+oo+/:-..-:/+o+/-
 ```
@@ -37,7 +37,11 @@ $ npm ls -g --depth=0
 /Users/bernd/.nvm/versions/node/v8.14.0/lib
 ├── @marp-team/marp-cli@0.0.15
 ├── browser-sync@2.26.3
-└── npm@6.7.0
+├── eslint@5.16.0
+├── nativefier@7.6.12
+├── npm@6.7.0
+└── prettier@1.18.2
+
 
 $ nvm use system
 $ npm ls -g --depth=0
@@ -54,7 +58,7 @@ $ npm ls -g --depth=0
 ├── git-open@2.0.0
 ├── grunt@1.0.3
 ├── markdown-toc@1.2.0
-├── npm@6.5.0
+├── npm@6.9.0
 ├── phantomjs-prebuilt@2.1.14
 ├── prettier@1.15.1
 ├── prettier-cli@0.1.0
@@ -65,32 +69,35 @@ $ npm ls -g --depth=0
 ```
 $ brew leaves | to-cols -n 4
 
-antiword           gifsicle        media-info    shellcheck
-atool              git             mongodb       sl
-autoconf-archive   git-extras      nasm          rockymadden/rockymadden/slack-cli
-automake           gnu-sed         ncdu          source-highlight
-blueutil           gnupg           neofetch      speedtest-cli
-boost-build        go              nginx         sphinx
-bzip2              grc             openldap      sphinx-doc
-ccache             groff           openssl@1.1   task
-cmake              gsl             orc           telegram-cli
-cmatrix            gtkmm           p7zip         telnet
-ctags              gtkmm3          pandoc        texi2html
-direnv             highlight       perl          the_silver_searcher
-docker             htop            pipes-sh      tmux
-docker-machine     hub             poppler       toilet
-docx2txt           imagemagick@6   popt          transmission
-doxygen            intltool        postgresql    tree
-elasticsearch      jbig2dec        potrace       ttfautohint
-elinks             jpeg-turbo      pth           unar
-exiftool           libexif         pup           unrar
-fdk-aac            libmagic        py2cairo      w3m
-ffmpeg             libsoup         pygobject3    watch
-fftw               libxmlsec1      ranger        wget
-fontforge          libxslt         rbenv         with-readline
-fswatch            links           redis         wv
-gawk               little-cms      rsync         xclip
-gdl                lynx            ruby          yarn
-ghostscript        makedepend      sassc         youtube-dl
-giflossy           mandoc          screenfetch   zlib
+antiword           fswatch         makedepend      shellcheck
+astyle             fzf             mandoc          sl
+atool              fzy             media-info      rockymadden/rockymadden/slack-cli
+autoconf-archive   gawk            mongodb         source-highlight
+automake           gdl             nasm            speedtest-cli
+blueutil           giflossy        ncdu            sphinx
+boost-build        gifsicle        neofetch        task
+bzip2              git             nginx           telegram-cli
+ccache             git-extras      nnn             telnet
+cmake              gnu-sed         octave          texi2html
+cmatrix            gnupg           openldap        the_silver_searcher
+cowsay             go              openssl@1.1     tmux
+cscope             grc             orc             toilet
+ctags              groff           p7zip           transmission
+dash               gsl             pacvim          tree
+dialog             gtkmm           pandoc          ttfautohint
+direnv             gtkmm3          pipes-sh        unar
+dmenu              highlight       popt            unrar
+docker             htop            postgresql      veclibfort
+docker-machine     hub             postgresql@10   vim
+docx2txt           imagemagick@6   potrace         w3m
+doxygen            irssi           pth             watch
+elasticsearch      jbig2dec        pup             wget
+elinks             jpeg-turbo      pygobject3      with-readline
+exiftool           libexif         ranger          wv
+extract_url        libsoup         rbenv           xclip
+fdk-aac            libxmlsec1      rdfind          yarn
+fdupes             libxslt         redis           youtube-dl
+ffmpeg             links           rsync           zegervdv/zathura/zathura-pdf-poppler
+fontforge          little-cms      sassc           zenity
+fortune            lua@5.1         sc-im           zlib
 ```
