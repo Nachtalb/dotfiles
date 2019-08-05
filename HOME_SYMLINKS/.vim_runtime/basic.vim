@@ -20,6 +20,7 @@ if &shell =~# 'fish$'
     :set shell=bash
 endif
 
+set clipboard=unnamed
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
