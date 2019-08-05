@@ -21,3 +21,5 @@ readline.set_history_length(1000)
 atexit.register(readline.write_history_file, history_file)
 
 del readline, rlcompleter, atexit, history_file
+
+sys.stdout = sys.__stdout__
