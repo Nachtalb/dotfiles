@@ -5,8 +5,8 @@
 # This can help clean up a bit when importing artists from other sources, where it can happen that lidarr finds the
 # wrong artist (which have 0 tracks or just a few like 5).
 __author__ = 'Nachtalb'
-__version__ = '1.0.0'
-__date__ = '2019-07-31'
+__version__ = '1.1.0'
+__date__ = '2019-08--5'
 
 from contextlib import closing
 from lidarr import LidarrAPI
