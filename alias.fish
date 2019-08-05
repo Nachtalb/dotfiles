@@ -11,3 +11,4 @@ alias n notify
 alias timestamp='date +%s'
 
 alias g=git
+alias ':q' exit
