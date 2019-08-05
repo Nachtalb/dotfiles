@@ -17,6 +17,7 @@ from argparse import ArgumentParser
 import json
 import sys
 
+
 class LidarrCleaner:
     def __init__(self, url, api):
         self.la = LidarrAPI(url, api)
