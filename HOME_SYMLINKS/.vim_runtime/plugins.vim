@@ -69,7 +69,10 @@ let NERDTreeAutoDeleteBuffer = 1
 " ==== Ale ====
 let g:ale_fix_on_save = 0
 let g:ale_linter_aliases = {'vue': ['vue', 'javascript'],}
-let g:ale_fixers = {'python': ['autopep8', 'isort', 'yapf'], 'javascript': ['prettier', 'eslint'],}
+let g:ale_fixers = {
+    \ 'python': ['autopep8', 'isort', 'yapf'],
+    \ 'javascript': ['prettier', 'eslint'],
+\ }
 let g:ale_linters = {'python': ['flake8'],}
 
 " Use Ale Fixer for these filetypes
