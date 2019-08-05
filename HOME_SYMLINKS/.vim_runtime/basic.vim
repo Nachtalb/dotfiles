@@ -187,6 +187,12 @@ noremap <leader>S :%s/\<<C-r><C-w>\>//g<Left><Left>
 " Prepare for to search for word under cursor
 noremap <leader>s /<C-r><C-w><CR>
 
+" Alt-Left / Alt-Right
+inoremap <ESC>[1;5C <C-o>w
+inoremap <ESC>[1;5D <C-o>b
+nnoremap <ESC>[1;5C w
+nnoremap <ESC>[1;5D b
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Turn persistent undo on
