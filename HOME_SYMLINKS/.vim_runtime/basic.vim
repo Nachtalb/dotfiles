@@ -20,7 +20,10 @@ if &shell =~# 'fish$'
     :set shell=bash
 endif
 
-set clipboard=unnamed
+set clipboard=unnamed               " Use system clipboard
+
+set viminfo^=%                      " Remember open buffers
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
