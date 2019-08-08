@@ -4,8 +4,37 @@
 # Deletes artists which have less or equals to the given amount of tracks.
 # This can help clean up a bit when importing artists from other sources, where it can happen that lidarr finds the
 # wrong artist (which have 0 tracks or just a few like 5).
+#
+#
+# Changelog
+# ---------
+#
+# 1.1.2 (2019-08-08)
+# ------------------
+#
+# - Fix wrong counter
+#
+#
+# 1.1.1 (2019-08-05)
+# ------------------
+#
+# - Fix crash with with no applicable artists
+#
+#
+# 1.1.0 (2019-08-05)
+# ------------------
+#
+# - Partial rewrite for easier usage
+# - Implement cli arguments
+#
+#
+# 1.0.0 (2019-07-31)
+# ------------------
+#
+# - Initial implementation
+#
 __author__ = 'Nachtalb'
-__version__ = '1.1.1'
+__version__ = '1.1.2'
 __date__ = '2019-08-08'
 
 from contextlib import closing
@@ -56,7 +85,7 @@ class LidarrCleaner:
         print('Deleting artists')
         total_artists = len(self.artists)
         for index, artist in enumerate(self.artists[:]):
-            print(f'Delete {artist["id"]} [{index}/{total_artists}]')
+            print(f'Delete {artist["id"]} [{index + 1}/{total_artists}]')
             try:
                 self.la.artist_delete(artist['id'], delete_files=True)
                 self.deleted_artists.append(artist)
