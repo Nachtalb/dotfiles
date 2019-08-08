@@ -115,7 +115,6 @@ set tabstop=4                       " Use correct amount of spaces for tab
 set softtabstop=4
 set shiftwidth=4
 set expandtab
-autocmd FileType html,xml,zcml,pt,javascript,css,scss,sass,less setlocal shiftwidth=2 tabstop=2 softtabstop=2
 
 function TrimWhiteSpace()
   " Delete trailing whitespaces
