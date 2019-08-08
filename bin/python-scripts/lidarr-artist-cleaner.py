@@ -5,8 +5,8 @@
 # This can help clean up a bit when importing artists from other sources, where it can happen that lidarr finds the
 # wrong artist (which have 0 tracks or just a few like 5).
 __author__ = 'Nachtalb'
-__version__ = '1.1.0'
-__date__ = '2019-08--5'
+__version__ = '1.1.1'
+__date__ = '2019-08-08'
 
 from contextlib import closing
 from lidarr import LidarrAPI
@@ -110,6 +110,10 @@ def manual_filter(cleaner):
         before_filter = cleaner.artists[:]
         filtered = filter_step(cleaner.artists)
 
+        if not cleaner.artists:
+            print('No artists selected')
+            break
+
         if before_filter == filtered:
             ok = True
 
@@ -152,6 +156,8 @@ def cmd_main(*, url=None, api=None, file=None, track_amount=None, none_downloade
 
     manual_filter(cleaner)
     while True:
+        if not cleaner.artists:
+            break
 
         print('=' * 80)
         cleaner.print_artists()
