@@ -194,6 +194,11 @@ inoremap <ESC>[1;5D <C-o>b
 nnoremap <ESC>[1;5C w
 nnoremap <ESC>[1;5D b
 
+" Duplicate lines
+vnoremap <C-d> y`>p
+
+" Select All
+nnoremap <C-a> ggVG
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Turn persistent undo on
