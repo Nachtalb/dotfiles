@@ -21,6 +21,8 @@ Plugin 'tpope/vim-unimpaired'
 Plugin 'w0rp/ale'
 Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'
+Plugin 'hail2u/vim-css3-syntax'
+Plugin 'cakebaker/scss-syntax.vim'
 
 execute pathogen#infect()
 

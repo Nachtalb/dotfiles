@@ -106,3 +106,9 @@
 	path = HOME_SYMLINKS/wiki
 	url = git@github.com:Nachtalb/vimwiki.git
 	branch = master
+[submodule "HOME_SYMLINKS/.vim/bundle/scss-syntax.vim"]
+	path = HOME_SYMLINKS/.vim/bundle/scss-syntax.vim
+	url = https://github.com/cakebaker/scss-syntax.vim.git
+[submodule "HOME_SYMLINKS/.vim/bundle/vim-css3-syntax"]
+	path = HOME_SYMLINKS/.vim/bundle/vim-css3-syntax
+	url = https://github.com/hail2u/vim-css3-syntax.git
