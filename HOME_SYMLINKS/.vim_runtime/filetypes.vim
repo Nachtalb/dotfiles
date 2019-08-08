@@ -23,6 +23,8 @@ au FileType python map <buffer> <leader>C ?class<CR>
 au FileType python map <buffer> <leader>D ?def<CR>
 
 autocmd FileType html,xml,zcml,pt,javascript,css,scss,sass,less,scss.css setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType html,xml,zcml,pt,javascript,css,scss,sass,less,scss.css setlocal iskeyword+=-
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => All Filetypes

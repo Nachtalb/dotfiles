@@ -129,7 +129,6 @@ endfunction
 autocmd FileWritePre,FileAppendPre,FileAppendPre,BufWritePre * call TrimWhiteSpace()
 
 set complete+=k                     " Scan the files given with the 'dictionary' option
-set iskeyword+=-                    " Include - in autocompletion otherwise - would act as a delimiter
 set completeopt-=preview            " Remove preview split on completion
 
 
