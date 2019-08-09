@@ -200,6 +200,10 @@ vnoremap <C-d> y`>p
 " Select All
 nnoremap <C-a> ggVG
 
+" Fix indentation
+nnoremap <F8> gg=G''
+vnoremap <F8> =
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Turn persistent undo on
 "    means that you can undo even when you close a buffer/VIM
