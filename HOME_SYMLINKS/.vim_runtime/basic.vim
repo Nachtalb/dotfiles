@@ -120,9 +120,9 @@ set shiftwidth=4
 set expandtab
 
 function TrimWhiteSpace()
-  " Delete trailing whitespaces
-  %s/\s*$//
-  ''
+    " Delete trailing whitespaces
+    %s/\s*$//
+    ''
 endfunction
 
 " Autoremove trailing whitespaces on file save and other events
@@ -146,20 +146,20 @@ vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 fun! ToggleCopyMode()
-  " Disable all extra characters etc. to get a clean text
-  if &cc == ''
-    GitGutterEnable
-    ALEDisable
-    set colorcolumn=80,90,120
-    set number
-    set list
-  else
-    GitGutterDisable
-    ALEEnable
-    set colorcolumn=
-    set nolist
-    set nonumber
-  endif
+    " Disable all extra characters etc. to get a clean text
+    if &cc == ''
+        GitGutterEnable
+        ALEDisable
+        set colorcolumn=80,90,120
+        set number
+        set list
+    else
+        GitGutterDisable
+        ALEEnable
+        set colorcolumn=
+        set nolist
+        set nonumber
+    endif
 endfun
 
 " Toggle paste mode on and off
