@@ -112,3 +112,6 @@
 [submodule "HOME_SYMLINKS/.vim/bundle/vim-css3-syntax"]
 	path = HOME_SYMLINKS/.vim/bundle/vim-css3-syntax
 	url = https://github.com/hail2u/vim-css3-syntax.git
+[submodule "user"]
+	path = user
+	url = git@github.com:Nachtalb/hidden_dotfiles.git
