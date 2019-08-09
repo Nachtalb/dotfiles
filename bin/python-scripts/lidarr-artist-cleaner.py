@@ -9,6 +9,13 @@
 # Changelog
 # ---------
 #
+# 1.2.2 (2019-08-09)
+# ------------------
+#
+# - Add cleaner for max amount of tracks with --max
+# - Reanme --track-amount to --min
+#
+#
 # 1.1.2 (2019-08-08)
 # ------------------
 #
@@ -99,8 +106,16 @@ class LidarrCleaner:
             if artist['id'] in ids:
                 self.artists.remove(artist)
 
-    def filter_by_track_amount(self, min_track_amount):
-        self.artists = list(filter(lambda o: o['statistics']['totalTrackCount'] < min_track_amount, self.artists))
+    def filter_by_track_amount(self, min=None, max=None):
+        min_artists = []
+        if min:
+            min_artists = list(filter(lambda o: o['statistics']['totalTrackCount'] < min, self.artists))
+
+        max_artists = []
+        if max:
+            max_artists = list(filter(lambda o: o['statistics']['totalTrackCount'] > max, self.artists))
+
+        self.artists = min_artists + max_artists
 
     def filter_by_none_downloaded(self):
         self.artists = list(filter(lambda o: o['statistics']['trackFileCount'] == 0, self.artists))
@@ -147,15 +162,21 @@ def manual_filter(cleaner):
             ok = True
 
 
-def cmd_main(*, url=None, api=None, file=None, track_amount=None, none_downloaded_mode=False):
+def cmd_main(*,
+             url=None,
+             api=None,
+             file=None,
+             min_track_amount=None,
+             max_track_amount=None,
+             none_downloaded_mode=False):
     if not url:
         url = get_input('Lidarr URL root: ')
 
     if not api:
         api = get_input('Lidarr API token: ')
 
-    if not track_amount and not none_downloaded_mode:
-        track_amount = int(get_input('Minimum track amount:', default=5))
+    if not min_track_amount and not none_downloaded_mode:
+        min_track_amount = int(get_input('Minimum track amount:', default=5))
 
     cleaner = LidarrCleaner(url, api)
 
@@ -172,12 +193,12 @@ def cmd_main(*, url=None, api=None, file=None, track_amount=None, none_downloade
     if fetch_artists:
         print('Fetching artists')
         cleaner.fetch_artists()
-
+    __import__('pdb').set_trace()
     print('Processing artists')
     if none_downloaded_mode:
         cleaner.filter_by_none_downloaded()
     else:
-        cleaner.filter_by_track_amount(track_amount)
+        cleaner.filter_by_track_amount(min=min_track_amount, max=max_track_amount)
 
     if not cleaner.artists:
         print('No applicable artists found')
@@ -206,9 +227,15 @@ def parse_cmd():
     parser.add_argument('url', help='Lidarr web root')
     parser.add_argument('api', help='Lidarr API token')
     parser.add_argument(
-        '--track-amount',
+        '--min',
         type=int,
-        help='Minimum amount of tracks required per artist for it to be not removed. Defaults to 5.'
+        help='Minimum amount of tracks required per artist for it to be not removed. Defaults to 5.',
+        default=5
+    )
+    parser.add_argument(
+        '--max',
+        type=int,
+        help='Maximum amount of tracks required per artist for it to be not removed. Disabled by default.'
     )
     parser.add_argument(
         '--file',
@@ -229,7 +256,8 @@ if __name__ == '__main__':
         cmd_main(
             url=args.url,
             api=args.api,
-            track_amount=args.track_amount,
+            min_track_amount=args.min,
+            max_track_amount=args.max,
             file=args.file,
             none_downloaded_mode=args.none_downloaded
         )
