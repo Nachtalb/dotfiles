@@ -204,6 +204,9 @@ nnoremap <C-a> ggVG
 nnoremap <F8> gg=G''
 vnoremap <F8> =
 
+" Toggle Pastemode
+set pastetoggle=<F2>
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Turn persistent undo on
 "    means that you can undo even when you close a buffer/VIM
