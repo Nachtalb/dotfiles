@@ -204,6 +204,10 @@ nnoremap <C-a> ggVG
 nnoremap <F8> gg=G''
 vnoremap <F8> =
 
+" Path to reference
+nnoremap <F6> :.s/\//\./g \| nohl<CR>
+inoremap <F6> <C-o>:.s/\//\./g \| nohl<CR>
+
 " Toggle Pastemode
 set pastetoggle=<F2>
 
