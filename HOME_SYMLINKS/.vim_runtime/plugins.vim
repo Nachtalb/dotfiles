@@ -91,6 +91,15 @@ nnoremap <Leader>gcc :Gcommit<cr>
 nnoremap <Leader>gca :Git commit --amend --no-edit
 nnoremap <Leader>gco :Git checkout
 nnoremap <Leader>gcb :Git checkout -b ne/
+nnoremap <Leader>gl1 :!GIT_PAGER=less git log --graph --abbrev-commit --decorate --format='\%C(bold blue)\%h\%C(reset) - \%C(bold green)(\%ai)\%C(reset) \%C(white)\%s\%C(reset) \%C(dim white)- \%an\%C(reset)\%C(bold yellow)\%d\%C(reset)' --color=always --all<CR>
+nnoremap <Leader>gl1 :!GIT_PAGER=less git log --graph --abbrev-commit --decorate --format='\%C(bold blue)\%h\%C(reset) - \%C(bold green)(\%ai)\%C(reset) \%C(white)\%s\%C(reset) \%C(dim white)- \%an\%C(reset)\%C(bold yellow)\%d\%C(reset)' --color=always<CR>
+
+"
+" ==== GitGutter ====
+nnoremap <F3> :GitGutterPrevHunk<CR>
+inoremap <F3> <C-o>:GitGutterPrevHunk<CR>
+nnoremap <F4> :GitGutterNextHunk<CR>
+inoremap <F4> <C-o>:GitGutterNextHunk<CR>
 
 " ==== buf tabline ====
 set hidden
