@@ -29,24 +29,25 @@ execute pathogen#infect()
 
 " ==== Ack / Ag ====
 " Grep for word under cursor
-nnoremap K :Ack -tf "\b<C-R><C-W>\b"<CR>:cw<CR>
+nnoremap K :Ack! -tf "\b<C-R><C-W>\b"<CR>:cw<CR>
 
 " Other settings
-let g:ackpreview = 1
+" let g:ackpreview = 1
 
 " Use silver searcher (ag) if available (much faster than Ack)
 if executable('ag')
     " Use ag over grep
     set grepprg=ag\ --nogroup\ --nocolor\ -U\ --follow
 
-    let g:ackprg='ag --vimgrep --smart-case -U --follow --ignore-dir testreports --ignore SOURCES.txt --ignore-dir var --ignore-dir .idea'
+    let g:ackprg='ag --vimgrep --smart-case -U --follow --ignore-dir testreports --ignore SOURCES.txt --ignore-dir var --ignore-dir .idea --ignore-dir var'
     if isdirectory('parts/omelette/')
         let plone_dir = trim(system('ls -1 -f | grep egg-info | cut -d. -f1'))
-        let g:ackprg=g:ackprg . ' --ignore-dir /' . plone_dir
+        let plone_dir = trim(system("dirname $(ls -1 -f | grep egg-info | sed 's/\\./\\//g')"))
+        let g:ackprg=g:ackprg . ' --ignore-dir parts/omelette/' . plone_dir
     endif
 
-    nnoremap <Leader>a :Ack <C-r><C-w>
-    nnoremap <Leader>A :Ack --ignore-dir tests <C-r><C-w>
+    nnoremap <Leader>a :Ack! <C-r><C-w>
+    nnoremap <Leader>A :Ack! --ignore-dir tests <C-r><C-w>
 endif
 
 " ==== NERDTree ==== "
