@@ -84,6 +84,8 @@ abbr :q exit
 # SSH shortcuts
 abbr vps 'ssh vps'
 abbr vps2 'ssh vps2'
+abbr vps3 'ssh vps3'
+abbr own3 'ssh own3'
 abbr plex 'ssh plex'
 abbr own 'ssh own'
 abbr own2 'ssh own2'
