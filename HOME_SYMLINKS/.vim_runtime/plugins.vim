@@ -76,7 +76,7 @@ let g:ale_fixers = {
     \ 'python': ['autopep8', 'isort', 'yapf'],
     \ 'javascript': ['prettier', 'eslint'],
 \ }
-let g:ale_linters = {'python': ['flake8'],}
+let g:ale_linters = {'python': ['flake8'], 'scss': ['scsslint'], 'css': ['scsslint'], 'scss.css': ['scsslint'],}
 
 " Use Ale Fixer for these filetypes
 au BufNewFile,BufRead *.py,*.js nmap <F8> <Plug>(ale_fix)
