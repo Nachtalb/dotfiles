@@ -54,8 +54,8 @@ endif
 inoremap <C-e> <ESC>:NERDTreeToggle<CR>
 nnoremap <C-e> :NERDTreeToggle<CR>
 " Find file in NERDTree with CTRL-F
-inoremap <C-h> <ESC>:NERDTreeFind<CR>
-nnoremap <C-h> :NERDTreeFind<CR>
+inoremap <C-f> <ESC>:NERDTreeFind<CR>
+nnoremap <C-f> :NERDTreeFind<CR>
 
 " Various settins
 let NERDTreeWinSize=35
