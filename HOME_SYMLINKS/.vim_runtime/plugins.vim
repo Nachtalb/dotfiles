@@ -23,6 +23,7 @@ Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'
 Plugin 'hail2u/vim-css3-syntax'
 Plugin 'cakebaker/scss-syntax.vim'
+Plugin 'skywind3000/asyncrun.vim'
 
 execute pathogen#infect()
 
@@ -117,6 +118,25 @@ let g:vimwiki_list = [{
                     \ }]
 " Auto convert wiki files to HTML
 autocmd BufWritePost *.wiki silent VimwikiAll2HTML
+
+
+" AsyncRun
+let g:asyncrun_open = 20    " Auto open quickfix window with the given size
+
+nnoremap <Leader>ar :AsyncRun! -raw=1
+nnoremap <Leader>te :AsyncRun -raw=1 bin/test
+nnoremap <Leader>tt :AsyncRun -raw=1 bin/test -t <cword><CR>
+nnoremap <Leader>ab :AsyncRun -raw=1 bin/buildout<CR>
+nnoremap <Leader>abi :AsyncRun -raw=1 bin/buildout install instance<CR>
+nnoremap <Leader>abt :AsyncRun -raw=1 bin/buildout install test<CR>
+nnoremap <Leader>ai :AsyncRun -raw=1 bin/i18n-build<CR>
+nnoremap <Leader>af :AsyncRun -raw=1 bin/instance fg<CR>
+
+" Add some of the shortcuts above as normal commands when pdb is exptected
+nnoremap <Leader>cte :!bin/test
+nnoremap <Leader>ctt :!bin/test -t <cword><CR>
+nnoremap <Leader>caf :!bin/instance fg<CR>
+
 
 " ==== End Plugin Section ====
 " This is required for Vundle to work
