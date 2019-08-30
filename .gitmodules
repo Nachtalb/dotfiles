@@ -115,3 +115,6 @@
 [submodule "user"]
 	path = user
 	url = git@github.com:Nachtalb/hidden_dotfiles.git
+[submodule "HOME_SYMLINKS/.vim/bundle/asyncrun.vim"]
+	path = HOME_SYMLINKS/.vim/bundle/asyncrun.vim
+	url = https://github.com/skywind3000/asyncrun.vim.git
