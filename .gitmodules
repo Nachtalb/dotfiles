@@ -9,6 +9,3 @@
 [submodule "user"]
 	path = user
 	url = git@github.com:Nachtalb/hidden_dotfiles.git
-[submodule "HOME_SYMLINKS/.mutt/themes/darcula"]
-	path = HOME_SYMLINKS/.mutt/themes/darcula
-	url = https://github.com/dracula/mutt.git
