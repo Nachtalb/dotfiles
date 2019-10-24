@@ -10,11 +10,11 @@ BEGIN {
 }
 {
     if (match($0, "^ *'(.*)',$", ary)) {
-        out=out sprintf("%s,", ary[1]);
+        out=out sprintf("%s:", ary[1]);
     }
 }
 END {
-    gsub(/,?$/,"",out);
-    gsub(/^,?/,"",out);
+    gsub(/:?$/,"",out);
+    gsub(/\n?$/,"",out);
     print out;
 }
