@@ -2,6 +2,10 @@
 	path = HOME_SYMLINKS/.vim
 	url = git@github.com:Nachtalb/vimconfig.git
 	branch = master
+[submodule "HOME_SYMLINKS/.mutt"]
+	path = HOME_SYMLINKS/.mutt
+	url = git@github.com:Nachtalb/muttconfig.git
+	branch = master
 [submodule "HOME_SYMLINKS/wiki"]
 	path = HOME_SYMLINKS/wiki
 	url = git@github.com:Nachtalb/vimwiki.git
