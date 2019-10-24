@@ -82,10 +82,12 @@ abbr ppy 'pyenv virtualenv 3.7.2 (basename  (pwd)) && pyenv local (basename  (pw
 abbr :q exit
 
 # SSH shortcuts
-abbr vps 'ssh vps'
-abbr vps2 'ssh vps2'
-abbr vps3 'ssh vps3'
-abbr own3 'ssh own3'
-abbr plex 'ssh plex'
-abbr own 'ssh own'
-abbr own2 'ssh own2'
+abbr d1 'ssh d1'
+abbr d2 'ssh d2'
+
+abbr l1 'ssh l1'
+abbr l2 'ssh l2'
+
+abbr v1 'ssh v1'
+abbr v2 'ssh v2'
+abbr v3 'ssh v3'
