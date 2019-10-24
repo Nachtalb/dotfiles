@@ -28,6 +28,10 @@ function always-on
         select-pane -t 0 \;
 end
 
+function ptest
+    bin/test $argv && notify Finished Tests || notify Failed Tests
+end
+
 function junk
     # Move files to Mac Trash instead of deleting them completely
     for item in $argv
