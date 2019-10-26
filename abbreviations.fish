@@ -82,12 +82,12 @@ abbr ppy 'pyenv virtualenv 3.7.2 (basename  (pwd)) && pyenv local (basename  (pw
 abbr :q exit
 
 # SSH shortcuts
-abbr d1 'ssh d1'
-abbr d2 'ssh d2'
+abbr d1 'mosh d1'
+abbr d2 'mosh d2'
 
-abbr l1 'ssh l1'
-abbr l2 'ssh l2'
+abbr l1 'mosh l1'
+abbr l2 'mosh l2'
 
-abbr v1 'ssh v1'
-abbr v2 'ssh v2'
-abbr v3 'ssh v3'
+abbr v1 'mosh v1'
+abbr v2 'mosh v2'
+abbr v3 'mosh v3'
