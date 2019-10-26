@@ -1,6 +1,10 @@
 #!/bin/sh
 
 _ftw_evaluate() {
+    if [ -f $HOME/.ftwrc ]; then
+        source $HOME/.ftwrc
+    fi
+
     REPO_FILE=${FTW_REPO_FILE:-$HOME/.ftw_repos}
     BASE_DIR=${FTW_BASE_DIR:-$HOME/src/4teamwork}
     PROTO=${FTW_PROTO:-"ssh"}
@@ -91,6 +95,8 @@ Options:
  -l --list          List repos from cache
 
 Settings:
+These settings can also be defined in "$\HOME/.ftwrc".
+
 FTW_REPO_FILE       Cache file for the repos. Default: \$HOME/.ftw_repos
 FTW_BASE_DIR        Where the repos are cloned to. Default: \$HOME/src/4teamwork}
 FTW_PROTO           Use "ssh" or "https" to clone repos. Default: ssh
