@@ -1,0 +1,17 @@
+move
+move ../.vim
+w
+rename READMEr.rst
+open_with 
+man 
+man
+help
+rename converter
+shell pyclean
+search temp
+open_withq 
+
+search pic
+D
+d
+delete

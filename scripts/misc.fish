@@ -15,3 +15,6 @@ function psp
     python bootstrap.py
     bin/buildout
 end
+
+function fish_right_prompt
+end

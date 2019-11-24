@@ -30,6 +30,11 @@ set -gx PYTHONUNBUFFERED 1  # Force stdin, stdout and stderr to be totally unbuf
 set -gx VIRTUAL_ENV_DISABLE_PROMPT 1  # Disable default virtualenv prompt
 set -gx PYTHONSTARTUP $HOME/.pythonrc  # Load pythonrc file
 set -gx GPG_TTY (tty)  # Load gpg
+set -gx BROWSER google-chrome
+set -gx TERMINAL st
+set -gx READER zathura
+set -gx FILE ranger
+set -gx PYTHON_CONFIGURE_OPTS "--enable-shared"
 
 # Expand $PATH
 set -gx PATH $PATH $HOME/.config/omf/bin

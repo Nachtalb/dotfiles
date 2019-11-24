@@ -8,8 +8,8 @@ package gi
 package grc
 package hash
 package jump
-package nvm
 package kill-on-port
+package nvm
 package pbcopy
 package peco
 package pisces

@@ -24,8 +24,9 @@ temp
 TEMP
 *.documents
 *.nachtalb.*
+.viminfo
 
 # Plone Specific
 development_nachtalb.cfg
 update-demo.sh
-
+development_nick.cfg

@@ -62,7 +62,7 @@ set whichwrap+=<,>,h,l
 
 " Show tabs / newlines / trailing whitespaces etc.
 set list
-set listchars=tab:>-,eol:↵,trail:~,extends:>,precedes:<
+set listchars=tab:▸\ ,eol:↵,trail:·,extends:…,precedes:<
 
 " Add a bit extra margin to the left
 set foldcolumn=1
@@ -89,7 +89,7 @@ autocmd BufNewFile,BufRead *.fish set syntax=sh
 color desert
 
 set cursorline
-hi CursorLine cterm=NONE  ctermbg=Black
+hi CursorLine cterm=NONE  ctermbg=BLACK
 hi ErrorMsg ctermfg=255
 hi CursorLineNR cterm=NONE ctermbg=red ctermfg=Yellow
 
@@ -98,7 +98,7 @@ hi IncSearch cterm=NONE ctermfg=DarkGrey ctermbg=LightRed
 
 hi MatchParen ctermfg=DarkGrey
 
-" Set utf8 as standard encoding and en_US as the standard language
+" Setutf8 as standard encoding and en_US as the standard language
 set encoding=utf8
 
 " Use Unix as the standard file type
@@ -169,7 +169,6 @@ nnoremap <Leader>w :let _save_pos=getpos(".") <Bar>
 " Super useful! From an idea by Michael Naumann
 vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
 vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
-noremap <Leader> a :pwd<CR>
 
 
 """"""""""""""""""""""""""""""
@@ -235,11 +234,17 @@ function! HasPaste()
 endfunction
 
 " Auto reload ~/.vimrc
-augroup myvimrchooks
-    au!
-    autocmd bufwritepost .vimrc source ~/.vimrc
-augroup END
+autocmd BufWritePost .vimrc source ~/.vimrc
 
+" Auto reload xbindkeys bindings
+autocmd BufWritePost .xbindkeysrc !xbindkeys --poll-rc
+
+" Auto compile st (suckless terminal)
+autocmd BufWritePost config.h !./install
+
+
+" Update apt after sourcees change
+autocmd BufWritePost sources.list !sudo apt update
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Fast editing and reloading of vimrc configs

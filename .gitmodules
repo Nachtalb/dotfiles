@@ -1,0 +1,9 @@
+[submodule "HOME_SYMLINKS/.vim/vim-rst-sections"]
+	path = HOME_SYMLINKS/.vim/vim-rst-sections
+	url = git@github.com:matthew-brett/vim-rst-sections.git
+[submodule "HOME_SYMLINKS/.vim/bundle/vim-rst-sections"]
+	path = HOME_SYMLINKS/.vim/bundle/vim-rst-sections
+	url = git@github.com:matthew-brett/vim-rst-sections.git
+[submodule "HOME_SYMLINKS/.vim/bundle/vim-quicktask"]
+	path = HOME_SYMLINKS/.vim/bundle/vim-quicktask
+	url = https://github.com/aaronbieber/vim-quicktask.git

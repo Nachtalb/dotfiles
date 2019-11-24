@@ -27,7 +27,8 @@ abbr rmf 'rm -rf'
 # Apt
 abbr anstall 'sudo apt install '
 abbr apdate 'sudo apt update'
-abbd apgrade 'sudo apt upgrade'
+abbr apgrade 'sudo apt upgrade'
+abbr aup 'sudo apt update && sudo apt list --upgradable -a && sudo apt dist-upgrade && sudo apt autoremove'
 
 # GIT
 # rebase
@@ -67,3 +68,14 @@ abbr gdsn 'git diff --staged --name-status'
 abbr go 'git open'
 abbr gr 'git remote'
 abbr grv 'git remote -v'
+
+# SSH shortcuts
+abbr d1 'mosh d1'
+abbr d2 'mosh d2'
+
+abbr l1 'mosh l1'
+abbr l2 'mosh l2'
+
+abbr v1 'mosh v1'
+abbr v2 'mosh v2'
+abbr v3 'mosh v3'

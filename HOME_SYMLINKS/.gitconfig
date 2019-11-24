@@ -6,6 +6,7 @@
 [core]
     excludesfile = ~/.global_gitignore
     autocrlf = input
+    pager = less
 
 [commit]
     gpgsign = true
