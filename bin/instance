@@ -1,1 +1,26 @@
-python-scripts/instance.py
+#!/bin/sh
+instance='instance'
+if [ -f bin/instance0 ]; then
+    instance='instance0'
+fi
+port=$(grep address < parts/$instance/etc/zope.conf | awk '{print$2}')
+
+lsof_out=$(lsof -nP -i4TCP)
+existing=$(echo "$lsof_out" | grep ":$port" | grep LISTEN | awk '{print$2}')
+
+if [ $instance = 'instance' ] && [  -n "$existing" ]; then
+    start_path=$(ps aux | grep -v grep | grep "$existing" | awk '{print$12}' | sed -e 's/\/parts.*//')
+
+    if [ "$start_path" = "$(pwd)" ]; then
+        echo "Instance already running"
+        exit 1
+    fi
+    port=8080
+    while echo "$lsof_out" | grep ":$port" | grep LISTEN -q; do
+        port=$((port+1))
+    done
+    sed -i.bak "s/address .*/address $port/g" parts/instance/etc/zope.conf
+fi
+
+echo "Starting on: http://localhost:$port"
+bin/$instance fg
