@@ -39,7 +39,7 @@ abbr bup 'brew update && brew upgrade && brew cleanup && brew cask cleanup'
 # GIT
 # rebase
 abbr grc 'git rebase --continue'
-abbr gri 'git rebase -S -i'
+abbr gri 'git rebase -r -S -i'
 abbr gra 'git rebase --abort'
 # commit
 abbr gaa 'git add .'

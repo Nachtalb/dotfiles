@@ -37,6 +37,7 @@ set -gx PYTHONSTARTUP $HOME/.pythonrc  # Load pythonrc file
 set -gx HOMEBREW_NO_AUTO_UPDATE 1  # Do not update on installation in homebrew
 set -gx GPG_TTY (tty)  # Load gpg
 set -gx JAVA_HOME (/usr/libexec/java_home -v 1.8)  # Set default java version
+set -gx PYTHON_CONFIGURE_OPTS "--enable-shared"
 
 # Expand $PATH
 set -gx PATH $PATH $HOME/.config/omf/bin
