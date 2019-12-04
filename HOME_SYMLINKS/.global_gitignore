@@ -29,6 +29,7 @@ todo.rst
 message.txt
 .viminfo
 .ycm_extra_conf.py
+subinstallations/
 
 # Plone Specific
 development_nick.cfg
