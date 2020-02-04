@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-# Example: open-ssh-by-git-remote production
+# Example: git ssh production
 
 # Make an ssh connection to a remote and cd into the directory.
 # This is useful when the remote is a deployment.
