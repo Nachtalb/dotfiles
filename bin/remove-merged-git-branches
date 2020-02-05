@@ -64,19 +64,16 @@ fetch_repositories() {
 }
 
 
-while true; do
-    read -p "Should the repositories be fetched in advance? " yn
-    case $yn in
-        [Yy]* ) fetch_repositories $repos; break;;
-        [Nn]* ) break;;
-        * ) echo "Please answer yes or no.";;
-    esac
-done
+read -p "Should the repositories be fetched in advance? [yN] " yn
+case $yn in
+    [Yy]* ) fetch_repositories $repos; break;;
+esac
 
+merge_branch=${1:-master}
 for path in $repos; do
     cd $path
     # local branches
-    branches=`git branch --merged master | grep -v 'master' | grep -v HEAD | sed -e 's/\* //' | sed -e 's/ *//' | grep -v '\.x$'`
+    branches=`git branch --merged $merge_branch | grep -v "${merge_branch}" | grep -v master | grep -v HEAD | sed -e 's/\* //' | sed -e 's/ *//' | grep -v '\.x$'`
     if [[ "$branches" != "" ]]; then
         echo ""
         print_repo_path $path
@@ -84,18 +81,18 @@ for path in $repos; do
             echo -e " - \033[0;33m$branch\033[0m"
         done
 
-        while true; do
-            read -p "Delete those branches? " yn
-            case $yn in
-                [Yy]* ) remove_local_branches $branches; break;;
-                [Nn]* ) break;;
-                * ) echo "Please answer yes or no.";;
-            esac
-        done
+        read -p "Delete those branches? [Yn] " yn
+        case $yn in
+            [Yy]*|"" ) remove_local_branches $branches; break;;
+        esac
         echo ""
     fi
 
-    branches=`git branch -r --merged master | grep -v 'master' | grep -v HEAD | sed -e 's/\* //' | sed -e 's/ *//' | grep -v '\.x$' | grep -e '^origin\/'`
+    # ATM I do not care about remote branches
+    exit 0
+
+    # remote branches
+    branches=`git branch -r --merged $merge_branch | grep -v "${merge_branch}" | grep -v master | grep -v HEAD | sed -e 's/\* //' | sed -e 's/ *//' | grep -v '\.x$' | grep -e '^origin\/'`
     if [[ "$branches" != "" ]]; then
         echo ""
         print_repo_path $path
@@ -103,14 +100,10 @@ for path in $repos; do
             print_branch_ref $branch
         done
 
-        while true; do
-            read -p "Delete those branches? " yn
-            case $yn in
-                [Yy]* ) remove_remote_branches $branches; break;;
-                [Nn]* ) break;;
-                * ) echo "Please answer yes or no.";;
-            esac
-        done
+        read -p "Delete those branches? [yN] " yn
+        case $yn in
+            [Yy]* ) remove_remote_branches $branches; break;;
+        esac
         echo ""
     fi
 done
