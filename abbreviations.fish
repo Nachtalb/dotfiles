@@ -3,11 +3,12 @@
 # # # # # # # # # # # # # # # #
 
 abbr gtemp 'cd /Users/bernd/Development/temp && rm test && echo 1 || touch test && git add . && git commit -S -m test && cd -'
+abbr pyl 'pyenv virtualenv 3.8.1 (basename (pwd)) && pyenv local (basename (pwd))'
 
 # Buildout
 abbr pin 'bin/instance'
 abbr pbo 'bin/buildout && notify Finished Buildout || notify Failed Buildout'
-abbr pbn 'bin/buildout -N && notify Finished Buildout || notify Failed Buildout'
+abbr pbn 'bin/buildout install instance omelette test && notify Finished Buildout || notify Failed Buildout'
 # Instance
 abbr pinf 'bin/instance fg'
 # Misc
@@ -47,7 +48,9 @@ abbr gca 'git commit -S --amend --no-edit'
 abbr gcaa 'git commit -S --all --amend --no-edit'
 abbr gc 'git commit -S -m'
 # git fetch
-abbr gfa 'git fetch --all'
+abbr gfa 'git fetch --all -p'
+abbr gba 'env GIT_PAGER=cat git branch --all'
+abbr gbd 'git branch -D'
 # pull
 abbr gpl 'git pull -r'
 # reset
@@ -74,6 +77,7 @@ abbr gdsn 'git diff --staged --name-status'
 abbr go 'git open'
 abbr gr 'git remote'
 abbr grv 'git remote -v'
+abbr gup 'git pull -r && git fetch --all -p && remove-merged-git-branches'
 
 # Misc
 abbr fsize 'du -sh' # Show dictionary size
