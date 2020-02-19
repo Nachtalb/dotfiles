@@ -41,8 +41,8 @@ set -gx PYTHON_CONFIGURE_OPTS "--enable-shared"
 
 # Expand $PATH
 set -gx PATH $PATH $HOME/.config/omf/bin
-set -gx PATH $PATH /usr/local/opt/sphinx-doc/bin
-set -gx PATH $PATH $HOME/.vim/bundle/vim-superman/bin
+set -gx PATH $PATH $HOME/.vim/plugged/vim-superman/bin
+set -gx PATH $PATH /usr/local/opt/mysql-client@5.7/bin
 set -gx PATH ~/bin/ $PATH
 
 # Lang setting
@@ -63,8 +63,16 @@ set -gx GL_BASE_DIR $HOME/Development
 set -gx GB_BASE_DIR $HOME/Development
 
 # OpenSSL configuration
-set -gx LDFLAGS -L/usr/local/opt/openssl/lib
-set -gx CPPFLAGS -I/usr/local/opt/openssl/include
+set -gx LDFLAGS -L/usr/local/opt/openssl/lib $LDFLAGS
+set -gx CPPFLAGS -I/usr/local/opt/openssl/include $CPPFLAGS
+
+# CommandLineTools SDK
+set -gx CFLAGS -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sasl $CFLAGS
+
+# MySQL
+set -gx LDFLAGS -L/usr/local/opt/mysql-client@5.7/lib $LDFLAGS
+set -gx CPPFLAGS -I/usr/local/opt/mysql-client@5.7/include $CPPFLAGS
+set -gx PKG_CONFIG_PATH /usr/local/opt/mysql-client@5.7/lib/pkgconfig $PKG_CONFIG_PATH
 
 # Add etcher-cli if available
 if test -d /opt/etcher-cli
