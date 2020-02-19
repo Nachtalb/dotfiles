@@ -8,6 +8,8 @@ venv
 .Python
 .pdb-pyhist
 .python-version
+.env
+.vscode
 
 # System artefacts
 Thumbs.db
@@ -30,6 +32,8 @@ message.txt
 .viminfo
 .ycm_extra_conf.py
 subinstallations/
+.vim/coc-settings.json
+!~/.vim/coc-settings.json
 
 # Plone Specific
 development_nick.cfg

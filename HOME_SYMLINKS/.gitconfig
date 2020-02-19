@@ -1,6 +1,6 @@
 [user]
-    email = nickespig@gmail.com
-    name = Nick Espig
+    email = info@nachtalb.io
+    name = Nick Bernd Espig
     signingkey = E48DF13C07055D92
 
 [core]
@@ -16,3 +16,5 @@
 
 [rerere]
     enabled = true
+[status]
+    showUntrackedFiles = all
