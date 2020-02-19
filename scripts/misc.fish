@@ -40,6 +40,11 @@ function junk
     end
 end
 
+function vim-buildout
+    mkdir -p .vim
+    echo '{ "python.pythonPath": "'(pyenv which python)'" }' > .vim/coc-settings.json
+end
+
 function psp
     pyenv local new-plone-env
     set -l project_name (cat setup.py | grep name= | cut -d\' -f2)
@@ -54,5 +59,17 @@ function psp
     ln -fs development_nick.cfg buildout.cfg
     python bootstrap.py
     bin/buildout
+    vim-buildout
     notify Finished "Plone Setup"
 end
+
+# function ftw
+#     gh 4teamwork ftw.$argv[1]
+# end
+#
+# function __ftw_repos
+#   set -l path $GH_BASE_DIR/github.com/4teamwork/
+#   test -d $path; and command ls -L $path | grep "ftw.*" --color=never | sort | uniq -du | sed 's/ftw.//g'
+# end
+#
+# complete -c ftw --arguments '(__ftw_repos)' --no-files
