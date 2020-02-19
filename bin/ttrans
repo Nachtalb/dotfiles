@@ -1,0 +1,11 @@
+#!/usr/local/bin/fish
+if test (count $argv) -eq 0
+    exit 1
+else if test (count $argv) -gt 1
+    set text $argv[2..-1]
+    set lang $argv[1]
+else
+    set text $argv[1]
+    set lang 'en'
+end
+trans :$lang "$text" -b 2>/dev/null
