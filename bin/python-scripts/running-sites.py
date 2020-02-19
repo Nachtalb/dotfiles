@@ -6,7 +6,7 @@ __date__ = '2019-01-31'
 
 from http.server import BaseHTTPRequestHandler
 from http.server import HTTPServer
-from requests.exceptions import ReadTimeout
+from requests.exceptions import ReadTimeout, ConnectionError
 from requests_html import HTMLSession
 from subprocess import check_output
 from urllib.request import urlparse
@@ -66,7 +66,7 @@ class LocalRunningSitesHandler(BaseHTTPRequestHandler):
     def get_title(self, url, timeout=1):
         try:
             response = self.session.get(url, timeout=timeout)
-        except ReadTimeout:
+        except (ReadTimeout, ConnectionError):
             return
 
         title_node = response.html.xpath('.//title', first=True)

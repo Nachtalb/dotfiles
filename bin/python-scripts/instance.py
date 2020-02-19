@@ -45,8 +45,8 @@ logging.basicConfig(stream=sys.stdout, level=logging.INFO, format='%(levelname)s
 logger = logging.getLogger()
 
 WORKING_DIR = os.getcwd()
-ZOPE_CONF_PATH = 'parts/instance/etc/zope.conf'
-INSTANCE_PATH = 'bin/instance'
+ZOPE_CONF_PATH = 'parts/instance{}/etc/zope.conf'
+INSTANCE_PATH = 'bin/instance{}'
 
 DEFAULT_INSTANCE_PORT = 8080
 RUNNING = False
@@ -229,6 +229,16 @@ def exit_gracefully(*args, **kwargs):
     replace_zope_conf_port(DEFAULT_INSTANCE_PORT)
 
 
+def fix_instance_paths():
+    global ZOPE_CONF_PATH, INSTANCE_PATH
+    for index in ['', '1', '2', '0']:
+        conf_path = ZOPE_CONF_PATH.format(index)
+        instance_path = ZOPE_CONF_PATH.format(index)
+        if os.path.isfile(conf_path) and os.path.isfile(instance_path):
+            ZOPE_CONF_PATH = conf_path
+            INSTANCE_PATH = instance_path
+
+
 def main():
     global RUNNING, DEFAULT_INSTANCE_PORT, KILL_OTHERS, WORKING_DIR, ZOPE_CONF_PATH, INSTANCE_PATH
     parser = ArgumentParser('Plone Instance Starter')
@@ -246,6 +256,7 @@ def main():
 
     ZOPE_CONF_PATH = os.path.join(WORKING_DIR, ZOPE_CONF_PATH)
     INSTANCE_PATH = os.path.join(WORKING_DIR, INSTANCE_PATH)
+    fix_instance_paths()
 
     check_path(ZOPE_CONF_PATH, 'Zope config')
     check_path(INSTANCE_PATH, 'Instance script')
