@@ -2,11 +2,15 @@
 
 Create default home structure and symlinks by running `init_home.py` with Python3.
 
-Install pyenv:
+Install:
 ```
-$ curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
+curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+curl -L https://get.oh-my.fish | fish
+find ~/.gnupg -type d -exec chmod 700 {} \;
+find ~/.gnupg -type f -exec chmod 600 {} \;
+chmod 600 ~/.ssh/id_rsa
 ```
-
 
 ---
 
