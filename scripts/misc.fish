@@ -45,22 +45,42 @@ function vim-buildout
     echo '{ "python.pythonPath": "'(pyenv which python)'" }' > .vim/coc-settings.json
 end
 
+
+function title
+    set_color e91ec6 -o && printf "\n\n---> $argv <---\n\n" & set_color normal
+end
+
+function comment
+    set_color aaa && echo "# $argv" & set_color normal
+end
+
+function run
+    set_color e91ec6 && echo "\$ $argv" & set_color normal
+    $argv
+end
+
+
 function psp
-    pyenv local new-plone-env
+    title 'Setup plone environment'
+    run pyenv deactivate
+    run pyenv local new-plone-env
     set -l project_name (cat setup.py | grep name= | cut -d\' -f2)
     if not test -e development_nick.cfg
         or test "-f" = $argv[1]
-        cp "$SCRIPTS_ASSETS_PATH/development.cfg" development_nick.cfg
-        sed -i '' "s/PACKAGE_NAME/$project_name/g" development_nick.cfg
-    else
-        echo "development_nick.cfg already exists if you want it replaced use -f"
+        set -l action (test -e development_nick.cfg && echo 'Overriding' || echo 'Adding')
+        title "$action development_nick.cfg"
+        run cp "$SCRIPTS_ASSETS_PATH/development.cfg" development_nick.cfg
+        run sed -i '' "s/PACKAGE_NAME/$project_name/g" development_nick.cfg
     end
 
-    ln -fs development_nick.cfg buildout.cfg
-    python bootstrap.py
-    bin/buildout
-    vim-buildout
-    notify Finished "Plone Setup"
+    run ln -fs development_nick.cfg buildout.cfg
+    title "Bootstrapping"
+    run python bootstrap.py
+    title "Buildouting"
+    run bin/buildout
+    title "Configure coc-vim"
+    run vim-buildout
+    run notify Finished "Plone Setup"
 end
 
 # function ftw
