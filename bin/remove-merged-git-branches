@@ -64,10 +64,10 @@ fetch_repositories() {
 }
 
 
-read -p "Should the repositories be fetched in advance? [yN] " yn
-case $yn in
-    [Yy]* ) fetch_repositories $repos; break;;
-esac
+# read -p "Should the repositories be fetched in advance? [yN] " yn
+# case $yn in
+#     [Yy]* ) fetch_repositories $repos; break;;
+# esac
 
 merge_branch=${1:-master}
 for path in $repos; do
