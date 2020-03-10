@@ -84,6 +84,7 @@ class LocalRunningSitesHandler(BaseHTTPRequestHandler):
 
 
 try:
+    print('Starting running sites web server')
     import sys
     port = [sys.argv[index + 1] for index, item in enumerate(sys.argv) if item in ['--port', '-p']]
     port = int(port[0]) if port else 80
