@@ -43,6 +43,7 @@ set -gx PYTHON_CONFIGURE_OPTS "--enable-shared"
 set -gx PATH $PATH $HOME/.config/omf/bin
 set -gx PATH $PATH $HOME/.vim/plugged/vim-superman/bin
 set -gx PATH $PATH /usr/local/opt/mysql-client@5.7/bin
+set -gx PATH $PATH /usr/local/opt/qt/bin
 set -gx PATH ~/bin/ $PATH
 
 # Lang setting
@@ -74,9 +75,19 @@ set -gx LDFLAGS -L/usr/local/opt/mysql-client@5.7/lib $LDFLAGS
 set -gx CPPFLAGS -I/usr/local/opt/mysql-client@5.7/include $CPPFLAGS
 set -gx PKG_CONFIG_PATH /usr/local/opt/mysql-client@5.7/lib/pkgconfig $PKG_CONFIG_PATH
 
+# ZLIB
+set -gx LDFLAGS -L/usr/local/opt/zlib/lib $LDFLAGS
+set -gx CPPFLAGS -I/usr/local/opt/zlib/include $CPPFLAGS
+set -gx PKG_CONFIG_PATH /usr/local/opt/zlib/lib/pkgconfig $PKG_CONFIG_PATH
+
 # Add etcher-cli if available
 if test -d /opt/etcher-cli
     set -gx PATH /opt/etcher-cli $PATH
+end
+
+# Add mega cmd if available
+if test -d /Applications/MEGAcmd.app/Contents/MacOS
+    set -gx PATH /Applications/MEGAcmd.app/Contents/MacOS $PATH
 end
 
 # Enable iTerm2 tmux integration

@@ -7,10 +7,14 @@
 
 BEGIN {
     out="";
+    del=ARGV[2]
+    if (length(del) == 0) {
+        del=":";
+    }
 }
 {
     if (match($0, "^ *'(.*)',$", ary)) {
-        out=out sprintf("%s:", ary[1]);
+        out=out sprintf("%s%s", ary[1], del);
     }
 }
 END {

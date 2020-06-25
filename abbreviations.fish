@@ -77,7 +77,7 @@ abbr gdsn 'git diff --staged --name-status'
 abbr go 'git open'
 abbr gr 'git remote'
 abbr grv 'git remote -v'
-abbr gup 'git pull -r && git fetch --all -p && remove-merged-git-branches'
+abbr gup 'git pull -r && git fetch -p origin && remove-merged-git-branches && git remote | grep -v origin | xargs -L1 git fetch -p'
 
 # Misc
 abbr fsize 'du -sh' # Show dictionary size
@@ -91,7 +91,11 @@ abbr d2 'mosh d2'
 
 abbr l1 'mosh l1'
 abbr l2 'mosh l2'
+abbr l3 'mosh l3'
 
 abbr v1 'mosh v1'
 abbr v2 'mosh v2'
 abbr v3 'mosh v3'
+abbr v4 'mosh v4'
+abbr v5 'mosh v5'
+abbr v6 'mosh v6'
