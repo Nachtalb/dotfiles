@@ -59,6 +59,23 @@ function run
     $argv
 end
 
+function read_confirm
+  set -l question 'Do you want to continue?'
+  if test "$argv"
+      set question $argv
+  end
+
+  while true
+    read -l -P "$question [y/N] " confirm
+
+    switch $confirm
+      case Y y
+        return 0
+      case '' N n
+        return 1
+    end
+  end
+end
 
 function psp
     title 'Setup plone environment'
@@ -93,3 +110,71 @@ end
 # end
 #
 # complete -c ftw --arguments '(__ftw_repos)' --no-files
+
+function __fish_git_local_branches
+    command git for-each-ref --format='%(refname)' refs/heads/ refs/remotes/ 2>/dev/null \
+        | string replace -rf '^refs/heads/(.*)$' '$1\tLocal Branch'
+end
+
+function __fish_git_unique_remote_branches
+    # `git checkout` accepts remote branches without the remote part
+    # if they are unambiguous.
+    # E.g. if only alice has a "frobulate" branch
+    # `git checkout frobulate` is equivalent to `git checkout -b frobulate --track alice/frobulate`.
+    command git for-each-ref --format="%(refname:strip=3)" \
+        --sort="refname:strip=3" \
+        "refs/remotes/*/$match*" "refs/remotes/*/*/**" 2>/dev/null | \
+        uniq -u
+end
+
+function __fish_git_tags
+    command git tag --sort=-creatordate 2>/dev/null
+end
+
+
+function s
+    if not test "$argv"
+        comment 'Back to parent'
+        run cd (git config --get remote.parent.url | string replace -r '/.git$' '')
+        return
+    end
+
+    set -l parent_dir (git rev-parse --show-toplevel)
+    set -l sub_root ~/Development/subinstallations$parent_dir
+
+    if test $argv[1] = '-l'
+        ls -1 $sub_root 2>/dev/null
+        return
+    end
+
+    if test $argv[1] = '-d'
+        if test $argv[2]
+            comment 'Removing ' $argv[2]
+            run rm -rf $sub_root/$argv[2]
+        else if read_confirm "Deleting all subinstallation?"
+            run rm -rf $sub_root
+        end
+        return
+    end
+
+    set -l sub_dir $sub_root/$argv[1]
+
+    if not test -d $sub_dir
+        title "New Subinstallation"
+        run mkdir -p $sub_dir
+        run git clone (git config --get remote.origin.url) $sub_dir
+        run cd $sub_dir
+        run git remote add parent $parent_dir/.git
+        run git fetch parent
+        run git checkout $argv[1] 2>/dev/null
+    else
+        run cd $sub_dir
+    end
+end
+
+complete -x -k -c s -s d -d "Local Subinstallation" -a "(s -l)"
+
+complete -x -k -c s -d "Tag" -a "(__fish_git_tags)"
+complete -x -k -c s -d "Unique Remote Branch" -a "(__fish_git_unique_remote_branches)"
+complete -x -k -c s -d "Git Local Branch" -a "(__fish_git_local_branches)"
+complete -x -k -c s -d "Local Subinstallation" -a "(s -l)"
