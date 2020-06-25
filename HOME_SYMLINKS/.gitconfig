@@ -1,12 +1,12 @@
 [user]
     email = info@nachtalb.io
-    name = Nick Bernd Espig
+    name = Nachtalb
     signingkey = E48DF13C07055D92
 
 [core]
     excludesfile = /Users/bernd/.global_gitignore
     autocrlf = input
-    pager = view -
+    pager = bat
 
 [color]
     ui = never
