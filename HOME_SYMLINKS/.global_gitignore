@@ -18,6 +18,7 @@ desktop.ini
 
 # Misc
 .coverage
+*.swp
 *-COPY
 TEMP-*
 *.OLD

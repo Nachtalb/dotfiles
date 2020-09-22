@@ -36,8 +36,10 @@ set -gx VIRTUAL_ENV_DISABLE_PROMPT 1  # Disable default virtualenv prompt
 set -gx PYTHONSTARTUP $HOME/.pythonrc  # Load pythonrc file
 set -gx HOMEBREW_NO_AUTO_UPDATE 1  # Do not update on installation in homebrew
 set -gx GPG_TTY (tty)  # Load gpg
-set -gx JAVA_HOME (/usr/libexec/java_home -v 1.8)  # Set default java version
+set -gx JAVA_HOME (readlink -f /usr/bin/javac | sed "s:/bin/javac::")
 set -gx PYTHON_CONFIGURE_OPTS "--enable-shared"
+
+set -l IS_MAC (test (uname) = "darwin" && echo 1 || echo)
 
 # Expand $PATH
 set -gx PATH $PATH $HOME/.config/omf/bin
@@ -67,18 +69,24 @@ set -gx GB_BASE_DIR $HOME/Development
 set -gx LDFLAGS -L/usr/local/opt/openssl/lib $LDFLAGS
 set -gx CPPFLAGS -I/usr/local/opt/openssl/include $CPPFLAGS
 
-# CommandLineTools SDK
-set -gx CFLAGS -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sasl $CFLAGS
+if test -n $IS_MAC
+    # CommandLineTools SDK
+    set -gx CFLAGS -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sasl $CFLAGS
+end
 
 # MySQL
 set -gx LDFLAGS -L/usr/local/opt/mysql-client@5.7/lib $LDFLAGS
 set -gx CPPFLAGS -I/usr/local/opt/mysql-client@5.7/include $CPPFLAGS
-set -gx PKG_CONFIG_PATH /usr/local/opt/mysql-client@5.7/lib/pkgconfig $PKG_CONFIG_PATH
+if test -n $IS_MAC
+    set -gx PKG_CONFIG_PATH /usr/local/opt/mysql-client@5.7/lib/pkgconfig $PKG_CONFIG_PATH
+end
 
 # ZLIB
 set -gx LDFLAGS -L/usr/local/opt/zlib/lib $LDFLAGS
 set -gx CPPFLAGS -I/usr/local/opt/zlib/include $CPPFLAGS
-set -gx PKG_CONFIG_PATH /usr/local/opt/zlib/lib/pkgconfig $PKG_CONFIG_PATH
+if test -n $IS_MAC
+    set -gx PKG_CONFIG_PATH /usr/local/opt/zlib/lib/pkgconfig $PKG_CONFIG_PATH
+end
 
 # Add etcher-cli if available
 if test -d /opt/etcher-cli
@@ -86,8 +94,10 @@ if test -d /opt/etcher-cli
 end
 
 # Add mega cmd if available
-if test -d /Applications/MEGAcmd.app/Contents/MacOS
-    set -gx PATH /Applications/MEGAcmd.app/Contents/MacOS $PATH
+if test -n $IS_MAC
+    if test -d /Applications/MEGAcmd.app/Contents/MacOS
+        set -gx PATH /Applications/MEGAcmd.app/Contents/MacOS $PATH
+    end
 end
 
 # Enable iTerm2 tmux integration
