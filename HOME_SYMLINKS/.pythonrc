@@ -4,6 +4,12 @@ import sys
 import pdb
 from pprint import pprint as pp
 
+try:
+    __IPYTHON__
+    sys.exit()
+except NameError:
+    pass
+
 # version check
 version = 'pypy' if 'PyPy' in sys.version else 'py2' if sys.version_info[0] == 2 else 'py3'
 
@@ -21,25 +27,29 @@ if version != 'pypy':
 
 
 if ipython:
-    # Auto start iPython if it is available in the curreent python environment
-    user_ns = {
-        'os': os,
-        'sys': sys,
-    }
+    try:
+        # Check wether or not we are already running in ipython
+        get_ipython()
+    except NameError:
+        # Auto start iPython if it is available in the curreent python environment
+        user_ns = {
+            'os': os,
+            'sys': sys,
+        }
 
-    if IPython.__version__ < '0.11':
-        shell = IPython.Shell.IPShell(user_ns=user_ns)
-        sys.exit(shell.mainloop())
-    elif IPython.__version__ < '1.0':
-        from IPython.frontend.terminal.ipapp import TerminalIPythonApp
-        app = TerminalIPythonApp.instance()
-        app.initialize()
-        app.shell.user_ns.update(user_ns)
-        sys.exit(app.start())
-    elif IPython.__version__ > '1.0':
-        del os.environ['PYTHONSTARTUP']
-        from IPython import start_ipython
-        sys.exit(start_ipython())
+        if IPython.__version__ < '0.11':
+            shell = IPython.Shell.IPShell(user_ns=user_ns)
+            sys.exit(shell.mainloop())
+        elif IPython.__version__ < '1.0':
+            from IPython.frontend.terminal.ipapp import TerminalIPythonApp
+            app = TerminalIPythonApp.instance()
+            app.initialize()
+            app.shell.user_ns.update(user_ns)
+            sys.exit(app.start())
+        elif IPython.__version__ > '1.0':
+            del os.environ['PYTHONSTARTUP']
+            from IPython import start_ipython
+            sys.exit(start_ipython())
 else:
     # Simple `exit` and `clear` command for non ipython python cli
     class Quitter(object):

@@ -80,24 +80,23 @@ end
 function psp
     title 'Setup plone environment'
     run pyenv deactivate
-    run pyenv local new-plone-env
+    run pyenv local plone
     set -l project_name (cat setup.py | grep name= | cut -d\' -f2)
     if not test -e development_nick.cfg
         or test "-f" = $argv[1]
         set -l action (test -e development_nick.cfg && echo 'Overriding' || echo 'Adding')
         title "$action development_nick.cfg"
         run cp "$SCRIPTS_ASSETS_PATH/development.cfg" development_nick.cfg
-        run sed -i '' "s/PACKAGE_NAME/$project_name/g" development_nick.cfg
+        run sed -i "s/PACKAGE_NAME/$project_name/g" development_nick.cfg
     end
 
     run ln -fs development_nick.cfg buildout.cfg
-    title "Bootstrapping"
-    run python bootstrap.py
-    title "Buildouting"
-    run bin/buildout
     title "Configure coc-vim"
     run vim-buildout
-    run notify Finished "Plone Setup"
+    title "Bootstrapping"
+    run python bootstrap.py --setuptools-version=44.1.1 || run notify Failed "Plone Bootstrap"
+    title "Buildouting"
+    run bin/buildout && run notify Finished "Plone Setup" || run notify Failed "Plone Buildout"
 end
 
 # function ftw

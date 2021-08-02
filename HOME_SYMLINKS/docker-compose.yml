@@ -1,17 +1,59 @@
 version: '3.1'
 services:
+#   inspircd:
+#     container_name: inspircd
+#     image: inspircd/inspircd-docker
+#     restart: unless-stopped
+#     ports:
+#       - 6667:6667
+#
+#   znc:
+#     image: ghcr.io/linuxserver/znc
+#     container_name: znc
+#     environment:
+#       - PUID=1000
+#       - PGID=1000
+#       - TZ=Europe/Zurich
+#     volumes:
+#       - ~/.znc:/config
+#     ports:
+#       - 6502:6501
+#     restart: unless-stopped
+#
+#   adminer:
+#     container_name: adminer
+#     image: adminer
+#     restart: unless-stopped
+#     ports:
+#       - 8080:8080
+#
+#   znc_db:
+#     container_name: znc_db
+#     image: postgres
+#     restart: unless-stopped
+#     environment:
+#       POSTGRES_PASSWORD: znc
+#       POSTGRES_USER: znc
+#       POSTGRES_DB: znc
+#
+#
+#   tl_db:
+#     container_name: tl_db
+#     image: postgres
+#     restart: unless-stopped
+#     environment:
+#       POSTGRES_PASSWORD: tl
+#       POSTGRES_USER: tl
+#       POSTGRES_DB: tl
 
-  db:
-    image: mysql:5.7
-    command: --default-authentication-plugin=mysql_native_password
-    restart: unless-stopped
-    environment:
-      MYSQL_ROOT_PASSWORD: mysql
-    ports:
-      - 3306:3306
-
-  adminer:
-    image: adminer
+  portainer:
+    container_name: portainer
+    image: portainer/portainer-ce
+    command: -H unix:///var/run/docker.sock
     restart: unless-stopped
     ports:
-      - 8090:8080
+      - 9000:9000
+      - 8000:8000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /docker/portainer/config:/data

@@ -14,5 +14,6 @@ package pbcopy
 package pisces
 package pyenv
 package python
+package rbenv
 package sublime
 theme scorphish

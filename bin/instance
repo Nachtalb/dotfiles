@@ -3,10 +3,14 @@ instance='instance'
 if [ -f bin/instance0 ]; then
     instance='instance0'
 fi
+
+sleep 2
 port=$(grep address < parts/$instance/etc/zope.conf | awk '{print$2}')
 
-lsof_out=$(lsof -nP -i4TCP)
-existing=$(echo "$lsof_out" | grep ":$port" | grep LISTEN | awk '{print$2}')
+# lsof_out=$(lsof -nP -i4TCP)
+# existing=$(echo "$lsof_out" | grep ":$port" | grep LISTEN | awk '{print$2}')
+net_out=$(netstat -tulpn 2>&1 | grep LISTEN)
+existing=$(echo "$net_out" | grep ":$port" | awk '{print$7}' | cut -d/ -f1)
 
 if [ $instance = 'instance' ] && [  -n "$existing" ]; then
     start_path=$(ps aux | grep -v grep | grep "$existing" | awk '{print$12}' | sed -e 's/\/parts.*//')
@@ -16,11 +20,12 @@ if [ $instance = 'instance' ] && [  -n "$existing" ]; then
         exit 1
     fi
     port=8080
-    while echo "$lsof_out" | grep ":$port" | grep LISTEN -q; do
+    while echo "$net_out" | grep ":$port"; do
         port=$((port+1))
     done
     sed -i.bak "s/address .*/address $port/g" parts/instance/etc/zope.conf
 fi
 
 echo "Starting on: http://localhost:$port"
+echo "sleep 3; xdg-open 'http://localhost:$port'" | at now
 bin/$instance fg

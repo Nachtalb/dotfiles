@@ -6,10 +6,7 @@
 [core]
     excludesfile = ~/.global_gitignore
     autocrlf = input
-    pager = bat
-
-[color]
-    ui = never
+    pager = delta
 
 [commit]
     gpgsign = true
@@ -18,3 +15,13 @@
     enabled = true
 [status]
     showUntrackedFiles = all
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    features = side-by-side line-numbers decorations
+    syntax-theme = base16
+    navigate = true
+    file-decoration-style = yellow ol ul
+    file-style = bold yellow ul

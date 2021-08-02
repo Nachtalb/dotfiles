@@ -1,9 +1,10 @@
-set TIME_START (python -c 'import time; print(int(time.time() * 1000))')
 
 # Initialize the current fish session and connect to the tmux session.
+set TIME_START (date +%s%3N)
 # If we're not running in an interactive terminal, do nothing.
 function start-tmux
-    if begin; not isatty; or not status --is-interactive; or test -n "$INSIDE_EMACS"; end
+    if begin; not isatty; or not status --is-interactive; or test -n "$INSIDE_EMACS"; or set -q NOTMUX; end
+      echo 'notmux'
       exit
     end
 
@@ -18,8 +19,7 @@ function start-tmux
       exit
     end
 end
-
-start-tmux
+#start-tmux
 ###############################################################################
 # Colours                                                                     #
 ###############################################################################
@@ -39,14 +39,13 @@ set -gx GPG_TTY (tty)  # Load gpg
 set -gx JAVA_HOME (readlink -f /usr/bin/javac | sed "s:/bin/javac::")
 set -gx PYTHON_CONFIGURE_OPTS "--enable-shared"
 
-set -l IS_MAC (test (uname) = "darwin" && echo 1 || echo)
-
 # Expand $PATH
-set -gx PATH $PATH $HOME/.config/omf/bin
 set -gx PATH $PATH $HOME/.vim/plugged/vim-superman/bin
 set -gx PATH $PATH /usr/local/opt/mysql-client@5.7/bin
 set -gx PATH $PATH /usr/local/opt/qt/bin
-set -gx PATH ~/bin/ $PATH
+set -gx PATH $PATH $HOME/.yarn/bin
+set -gx PATH $HOME/bin/ $PATH
+set -gx PATH $PATH $HOME/.config/omf/bin
 
 # Lang setting
 set -gx LC_ALL en_US.UTF-8
@@ -56,52 +55,26 @@ set -gx LANG en_US.UTF-8
 set -gx VISUAL vim
 set -gx EDITOR $VISUAL
 
-# Syntax higlighting for less
-set -gx LESSOPEN "| /usr/local/bin/source-highlight-esc.sh %s"
-set -gx LESS ' -R '
-
 # GH config
-set -gx GH_BASE_DIR $HOME/Development
-set -gx GL_BASE_DIR $HOME/Development
-set -gx GB_BASE_DIR $HOME/Development
-
-# OpenSSL configuration
-set -gx LDFLAGS -L/usr/local/opt/openssl/lib $LDFLAGS
-set -gx CPPFLAGS -I/usr/local/opt/openssl/include $CPPFLAGS
-
-if test -n $IS_MAC
-    # CommandLineTools SDK
-    set -gx CFLAGS -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sasl $CFLAGS
-end
-
-# MySQL
-set -gx LDFLAGS -L/usr/local/opt/mysql-client@5.7/lib $LDFLAGS
-set -gx CPPFLAGS -I/usr/local/opt/mysql-client@5.7/include $CPPFLAGS
-if test -n $IS_MAC
-    set -gx PKG_CONFIG_PATH /usr/local/opt/mysql-client@5.7/lib/pkgconfig $PKG_CONFIG_PATH
-end
-
-# ZLIB
-set -gx LDFLAGS -L/usr/local/opt/zlib/lib $LDFLAGS
-set -gx CPPFLAGS -I/usr/local/opt/zlib/include $CPPFLAGS
-if test -n $IS_MAC
-    set -gx PKG_CONFIG_PATH /usr/local/opt/zlib/lib/pkgconfig $PKG_CONFIG_PATH
-end
+set -gx GH_BASE_DIR $HOME/src
+set -gx GL_BASE_DIR $HOME/src
+set -gx GB_BASE_DIR $HOME/src
 
 # Add etcher-cli if available
 if test -d /opt/etcher-cli
     set -gx PATH /opt/etcher-cli $PATH
 end
 
-# Add mega cmd if available
-if test -n $IS_MAC
-    if test -d /Applications/MEGAcmd.app/Contents/MacOS
-        set -gx PATH /Applications/MEGAcmd.app/Contents/MacOS $PATH
+# set winhost
+set -l winhost (cat /etc/resolv.conf | grep nameserver | awk '{ print $2 }')
+if not grep -P $winhost"[[:space:]]winhost" /etc/hosts -q
+    if grep -P "[[:space:]]winhost" /etc/hosts -q
+        sudo sed -i '/winhost/d' /etc/hosts
     end
-end
 
-# Enable iTerm2 tmux integration
-set -gx ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX 1
+    printf "%s\t%s\n" "$winhost" "winhost" | sudo tee -a /etc/hosts
+    echo 'winhost updated'
+end
 
 
 ###############################################################################
@@ -115,15 +88,15 @@ source ~/.config/omf/hooks.fish
 
 if status is-interactive
     # Pyenv
-    source (pyenv init - --no-rehash|psub)
+    # source (pyenv init - --no-rehash|psub)
     source (pyenv virtualenv-init -|psub)
 
     # Rbevn
-    source (rbenv init -|psub)
+    # source (rbenv init -|psub)
 end
 
 # direnv
-eval (direnv hook fish)
+# eval (direnv hook fish)
 
 # Git ignored files
 for filename in ~/.config/omf/user/*.fish
@@ -136,9 +109,9 @@ for file in ~/.config/omf/scripts/*.fish
 end
 
 # Autojump
-if test -f ~/.autojump/share/autojump/autojump.fish
     source ~/.autojump/share/autojump/autojump.fish
+    if test -f ~/.autojump/share/autojump/autojump.fish
 end
-set TIME_END (python -c 'import time; print(int(time.time() * 1000))')
+set TIME_END (date +%s%3N)
 
 echo "It took:" (expr $TIME_END - $TIME_START) "ms to load the environment"

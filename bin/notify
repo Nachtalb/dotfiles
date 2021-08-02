@@ -5,16 +5,24 @@ if [ $# -eq 0 ]
     exit 1
 fi
 
-title="Notify"
-if [ -n "$2" ]
-then
-    title="$2"
-fi
+if grep -qEi "(Microsoft|WSL)" /proc/version &> /dev/null; then
+    if [ -z "$2" ]; then
+        pwsh.exe -command "New-BurntToastNotification -Text '$1'"
+    else
+        pwsh.exe -command "New-BurntToastNotification -Text '$2','$1'"
+    fi
+else
+    title="Notify"
+    if [ -n "$2" ]
+    then
+        title="$2"
+    fi
 
-sound="Purr"
-if [ -n "$3" ]
-then
-    sound="$3"
-fi
+    sound="Purr"
+    if [ -n "$3" ]
+    then
+        sound="$3"
+    fi
 
-osascript -e "display notification \"$1\" with title \"$title\" sound name \"$sound\""
+    osascript -e "display notification \"$1\" with title \"$title\" sound name \"$sound\""
+fi

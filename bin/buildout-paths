@@ -1,4 +1,4 @@
-#!/usr/local/bin/gawk -f
+#!/usr/bin/gawk -f
 # Print out all buildout paths of the given file as a comma sparated list
 # Example:
 #   $ cat bin/buildout | buildout-paths
