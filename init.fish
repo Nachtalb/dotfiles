@@ -4,7 +4,6 @@ set TIME_START (date +%s%3N)
 # If we're not running in an interactive terminal, do nothing.
 function start-tmux
     if begin; not isatty; or not status --is-interactive; or test -n "$INSIDE_EMACS"; or set -q NOTMUX; end
-      echo 'notmux'
       exit
     end
 
@@ -19,7 +18,7 @@ function start-tmux
       exit
     end
 end
-#start-tmux
+start-tmux
 ###############################################################################
 # Colours                                                                     #
 ###############################################################################
