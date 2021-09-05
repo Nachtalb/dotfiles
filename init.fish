@@ -1,6 +1,7 @@
 
 # Initialize the current fish session and connect to the tmux session.
-set TIME_START (date +%s%3N)
+set TIME_TOT_START (date +%s%3N)
+
 # If we're not running in an interactive terminal, do nothing.
 function start-tmux
     if begin; not isatty; or not status --is-interactive; or test -n "$INSIDE_EMACS"; or set -q NOTMUX; end
@@ -37,14 +38,21 @@ set -gx HOMEBREW_NO_AUTO_UPDATE 1  # Do not update on installation in homebrew
 set -gx GPG_TTY (tty)  # Load gpg
 set -gx JAVA_HOME (readlink -f /usr/bin/javac | sed "s:/bin/javac::")
 set -gx PYTHON_CONFIGURE_OPTS "--enable-shared"
+set -gx GO111MODULE on
 
 # Expand $PATH
-set -gx PATH $PATH $HOME/.vim/plugged/vim-superman/bin
-set -gx PATH $PATH /usr/local/opt/mysql-client@5.7/bin
-set -gx PATH $PATH /usr/local/opt/qt/bin
-set -gx PATH $PATH $HOME/.yarn/bin
-set -gx PATH $HOME/bin/ $PATH
-set -gx PATH $PATH $HOME/.config/omf/bin
+set -l NewPaths /opt/etcher-cli \
+                $HOME/.vim/plugged/vim-superman/bin \
+                $HOME/.yarn/bin \
+                $HOME/.cargo/bin \
+                $HOME/.config/omf/bin \
+                $HOME/bin/
+
+for p in $NewPaths
+    if test -d $p
+        set -gx PATH $p $PATH
+    end
+end
 
 # Lang setting
 set -gx LC_ALL en_US.UTF-8
@@ -59,20 +67,18 @@ set -gx GH_BASE_DIR $HOME/src
 set -gx GL_BASE_DIR $HOME/src
 set -gx GB_BASE_DIR $HOME/src
 
-# Add etcher-cli if available
-if test -d /opt/etcher-cli
-    set -gx PATH /opt/etcher-cli $PATH
-end
 
 # set winhost
-set -l winhost (cat /etc/resolv.conf | grep nameserver | awk '{ print $2 }')
-if not grep -P $winhost"[[:space:]]winhost" /etc/hosts -q
-    if grep -P "[[:space:]]winhost" /etc/hosts -q
-        sudo sed -i '/winhost/d' /etc/hosts
-    end
+if not rg -q winhost /etc/hosts
+    set -l winhost (cat /etc/resolv.conf | grep nameserver | awk '{ print $2 }')
+    if not grep -P $winhost"[[:space:]]winhost" /etc/hosts -q
+        if grep -P "[[:space:]]winhost" /etc/hosts -q
+            sudo sed -i '/winhost/d' /etc/hosts
+        end
 
-    printf "%s\t%s\n" "$winhost" "winhost" | sudo tee -a /etc/hosts
-    echo 'winhost updated'
+        printf "%s\t%s\n" "$winhost" "winhost" | sudo tee -a /etc/hosts
+        echo 'winhost updated'
+    end
 end
 
 
@@ -98,12 +104,7 @@ end
 # eval (direnv hook fish)
 
 # Git ignored files
-for filename in ~/.config/omf/user/*.fish
-    source $filename
-end
-
-# Own scripts
-for file in ~/.config/omf/scripts/*.fish
+for file in ~/.config/omf/user/*.fish ~/.config/omf/scripts/*.fish
     source $file
 end
 
@@ -111,6 +112,5 @@ end
     source ~/.autojump/share/autojump/autojump.fish
     if test -f ~/.autojump/share/autojump/autojump.fish
 end
-set TIME_END (date +%s%3N)
 
-echo "It took:" (expr $TIME_END - $TIME_START) "ms to load the environment"
+echo "Total:" (expr (date +%s%3N) - $TIME_TOT_START) "ms"

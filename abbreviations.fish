@@ -5,6 +5,9 @@
 abbr gtemp 'cd /Users/bernd/Development/temp && rm test && echo 1 || touch test && git add . && git commit -S -m test && cd -'
 abbr pyl 'pyenv virtualenv 3.8.1 (basename (pwd)) && pyenv local (basename (pwd))'
 
+abbr ap 'sudo apt update'
+abbr aup 'sudo apt upgrade'
+
 # Buildout
 abbr pin 'bin/instance'
 abbr pbo 'bin/buildout && notify Finished Buildout || notify Failed Buildout'
@@ -22,10 +25,11 @@ abbr psm 'bin/solr-instance start && bin/tika-server start 2> /dev/null &'
 abbr omr 'omf reload'
 
 # Basic Builtin
-abbr ls 'ls -hC'
-abbr la 'ls -ClAph'
+abbr ls 'ls -hCv'
+alias la 'ls -ClAphv'
+abbr ll la
+alias ll 'la'
 abbr lt 'ls -ClAtph'
-abbr ll 'la'
 abbr rmf 'rm -rf'
 abbr rtws 'sed -i \'s/[[:space:]]*\$//\''
 alias fmb 'sudo fakemail --path "~/Development/fakemail/" --background --port 25 --log "~/Development/fakemail/fakemail.log"'
@@ -68,7 +72,7 @@ abbr gl1 "env GIT_PAGER=less git log --graph --abbrev-commit --decorate --format
 abbr gl2 "env GIT_PAGER=less git log --graph --abbrev-commit --decorate --format='%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ai)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --color=always --all "
 abbr gcp 'git cherry-pick -S '
 abbr gco 'git checkout'
-abbr gcb 'git checkout -b ne/'
+abbr gcb 'git checkout -b '
 abbr gst 'git status'
 abbr gdf 'git diff'
 abbr gdfn 'git diff --name-status'

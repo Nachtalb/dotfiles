@@ -7,6 +7,7 @@ services:
     restart: unless-stopped
     networks:
       - portainer
+      - nginx
     ports:
       - 9000:9000
     volumes:
@@ -16,3 +17,5 @@ services:
 networks:
   portainer:
     name: portainer
+  nginx:
+    external: true
