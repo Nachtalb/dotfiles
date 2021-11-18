@@ -2,24 +2,8 @@
 #    Abbreviations Config     #
 # # # # # # # # # # # # # # # #
 
-abbr gtemp 'cd /Users/bernd/Development/temp && rm test && echo 1 || touch test && git add . && git commit -S -m test && cd -'
-abbr pyl 'pyenv virtualenv 3.8.1 (basename (pwd)) && pyenv local (basename (pwd))'
-
 abbr ap 'sudo apt update'
 abbr aup 'sudo apt upgrade'
-
-# Buildout
-abbr pin 'bin/instance'
-abbr pbo 'bin/buildout && notify Finished Buildout || notify Failed Buildout'
-abbr pbn 'bin/buildout install instance omelette test && notify Finished Buildout || notify Failed Buildout'
-# Instance
-abbr pinf 'bin/instance fg'
-# Misc
-abbr psi 'bin/solr-instance'
-abbr pt 'bin/test && notify Finished Tests || notify Failed Tests'
-abbr prs 'python bootstrap.py && bin/buildout'
-abbr psf 'bin/solr-instance start && bin/tika-server start 2> /dev/null & && bin/instance fg'
-abbr psm 'bin/solr-instance start && bin/tika-server start 2> /dev/null &'
 
 # Oh my fish
 abbr omr 'omf reload'
@@ -27,19 +11,9 @@ abbr omr 'omf reload'
 # Basic Builtin
 abbr ls 'ls -hCv'
 alias la 'ls -ClAphv'
-abbr ll la
-alias ll 'la'
+abbr ll 'la'
 abbr lt 'ls -ClAtph'
 abbr rmf 'rm -rf'
-abbr rtws 'sed -i \'s/[[:space:]]*\$//\''
-alias fmb 'sudo fakemail --path "~/Development/fakemail/" --background --port 25 --log "~/Development/fakemail/fakemail.log"'
-alias fm 'sudo fakemail --path "~/Development/fakemail/" --port 25 --log "~/Development/fakemail/fakemail.log"'
-
-# Applications
-abbr preview='/Applications/Preview.app/Contents/MacOS/Preview'
-
-# Brew
-abbr bup 'brew update && brew upgrade && brew cleanup && brew cask cleanup'
 
 # GIT
 # rebase
@@ -83,22 +57,9 @@ abbr grv 'git remote -v'
 abbr gup 'git pull -r && git fetch -p origin && remove-merged-git-branches && git remote | grep -v origin | xargs -L1 git fetch -p'
 
 # Misc
-abbr fsize 'du -sh' # Show dictionary size
-abbr ccat '~/.pyenv/versions/2.7.14/bin/pygmentize -g -O style=colorful,linenos=1'  # Check path in a new installtion
-abbr ppy 'pyenv virtualenv 3.7.2 (basename  (pwd)) && pyenv local (basename  (pwd)) && pip install -U pip'
+abbr ppy 'pyenv virtualenv (pyenv versions --skip-aliases --bare | rg \'^[0-9.]+$\' | sort -Vr | head -n 1) (basename  (pwd)) && pyenv local (basename  (pwd)) && pip install -U pip setuptools'
 abbr :q exit
 
 # SSH shortcuts
 abbr d1 'mosh d1'
-abbr d2 'mosh d2'
-
-abbr l1 'mosh l1'
-abbr l2 'mosh l2'
-abbr l3 'mosh l3'
-
-abbr v1 'mosh v1'
-abbr v2 'mosh v2'
-abbr v3 'mosh v3'
-abbr v4 'mosh v4'
-abbr v5 'mosh v5'
-abbr v6 'mosh v6'
+abbr pi 'mosh pi'

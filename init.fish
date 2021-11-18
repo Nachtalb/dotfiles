@@ -1,9 +1,8 @@
-
 # Initialize the current fish session and connect to the tmux session.
-set TIME_TOT_START (date +%s%3N)
+# set TIME_TOT_START (date +%s%3N)
 
-# If we're not running in an interactive terminal, do nothing.
 function start-tmux
+    # If we're not running in an interactive terminal, do nothing.
     if begin; not isatty; or not status --is-interactive; or test -n "$INSIDE_EMACS"; or set -q NOTMUX; end
       exit
     end
@@ -12,7 +11,7 @@ function start-tmux
     if not set -q TMUX
       set -l session_name local
       if tmux has-session -t $session_name 2> /dev/null
-        exec env -- tmux new-session -t $session_name \; set destroy-unattached on \; new-window
+        exec env -- tmux new-session -t $session_name \; set destroy-unattached on
       else
         exec env -- tmux new-session -s $session_name
       end
@@ -50,7 +49,7 @@ set -l NewPaths /opt/etcher-cli \
 
 for p in $NewPaths
     if test -d $p
-        set -gx PATH $p $PATH
+        fish_add_path $p
     end
 end
 
@@ -69,17 +68,17 @@ set -gx GB_BASE_DIR $HOME/src
 
 
 # set winhost
-if not rg -q winhost /etc/hosts
-    set -l winhost (cat /etc/resolv.conf | grep nameserver | awk '{ print $2 }')
-    if not grep -P $winhost"[[:space:]]winhost" /etc/hosts -q
-        if grep -P "[[:space:]]winhost" /etc/hosts -q
-            sudo sed -i '/winhost/d' /etc/hosts
-        end
-
-        printf "%s\t%s\n" "$winhost" "winhost" | sudo tee -a /etc/hosts
-        echo 'winhost updated'
-    end
-end
+# if not rg -q winhost /etc/hosts
+    # set -l winhost (cat /etc/resolv.conf | grep nameserver | awk '{ print $2 }')
+    # if not grep -P $winhost"[[:space:]]winhost" /etc/hosts -q
+        # if grep -P "[[:space:]]winhost" /etc/hosts -q
+            # sudo sed -i '/winhost/d' /etc/hosts
+        # end
+#
+        # printf "%s\t%s\n" "$winhost" "winhost" | sudo tee -a /etc/hosts
+        # echo 'winhost updated'
+    # end
+# end
 
 
 ###############################################################################
@@ -113,4 +112,4 @@ end
     if test -f ~/.autojump/share/autojump/autojump.fish
 end
 
-echo "Total:" (expr (date +%s%3N) - $TIME_TOT_START) "ms"
+# echo "Total:" (expr (date +%s%3N) - $TIME_TOT_START) "ms"

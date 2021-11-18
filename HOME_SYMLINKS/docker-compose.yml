@@ -7,7 +7,7 @@ services:
     restart: unless-stopped
     networks:
       - portainer
-      - nginx
+      # - nginx
     ports:
       - 9000:9000
     volumes:
