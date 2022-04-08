@@ -177,3 +177,11 @@ complete -x -k -c s -d "Tag" -a "(__fish_git_tags)"
 complete -x -k -c s -d "Unique Remote Branch" -a "(__fish_git_unique_remote_branches)"
 complete -x -k -c s -d "Git Local Branch" -a "(__fish_git_local_branches)"
 complete -x -k -c s -d "Local Subinstallation" -a "(s -l)"
+
+function vim -w vim
+    if test -f Session.vim
+        nvim -S Session.vim $argv
+    else
+        nvim $argv
+    end
+end

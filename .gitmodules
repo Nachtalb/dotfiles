@@ -1,11 +1,4 @@
 [submodule "HOME_SYMLINKS/.vim"]
 	path = HOME_SYMLINKS/.vim
-	url = git@github.com:Nachtalb/vimconfig.git
+	url = https://github.com/Nachtalb/vimconfig.git
 	branch = master
-[submodule "HOME_SYMLINKS/.mutt"]
-	path = HOME_SYMLINKS/.mutt
-	url = git@github.com:Nachtalb/muttconfig.git
-	branch = master
-[submodule "user"]
-	path = user
-	url = git@github.com:Nachtalb/hidden_dotfiles.git

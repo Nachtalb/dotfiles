@@ -109,8 +109,6 @@ for file in ~/.config/omf/user/*.fish ~/.config/omf/scripts/*.fish
 end
 
 # Autojump
-    source ~/.autojump/share/autojump/autojump.fish
-    if test -f ~/.autojump/share/autojump/autojump.fish
-end
+[ -f /usr/share/autojump/autojump.fish ]; and source /usr/share/autojump/autojump.fish
 
 # echo "Total:" (expr (date +%s%3N) - $TIME_TOT_START) "ms"

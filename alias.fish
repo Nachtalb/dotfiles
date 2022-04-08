@@ -11,4 +11,3 @@ alias n notify
 alias timestamp='date +%s'
 
 alias ':q' exit
-alias vim 'test -f Session.vim && nvim -S Session.vim $argv || nvim $arv'

@@ -1,15 +1,15 @@
 [user]
     email = info@nachtalb.io
     name = Nachtalb
-    signingkey = E48DF13C07055D92
+    # signingkey = E48DF13C07055D92
 
 [core]
     excludesfile = ~/.global_gitignore
     autocrlf = input
     pager = delta
 
-[commit]
-    gpgsign = true
+# [commit]
+#     gpgsign = true
 
 [rerere]
     enabled = true
