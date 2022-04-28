@@ -27,9 +27,9 @@ set fish_color_autosuggestion grey
 
 
 # https://github.com/pure-fish/pure
-set --universal pure_set_deftault pure_color_primary "#5fff5f"
-set --universal pure_set_deftault pure_color_success "#ff87ea"
-set --universal pure_set_deftault pre_color_danger   "#ef2929"
+set --universal pure_color_primary "#5fff5f"
+set --universal pure_color_success "#ff87ea"
+set --universal pre_color_danger   "#ef2929"
 set --universal fish_color_command "#5fff5f"
 set --universal fish_color_comment "#d7875f"
 set --universal fish_color_error "#ff5f87"
