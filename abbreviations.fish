@@ -18,13 +18,13 @@ abbr rmf 'rm -rf'
 # GIT
 # rebase
 abbr grc 'git rebase --continue'
-abbr gri 'git rebase -r -S -i'
+abbr gri 'git rebase -r -i'
 abbr gra 'git rebase --abort'
 # commit
 abbr gaa 'git add .'
-abbr gca 'git commit -S --amend --no-edit'
-abbr gcaa 'git commit -S --all --amend --no-edit'
-abbr gc 'git commit -S -m'
+abbr gca 'git commit --amend --no-edit'
+abbr gcaa 'git commit --all --amend --no-edit'
+abbr gc 'git commit -m'
 # git fetch
 abbr gfa 'git fetch --all -p'
 abbr gba 'env GIT_PAGER=cat git branch --all'
@@ -44,7 +44,7 @@ abbr gsd 'git stash drop'
 abbr glog 'git log --graph'
 abbr gl1 "env GIT_PAGER=less git log --graph --abbrev-commit --decorate --format='%C(bold blue)%h%C(reset) - %C(bold green)(%ai)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --color=always --all"
 abbr gl2 "env GIT_PAGER=less git log --graph --abbrev-commit --decorate --format='%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ai)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --color=always --all "
-abbr gcp 'git cherry-pick -S '
+abbr gcp 'git cherry-pick '
 abbr gco 'git checkout'
 abbr gcb 'git checkout -b '
 abbr gst 'git status'

@@ -35,8 +35,4 @@ message.txt
 subinstallations/
 .vim/coc-settings.json
 !~/.vim/coc-settings.json
-
-# Plone Specific
-development_nick.cfg
-update-demo.sh
-
+Session.vim

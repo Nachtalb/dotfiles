@@ -25,3 +25,5 @@
     navigate = true
     file-decoration-style = yellow ol ul
     file-style = bold yellow ul
+[credential]
+	helper = cache
