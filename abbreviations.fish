@@ -56,6 +56,13 @@ abbr gr 'git remote'
 abbr grv 'git remote -v'
 abbr gup 'git pull -r && git fetch -p origin && remove-merged-git-branches && git remote | grep -v origin | xargs -L1 git fetch -p'
 
+# Heroku
+abbr ho 'heroku open'
+abbr hp 'git push heroku main'
+abbr hd 'heroku ps:scale web=0'
+abbr hi 'heroku ps:scale web=1'
+abbr hl 'heroku logs --tail'
+
 # Misc
 abbr ppy 'pyenv virtualenv (pyenv versions --skip-aliases --bare | rg \'^[0-9.]+$\' | sort -Vr | head -n 1) (basename  (pwd)) && pyenv local (basename  (pwd)) && pip install -U pip setuptools'
 abbr :q exit

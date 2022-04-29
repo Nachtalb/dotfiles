@@ -36,3 +36,6 @@ subinstallations/
 .vim/coc-settings.json
 !~/.vim/coc-settings.json
 Session.vim
+doc/tags
+.cache
+compile_commands.json

@@ -55,7 +55,8 @@ set -l NewPaths /opt/etcher-cli \
                 $HOME/.yarn/bin \
                 $HOME/.cargo/bin \
                 $HOME/.config/omf/bin \
-                $HOME/bin/
+                $HOME/bin/ \
+                $HOME/.cache/rebar3/bin
 
 for p in $NewPaths
     if test -d $p
