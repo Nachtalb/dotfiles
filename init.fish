@@ -51,7 +51,6 @@ set -gx GO111MODULE on
 # Expand $PATH
 set -l NewPaths /opt/etcher-cli \
                 /usr/local/go/bin \
-                $HOME/.vim/plugged/vim-superman/bin \
                 $HOME/.yarn/bin \
                 $HOME/.cargo/bin \
                 $HOME/.config/omf/bin \

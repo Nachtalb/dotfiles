@@ -9,15 +9,14 @@ abbr aup 'sudo apt upgrade'
 abbr omr 'omf reload'
 
 # Basic Builtin
-abbr ls 'ls -hCv'
-alias la 'ls -ClAphv'
-abbr ll 'la'
-abbr lt 'ls -ClAtph'
+abbr ls 'exa -h'
+alias la 'exa -lah'
+abbr ll 'exa -lh'
 abbr rmf 'rm -rf'
 
 # GIT
 # rebase
-abbr grc 'git rebase --continue'
+abbr grcc 'git rebase --continue'
 abbr gri 'git rebase -r -i'
 abbr gra 'git rebase --abort'
 # commit

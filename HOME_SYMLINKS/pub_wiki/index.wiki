@@ -1,6 +1,0 @@
-= Nachtalb's Wiki =
-
-== Usenet ==
-
-* [[centos6_install|Installation on CentOS6]]
-

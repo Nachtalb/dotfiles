@@ -2,11 +2,8 @@ package colored-man-pages
 package config
 package gh
 package gi
-package grc
 package hash
-package jump
 package pbcopy
-package pisces
 package pyenv
 package python
 theme pure
