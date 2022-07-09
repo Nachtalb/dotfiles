@@ -1,0 +1,25 @@
+import os
+import readline
+import rlcompleter
+import atexit
+# In addition to os, import some useful things:
+import re
+from collections import *
+from itertools import *
+import sys
+import pdb
+
+history_file = os.path.join(os.environ['HOME'], '.python_history')
+try:
+    readline.read_history_file(history_file)
+except IOError:
+    pass
+readline.parse_and_bind("tab: complete")
+
+pdb.Pdb.complete = rlcompleter.Completer(locals()).complete
+readline.set_history_length(1000)
+atexit.register(readline.write_history_file, history_file)
+
+del readline, rlcompleter, atexit, history_file
+
+sys.stdout = sys.__stdout__

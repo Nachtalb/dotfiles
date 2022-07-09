@@ -1,0 +1,94 @@
+import os
+import re
+import sys
+import pdb
+from pprint import pprint as pp
+
+try:
+    __IPYTHON__
+    sys.exit()
+except NameError:
+    pass
+
+# version check
+version = 'pypy' if 'PyPy' in sys.version else 'py2' if sys.version_info[0] == 2 else 'py3'
+
+ipython = False
+# iPython check
+if version != 'pypy':
+    try:
+        import IPython
+        if sys.stdout is not sys.__stdout__:
+            print('IPython not usable in non-standard Python shell.')
+        else:
+            ipython = True
+    except ImportError:
+        pass
+
+
+if ipython:
+    try:
+        # Check wether or not we are already running in ipython
+        get_ipython()
+    except NameError:
+        # Auto start iPython if it is available in the curreent python environment
+        user_ns = {
+            'os': os,
+            'sys': sys,
+        }
+
+        if IPython.__version__ < '0.11':
+            shell = IPython.Shell.IPShell(user_ns=user_ns)
+            sys.exit(shell.mainloop())
+        elif IPython.__version__ < '1.0':
+            from IPython.frontend.terminal.ipapp import TerminalIPythonApp
+            app = TerminalIPythonApp.instance()
+            app.initialize()
+            app.shell.user_ns.update(user_ns)
+            sys.exit(app.start())
+        elif IPython.__version__ > '1.0':
+            del os.environ['PYTHONSTARTUP']
+            from IPython import start_ipython
+            sys.exit(start_ipython())
+else:
+    # Simple `exit` and `clear` command for non ipython python cli
+    class Quitter(object):
+        def __call__(self):
+            sys.exit()
+
+        def __repr__(self):
+            self()
+
+    exit = Quitter()
+
+    class Clear(object):
+        def __call__(self):
+            os.system('clear')
+
+        def __repr__(self):
+            self()
+            return ''
+
+    clear = Clear()
+
+    # History and Tab completion
+    try:
+        import rlcompleter
+        import readline
+    except ImportError:
+        print("Module readline not available.")
+    else:
+        readline.parse_and_bind("tab: complete")
+        histfile = os.path.join(os.environ["HOME"], ".python_history")
+        try:
+            try:
+                readline.read_history_file(histfile)
+            except IOError:
+                pass
+            import atexit
+            atexit.register(readline.write_history_file, histfile)
+            del atexit
+        except AttributeError:
+            pass
+        del histfile
+        del readline

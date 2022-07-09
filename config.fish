@@ -13,10 +13,12 @@ set -gx JAVA_HOME (readlink -f /usr/bin/javac | sed "s:/bin/javac::")
 set -gx GO111MODULE on
 
 # Expand $PATH
-set -l NewPaths /usr/local/go/bin \
-                $HOME/.yarn/bin \
-                $HOME/.cargo/bin \
-                $HOME/bin/
+set -l NewPaths \
+    /usr/local/go/bin \
+    $HOME/.yarn/bin \
+    $HOME/.cargo/bin \
+    $HOME/.config/fish/bin
+    $HOME/bin/
 
 for p in $NewPaths
     if test -d $p

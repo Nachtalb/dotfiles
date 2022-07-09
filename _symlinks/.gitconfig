@@ -1,0 +1,29 @@
+[user]
+    email = info@nachtalb.io
+    name = Nachtalb
+    # signingkey = E48DF13C07055D92
+
+[core]
+    excludesfile = ~/.global_gitignore
+    autocrlf = input
+    pager = delta
+
+# [commit]
+#     gpgsign = true
+
+[rerere]
+    enabled = true
+[status]
+    showUntrackedFiles = all
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    features = side-by-side line-numbers decorations
+    syntax-theme = base16
+    navigate = true
+    file-decoration-style = yellow ol ul
+    file-style = bold yellow ul
+[credential]
+	helper = store
