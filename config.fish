@@ -1,7 +1,19 @@
+# If we're not running in an interactive terminal, do nothing.
+if begin; isatty; or status --is-interactive; or test -z "$INSIDE_EMACS"; or not set -q NOTMUX; end
+    if not set -q TMUX
+        set -l session_name local
+        if tmux has-session -t $session_name 2> /dev/null
+            exec env -- tmux new-session -t $session_name \; set destroy-unattached on
+        else
+            exec env -- tmux new-session -s $session_name
+        end
+    end
+end
+
+# Connect to the TMUX session if it exists, or create it if it doesn't.
 if status is-interactive
     # Commands to run in interactive sessions can go here
 end
-
 
 set -gx PYTHONDONTWRITEBYTECODE 1  # Python won’t try to write .pyc or .pyo files on the import of source modules
 set -gx PYTHONUNBUFFERED 1  # Force stdin, stdout and stderr to be totally unbuffered.
