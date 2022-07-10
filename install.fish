@@ -7,7 +7,7 @@ run mkdir -p ~/src/github.com
 
 set_color green && echo "Link dotfiles" && set_color white
 run ln -s ~/.config/fish/_symlinks/public.gpg ~/.gnupg/public.gpg
-run ln -s ~/.config/fish/_symlinks/id_rsa.pub ~/.ssh/id_rsa.pub
+run ln -s ~/.config/fish/_symlinks/id_ed25519.pub ~/.ssh/id_ed25519.pub
 run ln -s ~/.config/fish/_symlinks/.gitconfig ~/.gitconfig
 run ln -s ~/.config/fish/_symlinks/.global_gitignore ~/.global_gitignore
 run ln -s ~/.config/fish/_symlinks/.pdbrc ~/.pdbrc
