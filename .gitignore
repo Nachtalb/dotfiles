@@ -1,1 +1,6 @@
 fish_variables
+bin/autopep8
+bin/black
+bin/flake8
+bin/pylint
+bin/yapf
