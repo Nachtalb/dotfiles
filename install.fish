@@ -11,3 +11,6 @@ ln -s ~/.config/fish/_symlinks/.global_gitignore ~/.global_gitignore
 ln -s ~/.config/fish/_symlinks/.pdbrc ~/.pdbrc
 ln -s ~/.config/fish/_symlinks/.pythonrc ~/.pythonrc
 ln -s ~/.config/fish/_symlinks/.tmux.conf ~/.tmux.conf
+
+chmod 0600 ~/.ssh/id_rsa
+chmod 0600 ~/.gnupg/gpg.gpg
