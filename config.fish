@@ -12,27 +12,48 @@ set -gx GPG_TTY (tty)  # Load gpg
 set -gx JAVA_HOME (readlink -f /usr/bin/javac | sed "s:/bin/javac::")
 set -gx GO111MODULE on
 
-# Expand $PATH
-set -l NewPaths \
-    /usr/local/go/bin \
-    $HOME/.yarn/bin \
-    $HOME/.cargo/bin \
-    $HOME/.config/fish/bin
-    $HOME/bin/
-
-for p in $NewPaths
-    if test -d $p
-        fish_add_path $p
-    end
-end
-
-# Use vim as default editor
 set -gx VISUAL nvim
 set -gx EDITOR $VISUAL
 
 for p in /usr/bin/{chromium,microsoft-edge,microsoft-edge-dev}
     if test -f $p
         set -gx BROWSER
+    end
+end
+
+if test (loginctl show-session (loginctl | awk '/tty/ {print $1}') -p Type | cut -d= -f2) = 'wayland'
+    # Most pure GTK3 apps use wayland by default, but some,
+    # like Firefox, need the backend to be explicitely selected.
+    set -gx GTK_CSD 0
+
+    # qt wayland
+    set -gx QT_QPA_PLATFORM "wayland"
+    set -gx QT_QPA_PLATFORMTHEME qt5ct
+    set -gx QT_WAYLAND_DISABLE_WINDOWDECORATION "1"
+
+    #Java XWayland blank screens fix
+    set -gx _JAVA_AWT_WM_NONREPARENTING 1
+end
+
+# set default shell and terminal
+if test -f /usr/share/sway/scripts/foot.sh
+    set -gx TERMINAL_COMMAND  /usr/share/sway/scripts/foot.sh
+end
+
+# add default location for zeit.db
+set -gx ZEIT_DB ~/.config/zeit.db
+
+# Expand $PATH
+set -l NewPaths \
+    /usr/local/go/bin \
+    $HOME/.yarn/bin \
+    $HOME/.cargo/bin \
+    $HOME/.config/fish/bin \
+    $HOME/bin/
+
+for p in $NewPaths
+    if test -d $p
+        fish_add_path $p
     end
 end
 
