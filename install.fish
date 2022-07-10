@@ -29,6 +29,11 @@ title "Fix dotfile premissions"
 run chmod 0600 ~/.ssh/id_rsa
 run chmod 0600 ~/.gnupg/gpg.gpg
 
+if not command -q pyenv
+    title "Install pyenv"
+    run curl https://pyenv.run/ | sh
+end
+
 if command -q pyenv
     title "Setting up python scripts"
     if not pyenv versions | grep -q nvim
