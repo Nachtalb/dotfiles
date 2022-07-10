@@ -50,8 +50,11 @@ else
 end
 
 if test -f ~/.gnupg/private.gpg
-    title Import GPG key
+    title "Import GPG key"
     run gpg --import ~/.gnupg/private.gpg
 end
+
+title "Install / Update fisher packages"
+fisher update
 
 title "DONE!"
