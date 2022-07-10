@@ -49,4 +49,9 @@ else
     set_color red && printf "Pyenv not installed, run: " && set_color grey && echo "curl https://pyenv.run | sh" && set_color white
 end
 
+if test -f ~/.gnupg/private.gpg
+    title Import GPG key
+    run gpg --import ~/.gnupg/private.gpg
+end
+
 title "DONE!"
