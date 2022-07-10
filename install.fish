@@ -1,11 +1,22 @@
 #!/usr/bin/fish
-set_color green && echo "Add default directories" && set_color white
+
+function title
+    set_color green && echo $argv && set_color white
+end
+
+if grep -q 'arch' < /etc/os-release
+    title "Install packages"
+    run sudo pacman -Su
+    run sudo pacman -Sy --needed nodejs npm yarn git-delta ripgrep go exa btop bat
+end
+
+title "Add default directories"
 run mkdir -p ~/.ssh
 run mkdir -p ~/.gnupg
 run mkdir -p ~/bin
 run mkdir -p ~/src/github.com
 
-set_color green && echo "Link dotfiles" && set_color white
+title "Link dotfiles"
 run ln -s ~/.config/fish/_symlinks/public.gpg ~/.gnupg/public.gpg
 run ln -s ~/.config/fish/_symlinks/id_ed25519.pub ~/.ssh/id_ed25519.pub
 run ln -s ~/.config/fish/_symlinks/.gitconfig ~/.gitconfig
@@ -14,12 +25,12 @@ run ln -s ~/.config/fish/_symlinks/.pdbrc ~/.pdbrc
 run ln -s ~/.config/fish/_symlinks/.pythonrc ~/.pythonrc
 run ln -s ~/.config/fish/_symlinks/.tmux.conf ~/.tmux.conf
 
-set_color green && echo "Fix dotfile premissions" && set_color white
+title "Fix dotfile premissions"
 run chmod 0600 ~/.ssh/id_rsa
 run chmod 0600 ~/.gnupg/gpg.gpg
 
 if command -q pyenv
-    set_color green && echo "Setting up python scripts" && set_color white
+    title "Setting up python scripts"
     if not pyenv versions | grep -q nvim
         run pyenv virtualenv (pyenv versions --skip-aliases --bare | rg '^3[0-9.]+$' | sort -Vr | head -n 1) nvim
         run pyenv activate nvim
@@ -38,4 +49,4 @@ else
     set_color red && printf "Pyenv not installed, run: " && set_color grey && echo "curl https://pyenv.run | sh" && set_color white
 end
 
-set_color green && echo "DONE!" && set_color white
+title "DONE!"
