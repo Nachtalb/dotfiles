@@ -73,3 +73,7 @@ end
 set -gx GH_BASE_DIR $HOME/src
 set -gx GL_BASE_DIR $HOME/src
 set -gx GB_BASE_DIR $HOME/src
+
+
+# Do not show notification if terminal is focused
+set -U __done_sway_ignore_visible 1
