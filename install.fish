@@ -39,11 +39,10 @@ if command -q pyenv
     if not pyenv versions | grep -q nvim
         run pyenv virtualenv (pyenv versions --skip-aliases --bare | rg '^3[0-9.]+$' | sort -Vr | head -n 1) nvim
         run pyenv activate nvim
-        run pip install -U pip setuptools black autopep8 flake8 yapf pylint
     else
         run pyenv activate nvim
-        run pip install -U pip setuptools black autopep8 flake8 yapf pylint
     end
+    run pip install -U pip setuptools black autopep8 flake8 yapf pylint
     run ln -sf (pyenv which yapf) ~/.config/fish/bin/
     run ln -sf (pyenv which autopep8) ~/.config/fish/bin/
     run ln -sf (pyenv which flake8) ~/.config/fish/bin/
