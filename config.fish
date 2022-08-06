@@ -10,100 +10,8 @@ if begin; isatty; or status --is-interactive; or test -z "$INSIDE_EMACS"; or not
     end
 end
 
-if status is-interactive
-    if test -f "/usr/bin/starship"
-        # Starship prompt
-        source ("/usr/bin/starship" init fish --print-full-init | psub)
-    end
-
-    if test -f /usr/share/doc/find-the-command/ftc.fish
-        # Advanced command-not-found hook for pacman
-        source /usr/share/doc/find-the-command/ftc.fish
-    end
-
-end
-
-## Set values
 # Hide welcome message
 set fish_greeting
-
-## Export variable need for qt-theme
-if type "qtile" >> /dev/null 2>&1
-   set -x QT_QPA_PLATFORMTHEME "qt5ct"
-end
-
-## Enviromental vars
-set -gx PYTHONDONTWRITEBYTECODE 1  # Python won’t try to write .pyc or .pyo files on the import of source modules
-set -gx PYTHONUNBUFFERED 1  # Force stdin, stdout and stderr to be totally unbuffered.
-set -gx VIRTUAL_ENV_DISABLE_PROMPT 1  # Disable default virtualenv prompt
-set -gx PYTHONSTARTUP $HOME/.pythonrc  # Load pythonrc file
-set -gx PYTHON_CONFIGURE_OPTS "--enable-shared"
-set -gx GPG_TTY (tty)  # Load gpg
-set -gx JAVA_HOME (readlink -f /usr/bin/javac | sed "s:/bin/javac::")
-set -gx GO111MODULE on
-set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
-
-# Set settings for https://github.com/franciscolourenco/done
-set -gx __done_min_cmd_duration 10000
-set -gx __done_notification_urgency_level low
-
-set -gx VISUAL nvim
-set -gx EDITOR $VISUAL
-
-for p in /usr/bin/{chromium,microsoft-edge,microsoft-edge-beta,microsoft-edge-dev}
-    if test -f $p
-        set -gx BROWSER $p
-        break
-    end
-end
-
-## WAYLAND
-if pidof systemd and test (loginctl show-session 2 -p Type | awk -F= '{print $2}') = 'wayland'
-    # Most pure GTK3 apps use wayland by default, but some,
-    # like Firefox, need the backend to be explicitely selected.
-    set -gx GTK_CSD 0
-
-    # qt wayland
-    set -gx QT_QPA_PLATFORM "wayland"
-    set -gx QT_QPA_PLATFORMTHEME qt5ct
-    set -gx QT_WAYLAND_DISABLE_WINDOWDECORATION "1"
-
-    #Java XWayland blank screens fix
-    set -gx _JAVA_AWT_WM_NONREPARENTING 1
-end
-
-## SWAY
-# set default shell and terminal
-if test -f /usr/share/sway/scripts/foot.sh
-    set -gx TERMINAL_COMMAND  /usr/share/sway/scripts/foot.sh
-end
-
-# add default location for zeit.db
-set -gx ZEIT_DB ~/.config/zeit.db
-
-# Do not show notification if terminal is focused
-set -U __done_sway_ignore_visible 1
-
-## PATH EXPANSION
-# Expand $PATH
-set -l NewPaths \
-    /usr/local/go/bin \
-    $HOME/.local/bin \
-    $HOME/.yarn/bin \
-    $HOME/.cargo/bin \
-    $HOME/.config/fish/bin \
-    $HOME/bin/
-
-for p in $NewPaths
-    if test -d $p
-        fish_add_path $p
-    end
-end
-
-# GH config
-set -gx GH_BASE_DIR $HOME/src
-set -gx GL_BASE_DIR $HOME/src
-set -gx GB_BASE_DIR $HOME/src
 
 ## Useful aliases
 # Replace ls with exa
@@ -163,3 +71,94 @@ alias mirrora="sudo reflector --latest 50 --number 20 --sort age --save /etc/pac
 
 # Get the error messages from journalctl
 alias jctl="journalctl -p 3 -xb"
+
+if status is-interactive
+    if test -f "/usr/bin/starship"
+        # Starship prompt
+        source ("/usr/bin/starship" init fish --print-full-init | psub)
+    end
+
+    if test -f /usr/share/doc/find-the-command/ftc.fish
+        # Advanced command-not-found hook for pacman
+        source /usr/share/doc/find-the-command/ftc.fish
+    end
+    exit
+end
+
+## Export variable need for qt-theme
+if type "qtile" >> /dev/null 2>&1
+   set -x QT_QPA_PLATFORMTHEME "qt5ct"
+end
+
+## Enviromental vars
+set -gx PYTHONDONTWRITEBYTECODE 1  # Python won’t try to write .pyc or .pyo files on the import of source modules
+set -gx PYTHONUNBUFFERED 1  # Force stdin, stdout and stderr to be totally unbuffered.
+set -gx VIRTUAL_ENV_DISABLE_PROMPT 1  # Disable default virtualenv prompt
+set -gx PYTHONSTARTUP $HOME/.pythonrc  # Load pythonrc file
+set -gx PYTHON_CONFIGURE_OPTS "--enable-shared"
+set -gx GPG_TTY (tty)  # Load gpg
+set -gx JAVA_HOME (readlink -f /usr/bin/javac | sed "s:/bin/javac::")
+set -gx GO111MODULE on
+set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
+
+# Set settings for https://github.com/franciscolourenco/done
+set -gx __done_min_cmd_duration 10000
+set -gx __done_notification_urgency_level low
+
+set -gx VISUAL nvim
+set -gx EDITOR $VISUAL
+
+for p in /usr/bin/{chromium,microsoft-edge,microsoft-edge-beta,microsoft-edge-dev}
+    if test -f $p
+        set -gx BROWSER $p
+        break
+    end
+end
+
+## WAYLAND
+if pidof systemd; and test (loginctl show-session 2 -p Type | awk -F= '{print $2}') = 'wayland'
+    # Most pure GTK3 apps use wayland by default, but some,
+    # like Firefox, need the backend to be explicitely selected.
+    set -gx GTK_CSD 0
+
+    # qt wayland
+    set -gx QT_QPA_PLATFORM "wayland"
+    set -gx QT_QPA_PLATFORMTHEME qt5ct
+    set -gx QT_WAYLAND_DISABLE_WINDOWDECORATION "1"
+
+    #Java XWayland blank screens fix
+    set -gx _JAVA_AWT_WM_NONREPARENTING 1
+end
+
+## SWAY
+# set default shell and terminal
+if test -f /usr/share/sway/scripts/foot.sh
+    set -gx TERMINAL_COMMAND  /usr/share/sway/scripts/foot.sh
+end
+
+# add default location for zeit.db
+set -gx ZEIT_DB ~/.config/zeit.db
+
+# Do not show notification if terminal is focused
+set -U __done_sway_ignore_visible 1
+
+## PATH EXPANSION
+# Expand $PATH
+set -l NewPaths \
+    /usr/local/go/bin \
+    $HOME/.local/bin \
+    $HOME/.yarn/bin \
+    $HOME/.cargo/bin \
+    $HOME/.config/fish/bin \
+    $HOME/bin/
+
+for p in $NewPaths
+    if test -d $p
+        fish_add_path $p
+    end
+end
+
+# GH config
+set -gx GH_BASE_DIR $HOME/src
+set -gx GL_BASE_DIR $HOME/src
+set -gx GB_BASE_DIR $HOME/src
