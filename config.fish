@@ -80,6 +80,9 @@ if status is-interactive
     if test -f "/usr/bin/starship"
         source ("/usr/bin/starship" init fish --print-full-init | psub)
     end
+    if test -f "/usr/local/bin/starship"
+        source ("/usr/local/bin/starship" init fish --print-full-init | psub)
+    end
 
     # Advanced command-not-found hook for pacman
     if test -f /usr/share/doc/find-the-command/ftc.fish

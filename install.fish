@@ -10,6 +10,11 @@ if grep -q 'arch' < /etc/os-release
     run sudo pacman -Sy --needed nodejs npm yarn git-delta ripgrep go exa btop bat
 end
 
+if not command -q starship
+    title "Install starship"
+    run curl -sS https://starship.rs/install.sh | sh
+end
+
 title "Add default directories"
 run mkdir -p ~/.ssh
 run mkdir -p ~/.gnupg
