@@ -16,19 +16,8 @@ if not command -q starship
 end
 
 title "Add default directories"
-run mkdir -p ~/.ssh
-run mkdir -p ~/.gnupg
 run mkdir -p ~/bin
 run mkdir -p ~/src/github.com
-
-title "Link dotfiles"
-run ln -s ~/.config/fish/_symlinks/public.gpg ~/.gnupg/public.gpg
-run ln -s ~/.config/fish/_symlinks/id_ed25519.pub ~/.ssh/id_ed25519.pub
-run ln -s ~/.config/fish/_symlinks/.gitconfig ~/.gitconfig
-run ln -s ~/.config/fish/_symlinks/.global_gitignore ~/.global_gitignore
-run ln -s ~/.config/fish/_symlinks/.pdbrc ~/.pdbrc
-run ln -s ~/.config/fish/_symlinks/.pythonrc ~/.pythonrc
-run ln -s ~/.config/fish/_symlinks/.tmux.conf ~/.tmux.conf
 
 title "Fix dotfile premissions"
 run chmod 0600 ~/.ssh/id_rsa
