@@ -44,12 +44,13 @@ if command -q pacman
 
     # Recent installed packages
     alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
+
+    # List amount of -git packages
+    alias gitpkg='pacman -Q | grep -i "\-git" | wc -l'
 end
 
 # Common use
 alias grubup="sudo update-grub"
-alias tarnow='tar -acf '
-alias untar='tar -xvf '
 alias wget='wget -c '
 alias psmem='ps auxf | sort -nr -k 4'
 alias psmem10='ps auxf | sort -nr -k 4 | head -10'
@@ -62,7 +63,6 @@ alias egrep='egrep --color=auto'
 
 if command -q hwinfo; alias hw='hwinfo --short'; end  # Hardware Info
 if command -q expac; alias big="expac -H M '%m\t%n' | sort -h | nl"; end  # Sort installed packages according to size in MB
-if command -q pacman; alias gitpkg='pacman -Q | grep -i "\-git" | wc -l'; end # List amount of -git packages
 
 # Get fastest mirrors
 if command -q reflector
