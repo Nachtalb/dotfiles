@@ -59,27 +59,30 @@ alias vdir='vdir --color=auto'
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
-alias hw='hwinfo --short'                          # Hardware Info
-alias big="expac -H M '%m\t%n' | sort -h | nl"     # Sort installed packages according to size in MB
-alias gitpkg='pacman -Q | grep -i "\-git" | wc -l' # List amount of -git packages
+
+if command -q hwinfo; alias hw='hwinfo --short'; end  # Hardware Info
+if command -q expac; alias big="expac -H M '%m\t%n' | sort -h | nl"; end  # Sort installed packages according to size in MB
+if command -q pacman; alias gitpkg='pacman -Q | grep -i "\-git" | wc -l'; end # List amount of -git packages
 
 # Get fastest mirrors
-alias mirror="sudo reflector -f 30 -l 30 --number 10 --verbose --save /etc/pacman.d/mirrorlist"
-alias mirrord="sudo reflector --latest 50 --number 20 --sort delay --save /etc/pacman.d/mirrorlist"
-alias mirrors="sudo reflector --latest 50 --number 20 --sort score --save /etc/pacman.d/mirrorlist"
-alias mirrora="sudo reflector --latest 50 --number 20 --sort age --save /etc/pacman.d/mirrorlist"
+if command -q reflector
+    alias mirror="sudo reflector -f 30 -l 30 --number 10 --verbose --save /etc/pacman.d/mirrorlist"
+    alias mirrord="sudo reflector --latest 50 --number 20 --sort delay --save /etc/pacman.d/mirrorlist"
+    alias mirrors="sudo reflector --latest 50 --number 20 --sort score --save /etc/pacman.d/mirrorlist"
+    alias mirrora="sudo reflector --latest 50 --number 20 --sort age --save /etc/pacman.d/mirrorlist"
+end
 
 # Get the error messages from journalctl
 alias jctl="journalctl -p 3 -xb"
 
 if status is-interactive
+    # Starship prompt
     if test -f "/usr/bin/starship"
-        # Starship prompt
         source ("/usr/bin/starship" init fish --print-full-init | psub)
     end
 
+    # Advanced command-not-found hook for pacman
     if test -f /usr/share/doc/find-the-command/ftc.fish
-        # Advanced command-not-found hook for pacman
         source /usr/share/doc/find-the-command/ftc.fish
     end
     exit
