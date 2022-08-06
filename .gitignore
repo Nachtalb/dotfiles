@@ -4,3 +4,8 @@ bin/black
 bin/flake8
 bin/pylint
 bin/yapf
+functions/*.fish
+completions/*.fish
+conf.d/*.fish
+!functions/fisher.fish
+!completions/fisher.fish
