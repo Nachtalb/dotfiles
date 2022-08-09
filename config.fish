@@ -122,7 +122,7 @@ for p in /usr/bin/{chromium,microsoft-edge,microsoft-edge-beta,microsoft-edge-de
 end
 
 ## WAYLAND
-if pidof systemd; and test (loginctl show-session 2 -p Type | awk -F= '{print $2}') = 'wayland'
+if pidof systemd 1>/dev/null; and test (loginctl show-session 2 -p Type | awk -F= '{print $2}') = 'wayland'
     # Most pure GTK3 apps use wayland by default, but some,
     # like Firefox, need the backend to be explicitely selected.
     set -gx GTK_CSD 0
