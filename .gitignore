@@ -4,13 +4,10 @@ bin/black
 bin/flake8
 bin/pylint
 bin/yapf
-functions/*.fish
-completions/*.fish
-conf.d/*.fish
 !*.secret
-functions/*.secret
-completions/*.secret
-conf.d/*.secret
+functions/*
+completions/*
+conf.d/*
 !functions/fisher.fish
 !completions/fisher.fish
 .gitsecret/keys/random_seed
