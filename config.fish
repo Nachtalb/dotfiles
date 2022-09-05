@@ -156,6 +156,7 @@ set -l NewPaths \
     $HOME/.yarn/bin \
     $HOME/.cargo/bin \
     $HOME/.config/fish/bin \
+    $HOME/.local/share/gem/ruby/3.0.0/bin \
     $HOME/bin/
 
 for p in $NewPaths
