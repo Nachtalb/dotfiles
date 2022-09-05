@@ -13,7 +13,7 @@ state = \es
 stage = \ee
 
 # Ctrl + E
-unstage = \ce
+unstage = \eu
 
 # Alt + M
 show = \em
@@ -28,7 +28,7 @@ pull = \ed
 push = \ep
 
 # Alt + U
-upstream = \eu
+# upstream = \eu
 
 # Alt + L
 logs = \el
