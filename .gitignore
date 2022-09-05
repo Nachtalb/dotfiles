@@ -27,7 +27,7 @@ conf.d/*
 !functions/history.fish
 
 # Configs
-!conf.d/abbreviations.fish
+!conf.d/abbriviations.fish
 !conf.d/alias.fish
 !conf.d/.gitnow
 
