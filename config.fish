@@ -165,6 +165,10 @@ for p in $NewPaths
     end
 end
 
+if command -q ruby
+    fish_add_path (ruby -e 'print Gem.user_dir')/bin
+end
+
 # GH config
 set -gx GH_BASE_DIR $HOME/src
 set -gx GL_BASE_DIR $HOME/src
