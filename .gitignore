@@ -8,6 +8,32 @@ bin/yapf
 functions/*
 completions/*
 conf.d/*
-!functions/fisher.fish
-!completions/fisher.fish
 .gitsecret/keys/random_seed
+
+# Do not ignore own files
+# Functions
+!functions/fisher.fish
+!functions/ccopy.fish
+!functions/cpaste.fish
+!functions/run.fish
+!functions/hv-destroy.fish
+!functions/dotfiles_install_symlinks.fish
+!functions/dotfiles_install_symlinks.fish
+!functions/vpn.fish.secret
+!functions/gh.fish
+!functions/gl.fish
+!functions/vim.fish
+!functions/__history_double_exclamation.fish
+!functions/history.fish
+
+# Configs
+!conf.d/abbreviations.fish
+!conf.d/alias.fish
+!conf.d/.gitnow
+
+# Completions
+!completions/fisher.fish
+!completions/bun.fish
+!completions/gh.fish
+!completions/gl.fish
+
