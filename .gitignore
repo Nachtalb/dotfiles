@@ -19,6 +19,7 @@ conf.d/*
 !functions/dotfiles_install_symlinks.fish
 !functions/dotfiles_install_symlinks.fish
 !functions/vpn.fish.secret
+!functions/hv.fish.secret
 !functions/gh.fish
 !functions/gl.fish
 !functions/vim.fish
