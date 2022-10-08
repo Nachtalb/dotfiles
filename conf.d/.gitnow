@@ -10,7 +10,7 @@ clipboard = false
 state = \es
 
 # Alt + E
-stage = \ee
+# stage = \ee
 
 # Ctrl + E
 unstage = \eu
