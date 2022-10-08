@@ -1,4 +1,5 @@
 status is-interactive || exit
+abbr rmf 'rm -rf'
 
 # git rebase
 abbr grc 'git rebase --continue'
