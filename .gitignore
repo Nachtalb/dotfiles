@@ -16,7 +16,6 @@ conf.d/*
 !functions/ccopy.fish
 !functions/cpaste.fish
 !functions/run.fish
-!functions/hv.fish
 !functions/dotfiles_install_symlinks.fish
 !functions/dotfiles_install_symlinks.fish
 !functions/vpn.fish.secret
@@ -36,4 +35,3 @@ conf.d/*
 !completions/bun.fish
 !completions/gh.fish
 !completions/gl.fish
-
