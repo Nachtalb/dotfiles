@@ -16,7 +16,7 @@ conf.d/*
 !functions/ccopy.fish
 !functions/cpaste.fish
 !functions/run.fish
-!functions/hv-destroy.fish
+!functions/hv.fish
 !functions/dotfiles_install_symlinks.fish
 !functions/dotfiles_install_symlinks.fish
 !functions/vpn.fish.secret
