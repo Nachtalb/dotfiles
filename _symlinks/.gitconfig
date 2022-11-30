@@ -1,5 +1,5 @@
 [user]
-    email = info@nachtalb.io
+    email = na@nachtalb.io
     name = Nachtalb
     signingkey = FB8B6CA09AE73612
 
@@ -34,3 +34,5 @@
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
+[init]
+	defaultBranch = master
