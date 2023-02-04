@@ -12,6 +12,8 @@ conf.d/*
 
 # Do not ignore own files
 # Functions
+!functions/litterbox.fish
+!functions/catbox.fish
 !functions/fisher.fish
 !functions/ccopy.fish
 !functions/cpaste.fish
