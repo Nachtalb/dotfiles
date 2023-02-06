@@ -13,6 +13,8 @@ function ccopy --description "Copy data from STDIN to the clipboard"
         read -z | win32yank.exe -i -clrf
     else if command -q termunx-clipboard-set
         read -z | termunx-clipboard-set
+    else if command -q clip.exe
+        read -z | clip.exe
     else if test -n $TMUX; and command -q tmux
         read -z | tmux load-buffer -
     else

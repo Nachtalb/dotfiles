@@ -13,6 +13,8 @@ function cpaste --description "Print clipboard data to STOUT"
         win32yank.exe -o -lf
     else if command -q termunx-clipboard-set
         termunx-clipboard-get
+    else if command -q powershell.exe
+        powershell.exe -c "Get-Clipboard"
     else if test -n $TMUX; and command -q tmux
         tmux save-buffer -
     else
