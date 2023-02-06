@@ -38,3 +38,4 @@ conf.d/*
 !completions/bun.fish
 !completions/gh.fish
 !completions/gl.fish
+!completions/git.fish

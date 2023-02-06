@@ -1,0 +1,28 @@
+#!/usr/sbin/fish
+set -l remote $argv[1]
+if not set -q argv[1]
+  set remote origin
+end
+
+echo $remote
+
+set -l current (git remote get-url $remote)
+if not test -n "$current"
+  return 1
+end
+
+if git remote -v | rg $remote-old -q
+  set -l new_remote (git remote get-url $remote-old)
+  git remote set-url $remote $new_remote
+  git remote set-url $remote-old $current
+
+  echo success: New remote set to $new_remote
+else if string match -q -e "@" $current
+  set -l new_remote (echo $current | string replace -r "git@" "https://" | string replace ":" "/")
+  git remote add $remote-old $current
+  git remote set-url $remote $new_remote
+
+  echo success: New remote set to $new_remote
+else
+  echo error: Remote already using http
+end
