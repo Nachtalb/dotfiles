@@ -5,6 +5,8 @@ bin/flake8
 bin/pylint
 bin/yapf
 bin/mypy
+bin/ccopy
+bin/cpaste
 !*.secret
 functions/*
 completions/*
@@ -33,6 +35,7 @@ conf.d/*
 !conf.d/abbriviations.fish
 !conf.d/alias.fish
 !conf.d/.gitnow
+!conf.d/ccopy.fish
 
 # Completions
 !completions/fisher.fish
