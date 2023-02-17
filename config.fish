@@ -103,6 +103,7 @@ set -gx GPG_TTY (tty)  # Load gpg
 set -gx JAVA_HOME (readlink -f /usr/bin/javac | sed "s:/bin/javac::")
 set -gx GO111MODULE on
 set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
+set -gx NACHTALB_DOTFILES "1"
 
 # Set settings for https://github.com/franciscolourenco/done
 set -gx __done_min_cmd_duration 10000
