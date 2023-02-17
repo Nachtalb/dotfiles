@@ -20,9 +20,9 @@ if command -q exa
     alias ll='exa -l --color=always --group-directories-first --icons'  # long format
     alias la='exa -al --color=always --group-directories-first --icons'  # all files and dirs
     alias lt='exa -aT --color=always --group-directories-first --icons' # tree listing
-    alias l.="la | egrep '^\.'"                                     # show only dotfiles
 end
 alias ip="ip -color"
+
 
 # Replace some more things with better alternatives
 if command -q bat
@@ -34,10 +34,6 @@ end
 if command -q pacman
     alias fixpacman="sudo rm /var/lib/pacman/db.lck"
     alias rmpkg="sudo pacman -Rdd"
-
-    # Help people new to Arch
-    alias apt='man pacman'
-    alias apt-get='man pacman'
 
     # Cleanup orphaned packages
     alias cleanup='sudo pacman -Rns (pacman -Qtdq)'
@@ -91,6 +87,7 @@ if status is-interactive
     exit
 end
 
+
 ## Export variable need for qt-theme
 if type "qtile" >> /dev/null 2>&1
    set -x QT_QPA_PLATFORMTHEME "qt5ct"
@@ -121,6 +118,7 @@ for p in /usr/bin/{chromium,microsoft-edge,microsoft-edge-beta,microsoft-edge-de
     end
 end
 
+
 ## WAYLAND
 set -l session_type (loginctl show-session (loginctl | awk '/tty/ {print $1}') -p Type | awk -F= '{print $2}')
 if begin; pidof systemd 1>/dev/null; and test "$session_type" = "wayland"; end
@@ -142,9 +140,6 @@ end
 if test -f /usr/share/sway/scripts/foot.sh
     set -gx TERMINAL_COMMAND  /usr/share/sway/scripts/foot.sh
 end
-
-# add default location for zeit.db
-set -gx ZEIT_DB ~/.config/zeit.db
 
 # Do not show notification if terminal is focused
 set -U __done_sway_ignore_visible 1
