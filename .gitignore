@@ -4,6 +4,7 @@ bin/black
 bin/flake8
 bin/pylint
 bin/yapf
+bin/mypy
 !*.secret
 functions/*
 completions/*

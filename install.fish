@@ -36,13 +36,14 @@ if command -q pyenv
     else
         run pyenv activate nvim
     end
-    run pip install -U pip setuptools black autopep8 flake8 yapf pylint
+    run pip install -U pip setuptools black autopep8 flake8 yapf pylint mypy
     run ln -sf (pyenv which yapf) ~/.config/fish/bin/
     run ln -sf (pyenv which autopep8) ~/.config/fish/bin/
     run ln -sf (pyenv which flake8) ~/.config/fish/bin/
     run ln -sf (pyenv which pylint) ~/.config/fish/bin/
-    run pyenv deactivate
+    run ln -sf (pyenv which mypy) ~/.config/fish/bin/
     run ln -sf (pyenv which black) ~/.config/fish/bin/
+    run pyenv deactivate
 else
     set_color red && printf "Pyenv not installed, run: " && set_color grey && echo "curl https://pyenv.run | sh" && set_color white
 end
