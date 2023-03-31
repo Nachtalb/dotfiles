@@ -5,6 +5,7 @@ abbr rmf 'rm -rf'
 abbr grc 'git rebase --continue'
 abbr gri 'git rebase -r -i'
 abbr gra 'git rebase --abort'
+abbr grs 'git rebase --skip'
 # git commit
 abbr ga 'git add'
 abbr gaa 'git add .'
@@ -29,13 +30,17 @@ abbr gsp 'git stash pop'
 abbr gsd 'git stash drop'
 abbr gsl 'git stash list'
 abbr gss 'git stash show'
+# cherry picking
+abbr gcp 'git cherry-pick'
+abbr gcpc 'git cherry-pick --continue'
+abbr gcpa 'git cherry-pick --abort'
 # misc
 abbr glog 'git log --graph'
 abbr gl1 "git log --graph --abbrev-commit --decorate --format='%C(bold blue)%h%C(reset) - %C(bold green)(%ai)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --color=always --all"
 abbr gl2 "git log --graph --abbrev-commit --decorate --format='%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ai)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --color=always --all "
-abbr gcp 'git cherry-pick '
+abbr glw "watch -n 3 \"git log --graph --abbrev-commit --decorate --format='%C(bold blue)%h%C(reset) - %C(bold green)(%ai)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --color=always --all\""
 abbr gco 'git checkout'
-abbr gcb 'git checkout -b '
+abbr gcb 'git checkout -b'
 abbr gst 'git status'
 abbr gdf 'git diff'
 abbr gdfn 'git diff --name-status'
