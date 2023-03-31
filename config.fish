@@ -1,13 +1,15 @@
 # If we're not running in an interactive terminal, do nothing.
-if begin; isatty; or status --is-interactive; or test -z "$INSIDE_EMACS"; or not set -q NOTMUX; or test "dumb" = $TERM; end
-    if not set -q TMUX
-        set -l session_name local
-        if tmux has-session -t $session_name 2> /dev/null
-            exec env -- tmux new-session -t $session_name \; set destroy-unattached on
-        else
-            exec env -- tmux new-session -s $session_name
-        end
-    end
+function ts
+  if begin; isatty; or status --is-interactive; or test -z "$INSIDE_EMACS"; or not set -q NOTMUX; end
+      if not set -q TMUX
+          set -l session_name local
+          if tmux has-session -t $session_name 2> /dev/null
+              exec env -- tmux new-session -t $session_name \; set destroy-unattached on
+          else
+              exec env -- tmux new-session -s $session_name
+          end
+      end
+  end
 end
 
 # Hide welcome message
