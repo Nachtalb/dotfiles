@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "dotfiles"
+version = "0.1.0"
+description = ""
+authors = ["Nachtalb <na@nachtalb.io>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+black = "^23.3.0"
+mypy = "^1.2.0"
+isort = "^5.12.0"
+pynvim = "^0.4.3"
+pycodestyle = "^2.10.0"
+ruff-lsp = "^0.0.24"
+ruff = "^0.0.261"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
