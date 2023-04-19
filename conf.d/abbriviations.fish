@@ -6,6 +6,10 @@ abbr grc 'git rebase --continue'
 abbr gri 'git rebase -r -i'
 abbr gra 'git rebase --abort'
 abbr grs 'git rebase --skip'
+# git cherry pick
+abbr gcp 'git cherry-pick'
+abbr gcps 'git cherry-pick --abort'
+abbr gcpc 'git cherry-pick --continue'
 # git commit
 abbr ga 'git add'
 abbr gaa 'git add .'
@@ -38,7 +42,7 @@ abbr gcpa 'git cherry-pick --abort'
 abbr glog 'git log --graph'
 abbr gl1 "git log --graph --abbrev-commit --decorate --format='%C(bold blue)%h%C(reset) - %C(bold green)(%ai)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --color=always --all"
 abbr gl2 "git log --graph --abbrev-commit --decorate --format='%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ai)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --color=always --all "
-abbr glw "watch -n 3 \"git log --graph --abbrev-commit --decorate --format='%C(bold blue)%h%C(reset) - %C(bold green)(%ai)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --color=always --all\""
+abbr glw "watch -n 3 --color \"git log --graph --abbrev-commit --decorate --format='%C(bold blue)%h%C(reset) - %C(bold green)(%ai)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --color=always --all\""
 abbr gco 'git checkout'
 abbr gcb 'git checkout -b'
 abbr gst 'git status'
@@ -50,5 +54,5 @@ abbr gr 'git remote'
 abbr grv 'git remote -v'
 abbr gup 'git pull -r && git fetch -p origin && remove-merged-git-branches && git remote | grep -v origin | xargs -L1 git fetch -p'
 
-abbr ppy 'pyenv virtualenv (pyenv versions --skip-aliases --bare | rg \'^[0-9.]+$\' | sort -Vr | head -n 1) (basename  (pwd)) && pyenv local (basename  (pwd)) && pip install -U pip setuptools'
+abbr ppy 'pyenv virtualenv (pyenv versions --skip-envs --skip-aliases --bare | sort -V | tail -n1) (basename $PWD) && pyenv local (basename $PWD) && pip install -U pip setuptools'
 abbr upip 'pip install -U pip setuptools'

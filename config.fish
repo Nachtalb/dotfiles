@@ -1,13 +1,13 @@
 # If we're not running in an interactive terminal, do nothing.
-function ts
+function st
   if begin; isatty; or status --is-interactive; or test -z "$INSIDE_EMACS"; or not set -q NOTMUX; end
       if not set -q TMUX
-          set -l session_name local
-          if tmux has-session -t $session_name 2> /dev/null
-              exec env -- tmux new-session -t $session_name \; set destroy-unattached on
-          else
-              exec env -- tmux new-session -s $session_name
-          end
+        set -l session_name local
+        if tmux has-session -t $session_name 2> /dev/null
+            exec env -- tmux new-session -t $session_name \; set destroy-unattached on
+        else
+            exec env -- tmux new-session -s $session_name
+        end
       end
   end
 end
@@ -102,7 +102,6 @@ set -gx VIRTUAL_ENV_DISABLE_PROMPT 1  # Disable default virtualenv prompt
 set -gx PYTHONSTARTUP $HOME/.pythonrc  # Load pythonrc file
 set -gx PYTHON_CONFIGURE_OPTS "--enable-shared"
 set -gx GPG_TTY (tty)  # Load gpg
-set -gx JAVA_HOME (readlink -f /usr/bin/javac | sed "s:/bin/javac::")
 set -gx GO111MODULE on
 set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
 set -gx NACHTALB_DOTFILES "1"
@@ -123,20 +122,19 @@ end
 
 
 ## WAYLAND
-set -l session_type (loginctl show-session (loginctl | awk '/tty/ {print $1}') -p Type | awk -F= '{print $2}')
-if begin; pidof systemd 1>/dev/null; and test "$session_type" = "wayland"; end
-    # Most pure GTK3 apps use wayland by default, but some,
-    # like Firefox, need the backend to be explicitely selected.
-    set -gx GTK_CSD 0
-
-    # qt wayland
-    set -gx QT_QPA_PLATFORM "wayland"
-    set -gx QT_QPA_PLATFORMTHEME qt5ct
-    set -gx QT_WAYLAND_DISABLE_WINDOWDECORATION "1"
-
-    #Java XWayland blank screens fix
-    set -gx _JAVA_AWT_WM_NONREPARENTING 1
-end
+# if pidof systemd 1>/dev/null; and test (loginctl show-session 2 -p Type | awk -F= '{print $2}') = 'wayland'
+#     # Most pure GTK3 apps use wayland by default, but some,
+#     # like Firefox, need the backend to be explicitely selected.
+#     set -gx GTK_CSD 0
+#
+#     # qt wayland
+#     set -gx QT_QPA_PLATFORM "wayland"
+#     set -gx QT_QPA_PLATFORMTHEME qt5ct
+#     set -gx QT_WAYLAND_DISABLE_WINDOWDECORATION "1"
+#
+#     #Java XWayland blank screens fix
+#     set -gx _JAVA_AWT_WM_NONREPARENTING 1
+# end
 
 ## SWAY
 # set default shell and terminal

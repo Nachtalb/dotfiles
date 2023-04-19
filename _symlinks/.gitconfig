@@ -1,7 +1,7 @@
 [user]
-    email = nick_bernd.espig@sbb.ch
-    name = Nick Bernd Espig
-    signingkey = 08E6B71357220EE3
+    email = na@nachtalb.io
+    name = Nachtalb
+    signingkey = FB8B6CA09AE73612
 
 [core]
     excludesfile = ~/.global_gitignore

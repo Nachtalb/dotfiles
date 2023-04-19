@@ -40,10 +40,10 @@ if not test -f $ccopy_path
         set -gx "CCOPY" "xsel" "-ibs"
     else if command -q lemonade
         set -gx "CCOPY" "lemonade" "copy"
-    else if command -q clip.exe
-        set -gx "CCOPY" "clip.exe"  # clip.exe has about double the performance of win32yank.exe
     else if command -q win32yank.exe
-        set -gx "CCOPY" "win32yank.exe" "-i" "-clrf"
+        set -gx "CCOPY" "win32yank.exe" "-i" "--crlf"
+      else if command -q clip.exe
+        set -gx "CCOPY" "clip.exe"
     else if command -q termunx-clipboard-set
         set -gx "CCOPY" "termunx-clipboard-set"
     else if test -n $TMUX; and command -q tmux
@@ -53,7 +53,7 @@ if not test -f $ccopy_path
     if test (count $CCOPY) = 1
         ln -sf (which $CCOPY) $ccopy_path
       else
-        printf "#/usr/bin/env sh\nread | $CCOPY" > $ccopy_path
+        printf "#/usr/bin/env sh\n$CCOPY" > $ccopy_path
         chmod +x $ccopy_path
     end
 end
