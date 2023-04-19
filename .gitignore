@@ -6,6 +6,7 @@ bin/cpaste
 bin/isort
 bin/ruff
 bin/ruff-lsp
+bin/xdg-open
 !*.secret
 functions/*
 completions/*

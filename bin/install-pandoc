@@ -1,0 +1,43 @@
+#!/usr/bin/env fish
+
+printf "\033[34mInstalling dependencies\033[0m\n"
+sudo pacman -S --needed pandoc texlive-most --noconfirm --quiet
+
+# Create the target directories if they don't exist
+if not test -d /usr/share/haskell-pandoc/data/templates
+    sudo mkdir -p /usr/share/haskell-pandoc/data/templates
+end
+
+if not test -d /usr/local/share/fonts/pandoc-fonts
+    sudo mkdir -p /usr/local/share/fonts/pandoc-fonts
+end
+
+printf "\033[34mDownloading themes\033[0m\n"
+git clone https://github.com/cab-1729/Pandoc-Themes/ /tmp/pandoc-themes --quiet
+
+# List of tuples (theme_name, font_folder_name)
+set themes_list "drake-light" "drake" "drake" "drake"
+
+for i in (seq 1 2 (count $themes_list))
+    set theme_name $themes_list[$i]
+    set font_folder_name $themes_list[(math $i + 1)]
+
+    # Download and move .tex file
+    if not test -f /usr/share/haskell-pandoc/data/templates/$theme_name.tex
+        sed -i "s/usr\/share\/fonts/usr\/local\/share\/fonts/" /tmp/pandoc-themes/$theme_name.tex
+        sudo mv /tmp/pandoc-themes/$theme_name.tex /usr/share/haskell-pandoc/data/templates/
+        printf "\033[32mTheme %s has been installed\033[0m\n" $theme_name
+    else
+        printf "\033[33mTheme %s is already installed\033[0m\n" $theme_name
+    end
+
+    # Download and move font folder
+    if not test -d /usr/local/share/fonts/pandoc-fonts/$font_folder_name-fonts
+        sudo mv /tmp/pandoc-themes/pandoc-fonts/$font_folder_name-fonts /usr/local/share/fonts/pandoc-fonts/
+    end
+end
+
+rm -rf /tmp/pandoc-themes
+
+# Update the font cache
+sudo fc-cache

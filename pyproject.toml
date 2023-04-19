@@ -14,6 +14,7 @@ pynvim = "^0.4.3"
 pycodestyle = "^2.10.0"
 ruff-lsp = "^0.0.24"
 ruff = "^0.0.261"
+xdg-open-wsl = {git = "https://github.com/Nachtalb/xdg-open-wsl", rev = "master"}
 
 
 [build-system]
