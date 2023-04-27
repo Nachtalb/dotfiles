@@ -1,4 +1,10 @@
-# If we're not running in an interactive terminal, do nothing.
+set START (date +%s%3N)
+function spent -a suffix -d "How much time has gone by since start config.fish in ms"
+  echo $START - (math (date +%s%3N) - $START) - $suffix
+end
+
+# spent 1
+
 function st
   if begin; isatty; or status --is-interactive; or test -z "$INSIDE_EMACS"; or not set -q NOTMUX; end
       if not set -q TMUX
@@ -12,9 +18,11 @@ function st
   end
 end
 
+# spent 2
 # Hide welcome message
 set fish_greeting
 
+# spent 3
 ## Useful aliases
 # Replace ls with exa
 if command -q exa
@@ -25,14 +33,17 @@ if command -q exa
 end
 alias ip="ip -color"
 
+# spent 4
 
 # Replace some more things with better alternatives
 if command -q bat
     alias cat='bat --style header --style rule --style snip --style changes --style header'
 end
 
+# spent 5
 [ ! -x /usr/bin/yay ] && [ -x /usr/bin/paru ] && alias yay='paru'
 
+# spent 6
 if command -q pacman
     alias fixpacman="sudo rm /var/lib/pacman/db.lck"
     alias rmpkg="sudo pacman -Rdd"
@@ -47,32 +58,29 @@ if command -q pacman
     alias gitpkg='pacman -Q | grep -i "\-git" | wc -l'
 end
 
+# spent 7
 # Common use
-alias grubup="sudo update-grub"
 alias wget='wget -c '
-alias psmem='ps auxf | sort -nr -k 4'
-alias psmem10='ps auxf | sort -nr -k 4 | head -10'
-alias upd='/usr/bin/garuda-update'
-alias dir='dir --color=auto'
-alias vdir='vdir --color=auto'
 alias grep='grep --color=auto'
-alias fgrep='fgrep --color=auto'
-alias egrep='egrep --color=auto'
 
-if command -q hwinfo; alias hw='hwinfo --short'; end  # Hardware Info
-if command -q expac; alias big="expac -H M '%m\t%n' | sort -h | nl"; end  # Sort installed packages according to size in MB
+# spent 8
+# if command -q hwinfo; alias hw='hwinfo --short'; end  # Hardware Info
+# if command -q expac; alias big="expac -H M '%m\t%n' | sort -h | nl"; end  # Sort installed packages according to size in MB
 
+# spent 9
 # Get fastest mirrors
-if command -q reflector
-    alias mirror="sudo reflector -f 30 -l 30 --number 10 --verbose --save /etc/pacman.d/mirrorlist"
-    alias mirrord="sudo reflector --latest 50 --number 20 --sort delay --save /etc/pacman.d/mirrorlist"
-    alias mirrors="sudo reflector --latest 50 --number 20 --sort score --save /etc/pacman.d/mirrorlist"
-    alias mirrora="sudo reflector --latest 50 --number 20 --sort age --save /etc/pacman.d/mirrorlist"
-end
+# if command -q reflector
+#     alias mirror="sudo reflector -f 30 -l 30 --number 10 --verbose --save /etc/pacman.d/mirrorlist"
+#     alias mirrord="sudo reflector --latest 50 --number 20 --sort delay --save /etc/pacman.d/mirrorlist"
+#     alias mirrors="sudo reflector --latest 50 --number 20 --sort score --save /etc/pacman.d/mirrorlist"
+#     alias mirrora="sudo reflector --latest 50 --number 20 --sort age --save /etc/pacman.d/mirrorlist"
+# end
 
+# spent 10
 # Get the error messages from journalctl
 alias jctl="journalctl -p 3 -xb"
 
+# spent 11
 if status is-interactive
     # Starship prompt
     if test -f "/usr/bin/starship"
@@ -82,6 +90,7 @@ if status is-interactive
         source ("/usr/local/bin/starship" init fish --print-full-init | psub)
     end
 
+# spent 12
     # Advanced command-not-found hook for pacman
     if test -f /usr/share/doc/find-the-command/ftc.fish
         source /usr/share/doc/find-the-command/ftc.fish
@@ -89,12 +98,14 @@ if status is-interactive
     exit
 end
 
+# spent 13
 
 ## Export variable need for qt-theme
-if type "qtile" >> /dev/null 2>&1
-   set -x QT_QPA_PLATFORMTHEME "qt5ct"
-end
+# if type "qtile" >> /dev/null 2>&1
+#    set -x QT_QPA_PLATFORMTHEME "qt5ct"
+# end
 
+# spent 14
 ## Enviromental vars
 set -gx PYTHONDONTWRITEBYTECODE 1  # Python won’t try to write .pyc or .pyo files on the import of source modules
 set -gx PYTHONUNBUFFERED 1  # Force stdin, stdout and stderr to be totally unbuffered.
@@ -106,13 +117,16 @@ set -gx GO111MODULE on
 set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
 set -gx NACHTALB_DOTFILES "1"
 
+# spent 15
 # Set settings for https://github.com/franciscolourenco/done
 set -gx __done_min_cmd_duration 10000
 set -gx __done_notification_urgency_level low
 
+# spent 16
 set -gx VISUAL nvim
 set -gx EDITOR $VISUAL
 
+# spent 17
 for p in /usr/bin/{chromium,microsoft-edge,microsoft-edge-beta,microsoft-edge-dev}
     if test -f $p
         set -gx BROWSER $p
@@ -120,6 +134,7 @@ for p in /usr/bin/{chromium,microsoft-edge,microsoft-edge-beta,microsoft-edge-de
     end
 end
 
+# spent 18
 
 ## WAYLAND
 # if pidof systemd 1>/dev/null; and test (loginctl show-session 2 -p Type | awk -F= '{print $2}') = 'wayland'
@@ -136,15 +151,18 @@ end
 #     set -gx _JAVA_AWT_WM_NONREPARENTING 1
 # end
 
+# spent 19
 ## SWAY
 # set default shell and terminal
 if test -f /usr/share/sway/scripts/foot.sh
     set -gx TERMINAL_COMMAND  /usr/share/sway/scripts/foot.sh
 end
 
+# spent 20
 # Do not show notification if terminal is focused
 set -U __done_sway_ignore_visible 1
 
+# spent 21
 ## PATH EXPANSION
 # Expand $PATH
 set -l NewPaths \
@@ -156,16 +174,19 @@ set -l NewPaths \
     $HOME/.local/share/gem/ruby/3.0.0/bin \
     $HOME/bin/
 
+# spent 22
 for p in $NewPaths
     if test -d $p
         fish_add_path $p
     end
 end
 
-if command -q ruby
-    fish_add_path (ruby -e 'print Gem.user_dir')/bin
-end
+# spent 23
+# if command -q ruby
+#     fish_add_path (ruby -e 'print Gem.user_dir')/bin
+# end
 
+# spent 24
 # GH config
 set -gx GH_BASE_DIR $HOME/src
 set -gx GL_BASE_DIR $HOME/src
