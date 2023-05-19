@@ -63,23 +63,6 @@ end
 alias wget='wget -c '
 alias grep='grep --color=auto'
 
-# spent 8
-# if command -q hwinfo; alias hw='hwinfo --short'; end  # Hardware Info
-# if command -q expac; alias big="expac -H M '%m\t%n' | sort -h | nl"; end  # Sort installed packages according to size in MB
-
-# spent 9
-# Get fastest mirrors
-# if command -q reflector
-#     alias mirror="sudo reflector -f 30 -l 30 --number 10 --verbose --save /etc/pacman.d/mirrorlist"
-#     alias mirrord="sudo reflector --latest 50 --number 20 --sort delay --save /etc/pacman.d/mirrorlist"
-#     alias mirrors="sudo reflector --latest 50 --number 20 --sort score --save /etc/pacman.d/mirrorlist"
-#     alias mirrora="sudo reflector --latest 50 --number 20 --sort age --save /etc/pacman.d/mirrorlist"
-# end
-
-# spent 10
-# Get the error messages from journalctl
-alias jctl="journalctl -p 3 -xb"
-
 # spent 11
 if status is-interactive
     # Starship prompt
@@ -181,12 +164,6 @@ for p in $NewPaths
     end
 end
 
-# spent 23
-# if command -q ruby
-#     fish_add_path (ruby -e 'print Gem.user_dir')/bin
-# end
-
-# spent 24
 # GH config
 set -gx GH_BASE_DIR $HOME/src
 set -gx GL_BASE_DIR $HOME/src
