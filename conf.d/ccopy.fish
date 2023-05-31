@@ -47,7 +47,7 @@ if not test -f $ccopy_path
     else if command -q termunx-clipboard-set
         set -gx "CCOPY" "termunx-clipboard-set"
     else if test -n $TMUX; and command -q tmux
-        set -gx "CCOPY" "tmux load-buffer -"
+        set -gx "CCOPY" "tmux" "load-buffer" "-"
     end
 
     if test (count $CCOPY) = 1
