@@ -18,6 +18,10 @@ function st
   end
 end
 
+if test (uname -r) != "*icrosoft*"
+  # Automatically start tmux if we are not in a WSL environment
+  st
+end
 # spent 2
 # Hide welcome message
 set fish_greeting
