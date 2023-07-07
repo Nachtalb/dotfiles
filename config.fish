@@ -18,7 +18,7 @@ function st
   end
 end
 
-if test (uname -r) != "*icrosoft*"
+if string match -q -- "*icrosoft*" (uname -r)
   # Automatically start tmux if we are not in a WSL environment
   st
 end
