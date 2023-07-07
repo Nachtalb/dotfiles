@@ -6,22 +6,23 @@ end
 # spent 1
 
 function st
-  if begin; isatty; or status --is-interactive; or test -z "$INSIDE_EMACS"; or not set -q NOTMUX; end
-      if not set -q TMUX
-        set -l session_name local
-        if tmux has-session -t $session_name 2> /dev/null
-            exec env -- tmux new-session -t $session_name \; set destroy-unattached on
-        else
-            exec env -- tmux new-session -s $session_name
-        end
+  if begin; test -z "$INSIDE_EMACS"; and test -z "$NOTMUX"; and isatty; and status --is-interactive; end
+    if not set -q TMUX
+      set -l session_name local
+      if tmux has-session -t $session_name 2> /dev/null
+        exec env -- tmux new-session -t $session_name \; set destroy-unattached on
+      else
+        exec env -- tmux new-session -s $session_name
       end
+    end
   end
 end
 
-if string match -q -- "*icrosoft*" (uname -r)
+if not string match -q -- "*icrosoft*" (uname -r)
   # Automatically start tmux if we are not in a WSL environment
   st
 end
+
 # spent 2
 # Hide welcome message
 set fish_greeting
