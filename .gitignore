@@ -44,6 +44,15 @@ conf.d/*
 !completions/gl.fish
 !completions/git.fish
 
+# Symlinks
+_symlinks/.ssh/*
+_symlinks/.gnupg/*
+!_symlinks/.ssh/config.public
+!_symlinks/.ssh/id_ed25519.pub
+!_symlinks/.gnupg/gpg-agent.conf
+!_symlinks/.gnupg/public.gpg
+
+
 # Created by https://www.toptal.com/developers/gitignore/api/python,vim,linux,vscode
 # Edit at https://www.toptal.com/developers/gitignore?templates=python,vim,linux,vscode
 
@@ -253,7 +262,5 @@ Sessionx.vim
 tags
 # Persistent undo
 [._]*.un~
-
-#!! ERROR: vscode is undefined. Use list command to see defined gitignore types !!#
 
 # End of https://www.toptal.com/developers/gitignore/api/python,vim,linux,vscode

@@ -36,3 +36,5 @@
 	process = git-lfs filter-process
 [init]
 	defaultBranch = master
+[safe]
+	directory = /tmp/os-setup
