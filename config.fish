@@ -18,8 +18,7 @@ function st
   end
 end
 
-if not string match -q -- "*icrosoft*" (uname -r)
-  # Automatically start tmux if we are not in a WSL environment
+if test -f ~/.config/fish/settings/autostart-tmux
   st
 end
 
