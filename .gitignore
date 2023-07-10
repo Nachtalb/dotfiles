@@ -21,8 +21,6 @@ conf.d/*
 !functions/ccopy.fish
 !functions/cpaste.fish
 !functions/run.fish
-!functions/dotfiles_install_symlinks.fish
-!functions/dotfiles_install_symlinks.fish
 !functions/vpn.fish.secret
 !functions/hv.fish.secret
 !functions/gh.fish
@@ -30,6 +28,7 @@ conf.d/*
 !functions/vim.fish
 !functions/__history_double_exclamation.fish
 !functions/history.fish
+!functions/dotfiles.fish
 
 # Configs
 !conf.d/abbriviations.fish
@@ -43,6 +42,7 @@ conf.d/*
 !completions/gh.fish
 !completions/gl.fish
 !completions/git.fish
+!completions/dotfiles.fish
 
 # Symlinks
 _symlinks/.ssh/*
