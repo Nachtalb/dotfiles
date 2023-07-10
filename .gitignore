@@ -12,6 +12,7 @@ functions/*
 completions/*
 conf.d/*
 .gitsecret/keys/random_seed
+settings/*
 
 # Do not ignore own files
 # Functions
