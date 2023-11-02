@@ -1,5 +1,11 @@
+function _is_silent
+  if not set -q "$silent_mode"; or test $silent_mode -eq 1; or not set -q $silent_mode
+    return 1
+  end
+end
+
 function _echo  -a text -a silent_mode
-    if not set -q "$silent_mode"; or test $silent_mode -eq 1; or not set -q $silent_mode
+    if not _is_silent
         echo $text >&2
     end
 end
@@ -56,10 +62,48 @@ function _dotfile_config
     end
 end
 
-function _dotfile_update_ssh
+function _dotfile_merge_ssh
+    # Merge SSH config
+    # Merge ~/.ssh/config.public and ~/.ssh/config.private into ~/.ssh/config
     set config_public ~/.ssh/config.public
     set config_private ~/.ssh/config.private
     set config ~/.ssh/config
+
+    if not test -f $config_public
+      set_color --bold red
+      echo "SSH config public file does not exist."
+      set_color normal
+      return 1
+    end
+
+    # Ask if file is good colored
+    _echo "Merged SSH config:"
+    _echo "----------------------------------------"
+    cat $config_public $config_private | bat -l "SSH Config" -p
+    _echo "----------------------------------------"
+
+    # Retrieve user input to continue, default to yes
+    if not _is_silent
+      read -P 'Is this good? [Y/n]: ' -n 1 REPLY
+
+      set_color --bold red
+      if test $status -eq 0
+        if test $REPLY = "n"
+          echo "Aborted."
+          return 1
+        end
+      else
+        echo "Aborted."
+        return 1
+      end
+      set_color normal
+    end
+
+
+    if test -f $config
+      _echo "Backing up existing SSH config to $config.bak"
+      cp $config $config.bak
+    end
 
     if test -f $config_private
         cat $config_public $config_private > $config
@@ -67,12 +111,13 @@ function _dotfile_update_ssh
         cat $config_public > $config
     end
 
-    chmod 600 $config
-    and _echo "SSH config updated."
-    or _echo "Failed to update SSH config."
+  chmod 600 $config
+  and _echo "SSH config merged"
+    or _echo "Failed to merge SSH config."
 end
 
 function _dotfile_setup
+    # Source setup scripts in ~/.config/fish/setup directory in alphabetical order
     for file in ~/.config/fish/setup/*.fish
         source $file
         and _echo "Sourced $file"
@@ -84,12 +129,17 @@ function dotfiles
     switch $argv[1]
         case "config"
             _dotfile_config $argv[2..-1]
-        case "update-ssh"
-            _dotfile_update_ssh
+        case "merge-ssh"
+            _dotfile_merge_ssh
         case "setup"
             _dotfile_setup
         case '*'
-            _echo "Usage: dotfiles [config|update-ssh|setup] ..."
+            _echo "Usage: dotfiles [config|merge-ssh|setup] ...
+
+    config:       Manage dotfiles settings
+    merge-ssh:    Merge public and private SSH config files into ~/.ssh/config
+    setup:        Run setup scripts in ~/.config/fish/setup directory
+    "
             return 1
     end
 end
