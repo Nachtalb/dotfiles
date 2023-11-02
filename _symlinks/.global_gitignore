@@ -40,3 +40,4 @@ doc/tags
 .cache
 compile_commands.json
 *.bak
+.ccls-cache
