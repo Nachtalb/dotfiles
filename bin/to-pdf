@@ -1,2 +1,19 @@
 #!/usr/bin/env fish
-pandoc --pdf-engine=xelatex -t pdf --template=drake-light.tex $argv[1] > (string replace -r '\.[^.]+$' '' $argv[1]).pdf
+
+# Check if input file is provided
+if test -z $argv[1]
+    echo "Error: No input file provided."
+    exit 1
+end
+
+# Check for template argument
+set template_path "/usr/share/haskell-pandoc/data/templates/"
+set default_template "drake-light"
+if test -n $argv[2]
+    set template $argv[2]
+else
+    set template $default_template
+end
+
+# Conversion command
+pandoc --pdf-engine=xelatex -t pdf --template=$template_path$template.tex $argv[1] > (string replace -r '\.[^.]+$' '' $argv[1]).pdf
