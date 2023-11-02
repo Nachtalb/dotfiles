@@ -20,8 +20,11 @@ end
 
 if test -f ~/.config/fish/settings/autostart-tmux
   st
+else
+  echo "Create ~/.config/fish/settings/autostart-tmux to enable autostart tmux"
 end
 
+set -gx JAVA_HOME /usr/lib/jvm/default
 # spent 2
 # Hide welcome message
 set fish_greeting
@@ -102,6 +105,7 @@ set -gx PYTHON_CONFIGURE_OPTS "--enable-shared"
 set -gx GPG_TTY (tty)  # Load gpg
 set -gx GO111MODULE on
 set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
+set -gx MANROFFOPT "-c"
 set -gx NACHTALB_DOTFILES "1"
 
 # spent 15
@@ -172,3 +176,11 @@ end
 set -gx GH_BASE_DIR $HOME/src
 set -gx GL_BASE_DIR $HOME/src
 set -gx GB_BASE_DIR $HOME/src
+
+if begin; type -q vpn-start; and not test -f ~/.config/vpn-stopped; end
+  vpn-start
+end
+
+# bun
+set --export BUN_INSTALL "$HOME/.reflex/.bun"
+set --export PATH $BUN_INSTALL/bin $PATH
