@@ -1,0 +1,502 @@
+#!/usr/bin/env python
+"""A simple git log visualiser.
+
+This script displays the git log of the current directory in a GUI.
+"""
+import re
+import subprocess
+import tkinter as tk
+from pathlib import Path
+from tkinter import scrolledtext, ttk
+
+# Regex to match ANSI escape codes
+ANSI_ESCAPE = re.compile(r"(\x9B|\x1B\[)[0-?]*[ -\/]*[@-~]")
+
+# Map ANSI escape codes to tags
+COLOR_MAP = {
+    "\x1b[0m": "reset",
+    "\x1b[1;31m": "bold_red",
+    "\x1b[1;31m": "bold_red",
+    "\x1b[1;32m": "bold_green",
+    "\x1b[1;33m": "bold_yellow",
+    "\x1b[1;34m": "bold_blue",
+    "\x1b[1;35m": "bold_magenta",
+    "\x1b[1;36m": "bold_cyan",
+    "\x1b[2;37m": "dim_white",
+    "\x1b[30m": "black",
+    "\x1b[31m": "red",
+    "\x1b[32m": "green",
+    "\x1b[33m": "yellow",
+    "\x1b[34m": "blue",
+    "\x1b[35m": "magenta",
+    "\x1b[36m": "cyan",
+    "\x1b[37m": "white",
+    "\x1b[m": "reset",
+}
+
+
+# The current path
+CURRENT_PATH = Path.cwd()
+
+# The log display widget
+LOG_DISPLAY: tk.Text = None  # type: ignore[assignment]
+
+# Lock to prevent multiple updates from happening at the same time
+UPDATE_LOCK = False
+
+# The search entry widget
+SEARCH_ENTRY: tk.Entry = None  # type: ignore[assignment]
+# The index of the current search match
+CURRENT_SEARCH_INDEX: int = -1
+# The list of search results
+SEARCH_RESULTS: list[tuple[str, str]] = []
+# The current search query
+SEARCH_QUERY: str = ""
+
+
+def reset_search():
+    """Reset the search state."""
+    global CURRENT_SEARCH_INDEX, SEARCH_RESULTS, SEARCH_QUERY
+    CURRENT_SEARCH_INDEX = -1
+    SEARCH_RESULTS = []
+    SEARCH_QUERY = ""
+    LOG_DISPLAY.tag_remove("search_highlight", 1.0, tk.END)
+    LOG_DISPLAY.tag_remove("current_search_highlight", 1.0, tk.END)
+    SEARCH_ENTRY.configure(highlightbackground="#d9d9d9", highlightcolor="black")
+
+
+def search_log(_event: tk.Event | None = None):
+    """Search the log display widget for the given query.
+
+    Args:
+        _event: The event object.
+    """
+    global CURRENT_SEARCH_INDEX, SEARCH_RESULTS, LOG_DISPLAY, SEARCH_ENTRY, SEARCH_QUERY
+
+    new_query = SEARCH_ENTRY.get()
+    if not new_query:
+        reset_search()
+        return
+
+    if new_query == SEARCH_QUERY:
+        next_search_result()
+        return
+    reset_search()
+    SEARCH_QUERY = query = new_query
+
+    regex = False
+    if SEARCH_QUERY.startswith("/"):
+        regex = True
+        query = SEARCH_QUERY[1:]
+
+        # Parse flags such as /i, /m or /iam at the end of the query as regex flags
+        flag_pattern = r"(?<!\\)/([aimsux]+)$"
+        if match := re.search(flag_pattern, query):
+            flags = match.group(1)
+            query = f"(?{flags})" + query[: match.start()]
+
+    if not query:
+        return
+
+    if query in [" ", "."] or (regex and query in [".*", ".+"]):
+        SEARCH_ENTRY.configure(highlightbackground="orange", highlightcolor="orange")
+        return
+
+    text = LOG_DISPLAY.get(1.0, tk.END)
+    try:
+        query = query.lower()
+        text = text.lower()
+        if not regex:
+            index = 0
+            while (new_index := text[index:].find(query)) != -1:
+                index += new_index
+                start_idx = f"1.0 + {index}c"
+                end_idx = f"1.0 + {index + len(query)}c"
+                index += len(query)
+                LOG_DISPLAY.tag_add("search_highlight", start_idx, end_idx)
+                SEARCH_RESULTS.append((start_idx, end_idx))
+        else:
+            for match in re.finditer(query, text):
+                start_idx = f"1.0 + {match.start()}c"
+                end_idx = f"1.0 + {match.end()}c"
+                LOG_DISPLAY.tag_add("search_highlight", start_idx, end_idx)
+                SEARCH_RESULTS.append((start_idx, end_idx))
+    except re.error:
+        SEARCH_ENTRY.configure(highlightbackground="red", highlightcolor="red")
+        return
+
+    if SEARCH_RESULTS:
+        highlight_search_result(0)
+
+
+def highlight_search_result(index: int):
+    """Highlight the search result at the given index.
+
+    Args:
+        index: The index of the search result to highlight.
+    """
+    global CURRENT_SEARCH_INDEX, LOG_DISPLAY
+
+    LOG_DISPLAY.tag_remove("current_search_highlight", 1.0, tk.END)
+
+    start_idx, end_idx = SEARCH_RESULTS[index]
+    LOG_DISPLAY.tag_add("current_search_highlight", start_idx, end_idx)
+    LOG_DISPLAY.see(start_idx)
+
+    CURRENT_SEARCH_INDEX = index
+
+
+def next_search_result(_event: tk.Event | None = None):
+    """Highlight the next search result."""
+    global CURRENT_SEARCH_INDEX
+
+    if CURRENT_SEARCH_INDEX == -1 or not SEARCH_RESULTS:
+        return
+
+    next_index = (CURRENT_SEARCH_INDEX + 1) % len(SEARCH_RESULTS)
+    highlight_search_result(next_index)
+
+
+def prev_search_result(_event: tk.Event | None = None):
+    """Highlight the previous search result."""
+    global CURRENT_SEARCH_INDEX
+
+    if CURRENT_SEARCH_INDEX == -1 or not SEARCH_RESULTS:
+        return
+
+    prev_index = (CURRENT_SEARCH_INDEX - 1) % len(SEARCH_RESULTS)
+    highlight_search_result(prev_index)
+
+
+def get_git_log() -> str:
+    """Get the git log for the current directory.
+
+    Returns:
+        The git log.
+    """
+    global CURRENT_PATH
+    result = subprocess.run(
+        [
+            "git",
+            "log",
+            "--graph",
+            "--abbrev-commit",
+            "--decorate",
+            "--date=relative",
+            (
+                "--format=%C(bold blue)%h%C(reset) - %C(bold green)(%ai)%C(reset) %C(black)%s%C(reset) %C(magenta)-"
+                " %an%C(reset)%C(bold red)%d%C(reset)"
+            ),
+            "--color=always",
+            "--all",
+        ],
+        capture_output=True,
+        text=True,
+        cwd=str(CURRENT_PATH),
+    )
+    return result.stdout
+
+
+def set_log(text_widget: tk.Text, text: str):
+    """Set the text of the log display widget.
+
+    Args:
+        text_widget: The log display widget.
+        text: The text to set.
+    """
+    text_widget.config(state=tk.NORMAL)  # Enable editing temporarily
+    text_widget.delete(1.0, tk.END)
+    i = 0
+    tag = None
+    while i < len(text):
+        if text[i] == "\x1b":
+            if match := ANSI_ESCAPE.search(text[i:]):
+                seq = match.group()
+                tag = COLOR_MAP.get(seq, None)
+                if tag is None:  # Print the unrecognized sequence
+                    print(f"Unrecognized sequence: {seq}")
+            i += len(seq)
+        else:
+            start = i
+            while i < len(text) and text[i] != "\x1b":
+                i += 1
+            text_widget.insert(tk.END, text[start:i], tag)  # type: ignore[arg-type]
+    text_widget.insert(tk.END, "ROOT", "black")
+
+    # Highlight any occurrences of "HEAD" with the "highlight" tag
+    for match in re.finditer(r"\bHEAD\b", text_widget.get(1.0, tk.END)):
+        start_idx = f"1.0 + {match.start()}c"
+        end_idx = f"1.0 + {match.end()}c"
+        text_widget.tag_add("highlight", start_idx, end_idx)
+
+    text_widget.config(state=tk.DISABLED)  # Disable editing again
+
+
+def strip_ansi_codes(s: str) -> str:
+    """Strip ANSI codes from a string.
+
+    Args:
+        s: The string to strip.
+
+    Returns:
+        The stripped string.
+    """
+    return ANSI_ESCAPE.sub("", s)
+
+
+def auto_update_log(text_widget: tk.Text, create_task: bool = True):
+    """Update the log display widget with the latest git log.
+
+    Args:
+        text_widget: The log display widget.
+        create_task: Whether to create a task to auto update the log display widget.
+    """
+    global UPDATE_LOCK
+    if UPDATE_LOCK:
+        return
+    UPDATE_LOCK = True
+    try:
+        current_content = text_widget.get(1.0, tk.END)
+        log = get_git_log()
+
+        if strip_ansi_codes(log).strip() + "\nROOT" != current_content.strip():
+            set_log(text_widget, log)
+
+        if create_task:
+            text_widget.after(
+                1000, auto_update_log, text_widget
+            )  # Auto update every 2 seconds
+    finally:
+        UPDATE_LOCK = False
+
+
+def configure_tags(log_display: tk.Text):
+    """Configure the tags for the log display widget.
+
+    Args:
+        log_display: The log display widget.
+    """
+    FONT = ("FiraCode Nerd Font Mono", 10)
+    BOLD_FONT = FONT + ("bold",)
+
+    log_display.tag_config("bold_red", foreground="red", font=BOLD_FONT)
+    log_display.tag_config("bold_green", foreground="green", font=BOLD_FONT)
+    log_display.tag_config("bold_yellow", foreground="#f5c52a", font=BOLD_FONT)
+    log_display.tag_config("bold_blue", foreground="blue", font=BOLD_FONT)
+    log_display.tag_config("bold_magenta", foreground="magenta", font=BOLD_FONT)
+    log_display.tag_config("bold_cyan", foreground="cyan", font=BOLD_FONT)
+    log_display.tag_config("dim_white", foreground="#a8a8a8", font=FONT)
+    log_display.tag_config("black", foreground="black", font=FONT)
+    log_display.tag_config("red", foreground="red", font=FONT)
+    log_display.tag_config("green", foreground="green", font=FONT)
+    log_display.tag_config("yellow", foreground="#f5c52a", font=FONT)
+    log_display.tag_config("blue", foreground="blue", font=FONT)
+    log_display.tag_config("magenta", foreground="magenta", font=FONT)
+    log_display.tag_config("cyan", foreground="cyan", font=FONT)
+    log_display.tag_config("white", foreground="white", font=FONT)
+    log_display.tag_config("reset", foreground="black", font=FONT)
+
+    log_display.tag_config("highlight", background="red", foreground="white")
+    log_display.tag_config("search_highlight", background="yellow")
+    log_display.tag_config("current_search_highlight", background="orange")
+
+
+def find_git_repos(path: Path) -> list[Path]:
+    """Find all git repositories under the given path using ripgrep.
+
+    Args:
+        path: The path to search under.
+
+    Returns:
+        A list of paths to git repositories.
+    """
+    cmd = ["rg", "--files", "--hidden", "-g", "index", str(path)]
+    result = subprocess.run(cmd, capture_output=True, text=True)
+    return sorted([Path(line).parent.parent for line in result.stdout.splitlines()])
+
+
+def get_or_create_node(tree: ttk.Treeview, parent: str, part: str, repo: Path) -> str:
+    """Get the ID of a node in the tree, or create it if it doesn't exist.
+
+    Args:
+        tree: The Treeview widget.
+        parent: The ID of the parent node.
+        part: The name of the node.
+        repo: The path of the repository.
+
+    Returns:
+        The ID of the node.
+    """
+    for child in tree.get_children(parent):
+        if tree.item(child, "text") == part:
+            return child
+    return tree.insert(parent, "end", text=part, values=(str(Path(repo)),))
+
+
+def display_repos_in_treeview(repos: list[Path], tree: ttk.Treeview, root_path: Path):
+    """Display the list of repositories in the Treeview widget.
+
+    Args:
+        repos: The list of repositories to display.
+        tree: The Treeview widget.
+        root_path: The root path of the repositories.
+    """
+    global CURRENT_PATH
+    for repo in repos:
+        relative_repo = repo.relative_to(root_path)
+        parent = ""
+        for part in relative_repo.parts:
+            parent = get_or_create_node(tree, parent, part, repo)
+            if repo == CURRENT_PATH:
+                tree.selection_set(parent)
+                tree.see(parent)
+                tree.item(parent, open=True)
+
+
+def on_treeview_select(event: tk.Event):
+    """Event handler for when a node in the treeview is selected.
+
+    Args:
+        event: The event object.
+    """
+    global CURRENT_PATH, LOG_DISPLAY
+    tree = event.widget
+    item = tree.selection()[0]
+    tree.item(item, open=True)
+    CURRENT_PATH = Path(tree.item(item, "value")[0])
+    update_title(tree.master)
+    auto_update_log(LOG_DISPLAY, create_task=False)
+
+
+def update_title(root: tk.Tk):
+    """Update the title of the window to show the current directory.
+
+    Args:
+        root: The root window.
+    """
+    global CURRENT_PATH
+    relative_path = CURRENT_PATH.absolute().relative_to(Path.home())
+    root.title(f"Git Log Visualiser - {relative_path}")
+
+
+def search_focus(starting_pattern: str = ""):
+    SEARCH_ENTRY.focus_set()
+    if starting_pattern and SEARCH_ENTRY.get() == "":
+        SEARCH_ENTRY.insert(0, starting_pattern)
+
+
+def select_all(event: tk.Event) -> str:
+    """Select all content of the ttk.Entry widget."""
+    event.widget.select_range(0, "end")
+    return "break"
+
+
+def find_char_count(s: str, index: int) -> int:
+    count = 0
+    while index < len(s) and s[index] == " ":
+        index += 1
+        count += 1
+
+    while index < len(s) and s[index] != " ":
+        count += 1
+        index += 1
+
+    return count
+
+
+def delete_word_before(event: tk.Event) -> str:
+    """Delete the word before the insertion cursor in the ttk.Entry widget."""
+    entry_widget = event.widget
+    content = entry_widget.get()
+    index = entry_widget.index(tk.INSERT)
+    new_index = index - find_char_count(content[::-1], len(content) - index)
+    if new_index == index:
+        new_index = 0
+    entry_widget.delete(new_index, index)
+    return "break"
+
+
+def delete_word_after(event: tk.Event) -> str:
+    """Delete the word after the insertion cursor in the ttk.Entry widget."""
+    entry_widget: ttk.Entry = event.widget
+    content = entry_widget.get()
+    index = entry_widget.index(tk.INSERT)
+    new_index = index + find_char_count(content, index)
+    if new_index == index:
+        new_index = len(content)
+    entry_widget.delete(index, new_index)
+    return "break"
+
+
+def main():
+    global LOG_DISPLAY, SEARCH_ENTRY
+    root = tk.Tk()
+    update_title(root)
+    root_path = Path("~/src").expanduser()
+
+    style = ttk.Style()
+    style.configure("TEntry", highlightbackground=None, highlightcolor=None)
+
+    # Define the new styles
+    # Treeview to select git repo
+    tree = ttk.Treeview(root)
+    tree.grid(row=0, column=0, sticky="nsew", padx=10, pady=10)
+    tree.bind("<<TreeviewSelect>>", on_treeview_select)
+
+    LOG_DISPLAY = log_display = scrolledtext.ScrolledText(root, width=200, height=50)
+    log_display.grid(row=0, column=1, sticky="nsew")
+    log_display.config(state=tk.DISABLED)
+    configure_tags(log_display)
+
+    # Set grid row and column configurations
+    root.grid_rowconfigure(0, weight=1)  # Make the row expandable
+    root.grid_columnconfigure(0, weight=1)  # Make the treeview column expandable
+    root.grid_columnconfigure(
+        1, weight=3
+    )  # Make the log display column thrice as expandable
+
+    auto_update_log(log_display)
+
+    # Set the root of the treeview to the current directory
+    repos = find_git_repos(root_path)
+    display_repos_in_treeview(repos, tree, root_path)
+
+    SEARCH_ENTRY = tk.Entry(root)
+    SEARCH_ENTRY.grid(row=1, column=1, sticky="ew", padx=10, pady=(0, 10))
+    SEARCH_ENTRY.bind("<Return>", search_log)
+    SEARCH_ENTRY.bind("<KeyRelease>", search_log)
+    SEARCH_ENTRY.bind("<Shift-Return>", prev_search_result)
+
+    SEARCH_ENTRY.bind("<Control-a>", select_all)
+    SEARCH_ENTRY.bind("<Control-BackSpace>", delete_word_before)
+    SEARCH_ENTRY.bind("<Control-Delete>", delete_word_after)
+    SEARCH_ENTRY.configure()
+
+    root.bind("<Control-f>", lambda _: search_focus())
+    root.bind("/", lambda _: search_focus("/"))
+
+    # ESC from search to log display and from log display to close app
+    root.bind("<Escape>", lambda _: log_display.focus_set())
+    log_display.bind("<Escape>", lambda _: root.destroy())
+
+    # VIM bindings
+    # Scroll up and down in the log display with j and k respectively
+    log_display.bind("<j>", lambda _: log_display.yview_scroll(1, "units"))
+    log_display.bind("<k>", lambda _: log_display.yview_scroll(-1, "units"))
+    # Page up and down in the log display with shift-j and shift-k respectively
+    log_display.bind("<J>", lambda _: log_display.yview_scroll(1, "pages"))
+    log_display.bind("<K>", lambda _: log_display.yview_scroll(-1, "pages"))
+    # Scroll to the top and bottom of the log display with gg and G respectively
+    log_display.bind("<g>", lambda _: log_display.yview_moveto(0))
+    log_display.bind("<G>", lambda _: log_display.yview_moveto(1))
+    # Scroll to the middle of the log display with M
+    log_display.bind("<M>", lambda _: log_display.yview_moveto(0.5))
+
+    # Focus the log display widget
+    log_display.focus_set()
+
+    root.mainloop()
+
+
+if __name__ == "__main__":
+    main()
