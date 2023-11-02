@@ -3,52 +3,65 @@
 This repository contains my collection of dotfiles, including a comprehensive
 Fish shell setup and additional tools such as Black, Ruff, Mypy, and more.
 
-To quickly set up your environment, I recommend using the
-[OS Setup](https://github.com/Nachtalb/os-setup) tool. It provides an automated
-installation process that includes the dotfiles from this repository.
+<p align="center">
+<img src="./wsl-terminal-preview.png" alt="WSL Terminal Preview">
+<br/>
+WSL Terminal Preview
+</p>
 
 ## Installation
 
-For a convenient installation without cloning the repository, you can use the
-following command:
+For a streamlined setup experience, consider using the
+[OS Setup](https://github.com/Nachtalb/os-setup) tool. This not only automates
+the integration of dotfiles from this repository but also provides a robust
+suite of tools and configurations. For a deep dive into the tools included,
+refer to our comprehensive
+[tooling list](https://github.com/Nachtalb/os-setup/blob/master/TOOLING.md).
 
-> ⚠ Disclaimer: Use caution when using the OS Setup tool as it installs various
-> dependencies and components other than just these dotfiles, and may overwrite
-> or conflict with existing settings; for a manual installations look at the
-> `install.d` folder as mentioned further down.
+> ⚠ Caution: The OS Setup installs various components and might adjust or
+> conflict with existing configurations.
+
+To swiftly install:
 
 ```bash
 bash <(curl https://raw.githubusercontent.com/Nachtalb/os-setup/master/web-install.sh) --noconfirm
 ```
 
-This command will automatically download and run the installation script,
-skipping any confirmation prompts.
-
-If you already have an existing installation and prefer a manual setup, you can
-explore the files in the `install.d` folder of the
-[OS Setup](https://github.com/Nachtalb/os-setup) repository. These files provide
-step-by-step instructions and configuration details specific to each component
-of the OS setup.
+For those inclined towards a manual touch, the `install.d` folder in the
+[OS Setup](https://github.com/Nachtalb/os-setup) repository offers granular
+control. access.
 
 ## Feature List
 
-- 📋 `ccopy` and `cpaste` scripts for clipboard interaction (Linux, macOS,
-  Windows/WSL).
-- 🔄 `git tohttp [remote]` and `git tossh [remote]` for rewriting Git remotes.
-- 📦 `install-pandoc` script for Pandoc dependencies and additional themes.
-- 📄 `to-pdf` script for file to PDF conversion with Pandoc.
-- 🔄 `update-neovim-nightly` for updating Neovim on Arch.
-- 📤 `catbox [file]` and `litterbox [file]` for file uploads.
-- 🗃️ `extract [file]` for extracting common archives.
-- 🐙 `gh [user/repo]` and `gl [user/repo]` for cloning from GitHub and GitLab.
-- ✨ `vim` wrapper for Neovim with Session.vim support.
-- 🚀 Starship shell integration for customizable prompt.
+### Tools
+
+Explore the custom suite of tools in the bin/ and functions/ folders, curated
+for this OS setup to streamline daily tasks and enhance system operations.
+
+|     | Tool                       | Description                                              |
+| --- | -------------------------- | -------------------------------------------------------- |
+| 📋  | `ccopy` & `cpaste`         | Clipboard interaction (Linux, macOS, Windows/WSL).       |
+| 📦  | `install-pandoc`           | Pandoc dependencies and themes.                          |
+| 📦  | `to-pdf`                   | File to PDF conversion with Pandoc.                      |
+| 📦  | `extract`                  | Extract common archives.                                 |
+| 🔄  | `update-neovim-nightly`    | Update Neovim on Arch.                                   |
+| 📤  | `catbox` & `litterbox`     | File uploads.                                            |
+| 🌍  | `docker-compose-open`      | Open a service defined in docker compose in the browser. |
+| 🚀  | `git tohttp` & `git tossh` | Rewriting Git remotes.                                   |
+| 🚀  | `git clear`                | Delete branches merged on a remote.                      |
+| 🚀  | `git vlog`                 | Visual git log popout window for rebase sessions.        |
+| 🐙  | `gh` & `gl`                | Cloning from GitHub and GitLab.                          |
+| ✨  | `vim`                      | Wrapper for Neovim with Session.vim support.             |
+| ⚙   | `dotfiles`                 | Manage these dotfiles.                                   |
+
+### Utilities
+
 - 🖥️ Full tmux config and plugins.
 - 🔑 SSH, Git, and GnuPG configuration.
-- 📦 Tools: Black, Mypy, Isort, XDG-Open, Ruff, Ruff-LSP.
-- 🚀 Git abbreviations and aliases.
-- 🚀 Shell aliases and abbreviations.
-- 📚 Auto-setup of PATH for package managers.
+- 📦 Tools: Black, Mypy, Isort, XDG-Open, WSL-Open, Ruff, Ruff-LSP.
+- 🚀 Shell abbreviations and aliases (many for Git).
+- 📚 Auto-setup of PATH for various development tools and environments.
+- 🌌 Starship shell integration for a customizable prompt.
 
 ## Other Projects
 
