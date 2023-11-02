@@ -128,19 +128,12 @@ end
 # spent 18
 
 ## WAYLAND
-# if pidof systemd 1>/dev/null; and test (loginctl show-session 2 -p Type | awk -F= '{print $2}') = 'wayland'
-#     # Most pure GTK3 apps use wayland by default, but some,
-#     # like Firefox, need the backend to be explicitely selected.
-#     set -gx GTK_CSD 0
-#
-#     # qt wayland
-#     set -gx QT_QPA_PLATFORM "wayland"
-#     set -gx QT_QPA_PLATFORMTHEME qt5ct
-#     set -gx QT_WAYLAND_DISABLE_WINDOWDECORATION "1"
-#
-#     #Java XWayland blank screens fix
-#     set -gx _JAVA_AWT_WM_NONREPARENTING 1
-# end
+if test -f ~/.config/fish/settings/wayland
+    set -gx QT_QPA_PLATFORM "wayland"
+    set -gx QT_QPA_PLATFORMTHEME qt5ct
+    set -gx QT_WAYLAND_DISABLE_WINDOWDECORATION "1"
+    set -gx _JAVA_AWT_WM_NONREPARENTING 1
+end
 
 # spent 19
 ## SWAY
