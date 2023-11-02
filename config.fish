@@ -6,13 +6,13 @@ end
 # spent 1
 
 function st
-  if begin; test -z "$INSIDE_EMACS"; and test -z "$NOTMUX"; and isatty; and status --is-interactive; end
+  if begin; isatty; or status --is-interactive; or test -z "$INSIDE_EMACS"; or not set -q NOTMUX; end
     if not set -q TMUX
       set -l session_name local
       if tmux has-session -t $session_name 2> /dev/null
-        exec env -- tmux new-session -t $session_name \; set destroy-unattached on
+          exec tmux new-session -t $session_name \; set destroy-unattached on
       else
-        exec env -- tmux new-session -s $session_name
+          exec tmux new-session -s $session_name
       end
     end
   end
