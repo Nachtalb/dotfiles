@@ -1,0 +1,24 @@
+#!/usr/bin/sh
+
+
+# Fetch merged branches excluding master, main, and dev
+merged_branches=$(git branch --merged | rg -v "(^\*|master|main|dev)")
+
+if [ -z "$merged_branches" ]; then
+    echo "No merged branches found."
+    exit 0
+fi
+
+# Use ANSI escape codes for coloured text
+printf "\033[0;31mFound merged branches: \033[0m\n"
+echo "${merged_branches}"
+echo
+printf "\033[0;31mDo you want to delete these branches [Y/n]: \033[0m"
+read -r answer
+
+if [ -z "$answer" ] || [ "$answer" = "Y" ] || [ "$answer" = "y" ]; then
+    echo "Deleting branches..."
+    git branch --merged| rg -v  "(^\*|master|main|dev)" | xargs git branch -d
+else
+    echo "Aborted."
+fi
