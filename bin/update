@@ -1,0 +1,39 @@
+#!/usr/bin/sh
+
+# Enable error handling
+set -e
+
+# ANSI color codes
+bg_yellow="\033[48;5;3m\033[38;5;0m"  # Yellow background, black text
+bg_green="\033[48;5;2m\033[38;5;0m"   # Green background, black text
+reset="\033[0m"                        # Reset to default
+
+# Updating system packages
+printf "${bg_yellow}Updating system packages...${reset}\n"
+sudo pacman -Syu --noconfirm
+printf "${bg_green}System packages updated.${reset}\n"
+
+# Updating AUR packages
+printf "${bg_yellow}Updating AUR packages...${reset}\n"
+paru -Syu --noconfirm
+printf "${bg_green}AUR packages updated.${reset}\n"
+
+# Updating Python versions with pyenv
+printf "${bg_yellow}Updating Python versions with pyenv...${reset}\n"
+pyenv update
+printf "${bg_green}Python versions updated.${reset}\n"
+
+# Updating Rust toolchain
+printf "${bg_yellow}Updating Rust toolchain...${reset}\n"
+rustup update
+printf "${bg_green}Rust toolchain updated.${reset}\n"
+
+# Updating Neovim nightly
+printf "${bg_yellow}Updating Neovim nightly...${reset}\n"
+yes | sudo update-neovim-nightly
+printf "${bg_green}Neovim nightly updated.${reset}\n"
+
+# Updating Neovim plugins
+printf "${bg_yellow}Updating Neovim plugins...${reset}\n"
+nvim +CocUpdate +PlugInstall +UpdateRemotePlugins +PlugUpgrade +PlugUpdate +PlugDiff +'w ~/.PlugDiff' +qa
+printf "${bg_green}Neovim plugins updated.${reset}\n"
