@@ -35,5 +35,6 @@ printf "${bg_green}Neovim nightly updated.${reset}\n"
 
 # Updating Neovim plugins
 printf "${bg_yellow}Updating Neovim plugins...${reset}\n"
-nvim +CocUpdate +PlugInstall +UpdateRemotePlugins +PlugUpgrade +PlugUpdate +PlugDiff +'w ~/.PlugDiff' +qa
+nvim +CocUpdateSync +PlugInstall +UpdateRemotePlugins +PlugUpgrade +PlugUpdate +TSUpdate +PlugDiff +'w ~/.PlugDiff' +qa
+bat -l rst -p ~/.PlugDiff
 printf "${bg_green}Neovim plugins updated.${reset}\n"
