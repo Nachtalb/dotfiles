@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+python -m pip inspect | jq ".installed[] | select(.metadata.name == \"$1\").metadata.requires_dist
+  | map(select(contains(\"; extra ==\")) | capture(\"(?<dep>.+); extra == (\\\"|')(?<extra>[^']+)(\\\"|')\" ) )
+  | group_by(.extra)
+  | map( { (.[0].extra) : map(.dep) } )
+  | add"
