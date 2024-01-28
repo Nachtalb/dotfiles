@@ -41,6 +41,7 @@ for this OS setup to streamline daily tasks and enhance system operations.
 |     | Tool                       | Description                                              |
 | --- | -------------------------- | -------------------------------------------------------- |
 | 📋  | `ccopy` & `cpaste`         | Clipboard interaction (Linux, macOS, Windows/WSL).       |
+| 📦  | `pip-extras`               | Show available pip python package extras.                |
 | 📦  | `install-pandoc`           | Pandoc dependencies and themes.                          |
 | 📦  | `to-pdf`                   | File to PDF conversion with Pandoc.                      |
 | 📦  | `extract`                  | Extract common archives.                                 |
