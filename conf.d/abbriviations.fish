@@ -31,7 +31,7 @@ abbr gpl 'git pull -r'
 abbr grh 'git reset --hard'
 abbr grs 'git reset --soft'
 # git push
-abbr gpf 'git push --force'
+abbr gpf 'git push --force-with-lease'
 abbr gp 'git push'
 # git stash
 abbr gsa 'git stash save'
