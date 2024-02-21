@@ -4,17 +4,23 @@ version = "0.1.0"
 description = ""
 authors = ["Nachtalb <na@nachtalb.io>"]
 readme = "README.md"
+packages = []
 
 [tool.poetry.dependencies]
-python = "^3.11"
-black = "^23.3.0"
-mypy = "^1.2.0"
-isort = "^5.12.0"
+python = "^3.12"
 pynvim = "^0.4.3"
+xdg-open-wsl = { git = "https://github.com/Nachtalb/xdg-open-wsl", rev = "master" }
+defaultpoetry = { git = "https://github.com/Nachtalb/defaultpoetry" }
+argcomplete = "^3.2.2"
+
+[tool.poetry.group.dev.dependencies]
+black = "^24.2.0"
+ruff = "^0.2.2"
+ruff-lsp = "^0.0.52"
+mypy = "^1.8.0"
 pycodestyle = "^2.10.0"
-ruff-lsp = "^0.0.24"
-ruff = "^0.0.261"
-xdg-open-wsl = {git = "https://github.com/Nachtalb/xdg-open-wsl", rev = "master"}
+isort = "^5.13.2"
+ipdb = "^0.13.13"
 
 
 [build-system]
