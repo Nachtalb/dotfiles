@@ -12,9 +12,9 @@ pynvim = "^0.4.3"
 xdg-open-wsl = { git = "https://github.com/Nachtalb/xdg-open-wsl", rev = "master" }
 defaultpoetry = { git = "https://github.com/Nachtalb/defaultpoetry" }
 argcomplete = "^3.2.2"
+black = "^24.4.2"
 
 [tool.poetry.group.dev.dependencies]
-black = "^24.2.0"
 ruff = "^0.2.2"
 ruff-lsp = "^0.0.52"
 mypy = "^1.8.0"
