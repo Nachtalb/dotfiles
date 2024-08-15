@@ -75,6 +75,7 @@ for p in /usr/bin/{chromium,microsoft-edge,microsoft-edge-beta,microsoft-edge-de
     end
 end
 
+set -gx MAKEFLAGS "-j"(nproc)
 
 ## WAYLAND
 if test -f ~/.config/fish/settings/wayland
@@ -122,3 +123,7 @@ end
 # bun
 set --export BUN_INSTALL "$HOME/.reflex/.bun"
 set --export PATH $BUN_INSTALL/bin $PATH
+
+# systemd on arch wsl
+set -gx XDG_RUNTIME_DIR /run/user/(id -u)
+set -gx DBUS_SESSION_BUS_ADDRESS unix:path=$XDG_RUNTIME_DIR/bus

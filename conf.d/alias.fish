@@ -11,10 +11,11 @@ alias gr 'cd (git rev-parse --show-toplevel)'
 
 # Replace ls with exa
 if command -q exa
-    alias ls='exa --color=always --group-directories-first --icons' # preferred listing
-    alias ll='exa -l --color=always --group-directories-first --icons'  # long format
-    alias la='exa -al --color=always --group-directories-first --icons'  # all files and dirs
-    alias lt='exa -aT --color=always --group-directories-first --icons' # tree listing
+    alias exaf='exa --git --color=always --group-directories-first --icons'
+    alias ls='exaf' # preferred listing
+    alias ll='exaf -l'  # long format
+    alias la='exaf -al'  # all files and dirs
+    alias lt='exaf -aT' # tree listing
 end
 alias ip="ip -color"
 
