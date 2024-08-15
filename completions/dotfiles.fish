@@ -1,5 +1,5 @@
-# Update SSH subcommand
-complete -c dotfiles -n "__fish_seen_subcommand_from update-ssh" -f
+# Merge SSH subcommand
+complete -c dotfiles -n "__fish_seen_subcommand_from merge-ssh" -f
 
 # Setup subcommand
 complete -c dotfiles -n "__fish_seen_subcommand_from setup" -f
@@ -14,5 +14,5 @@ complete -c dotfiles -n "__fish_seen_subcommand_from config; and __fish_seen_sub
 # Main command
 complete -c dotfiles -s h -l help -d "Show help"
 complete -c dotfiles -n "__fish_use_subcommand" -a "config" -f -d "Get or set configuration values"
-complete -c dotfiles -n "__fish_use_subcommand" -a "update-ssh" -f -d "Update SSH configuration"
+complete -c dotfiles -n "__fish_use_subcommand" -a "merge-ssh" -f -d "Merge SSH configurations"
 complete -c dotfiles -n "__fish_use_subcommand" -a "setup" -f -d "Run setup scripts"

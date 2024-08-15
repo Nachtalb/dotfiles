@@ -1,1 +1,1 @@
-dotfiles update-ssh
+yes | dotfiles merge-ssh
