@@ -3,24 +3,47 @@ function spent -a suffix -d "How much time has gone by since start config.fish i
   echo $START - (math (date +%s%3N) - $START) - $suffix
 end
 
-
-function st
-  if begin; isatty; or status --is-interactive; or test -z "$INSIDE_EMACS"; or not set -q NOTMUX; end
-    if not set -q TMUX
-      set -l session_name local
-      if tmux has-session -t $session_name 2> /dev/null
-          exec tmux new-session -t $session_name \; set destroy-unattached on
-      else
-          exec tmux new-session -s $session_name
-      end
-    end
+function debug -a message
+  if test -n "$DEBUG"
+    echo $message
   end
 end
 
-if test -f ~/.config/fish/settings/autostart-tmux
-  st
-else
-  echo "Create ~/.config/fish/settings/autostart-tmux to enable autostart tmux"
+function start_tmux
+  set -l session_name local
+  if set -q TMUX
+    debug "Already inside Tmux"
+    return
+  end
+  if tmux has-session -t $session_name 2>/dev/null
+    debug "Attaching to exising Tmux session $session_name"
+    exec tmux attach-session -t $session_name
+  else
+    debug "Starting new Tmux session $session_name"
+    exec tmux new-session -s $session_name
+  end
+end
+
+function should_autostart_tmux
+  if test -n "$NOTMUX"; or test -n "$SSH_CLIENT"; or test -n "$SSH_TTY"
+    debug "Not starting Tmux because NOTMUX, SSH_CLIENT or SSH_TTY is set"
+    return 1
+  end
+  if status is-interactive; and test -z "$INSIDE_EMACS"
+    if test -f ~/.config/fish/settings/autostart-tmux
+      return 0
+    else
+      debug "Autostart Tmux disabled because ~/.config/fish/settings/autostart-tmux does not exist"
+      debug "Create ~/.config/fish/settings/autostart-tmux to enable autostart Tmux"
+      return 1
+    end
+  end
+  debug "Not starting Tmux because not in interactive shell or inside Emacs"
+  return 1
+end
+
+if should_autostart_tmux
+  start_tmux
 end
 
 set -gx JAVA_HOME /usr/lib/jvm/default
@@ -127,3 +150,5 @@ set --export PATH $BUN_INSTALL/bin $PATH
 # systemd on arch wsl
 set -gx XDG_RUNTIME_DIR /run/user/(id -u)
 set -gx DBUS_SESSION_BUS_ADDRESS unix:path=$XDG_RUNTIME_DIR/bus
+# End of config.fish marker
+log_with_tee $DEBUG_LOG "--- End of config.fish execution ---"
