@@ -17,7 +17,7 @@ function start_tmux
   end
   if tmux has-session -t $session_name 2>/dev/null
     debug "Attaching to exising Tmux session $session_name"
-    exec tmux attach-session -t $session_name
+    exec tmux new-session -t $session_name
   else
     debug "Starting new Tmux session $session_name"
     exec tmux new-session -s $session_name
