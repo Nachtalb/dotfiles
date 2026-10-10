@@ -4,18 +4,19 @@ alias timestamp='date +%s'
 alias j z  # j by habbit due to autojump
 
 if not command -q tree
-    alias tree 'exa --tree'
+    alias tree 'eza --tree'
 end
 
 alias gr 'cd (git rev-parse --show-toplevel)'
 
-# Replace ls with exa
-if command -q exa
-    alias exaf='exa --git --color=always --group-directories-first --icons'
-    alias ls='exaf' # preferred listing
-    alias ll='exaf -l'  # long format
-    alias la='exaf -al'  # all files and dirs
-    alias lt='exaf -aT' # tree listing
+# Replace ls with eza
+if command -q eza
+  alias ls='eza --group-directories-first --icons=auto --color=auto'
+  alias ll='ls -l --git'  # long format with git status
+  alias la='ll -a'  # all files and dirs
+  alias lt='ll --sort=modified --reverse' # latest modified first
+  alias lat='lt -a' # latest modified including hidden
+  alias tree='ls --tree' # tree view
 end
 alias ip="ip -color"
 
