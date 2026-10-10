@@ -17,10 +17,14 @@ function start_tmux
   end
   if tmux has-session -t $session_name 2>/dev/null
     debug "Attaching to exising Tmux session $session_name"
-    exec tmux new-session -t $session_name
+    if test "$PWD" != "$HOME"
+      exec tmux new-session -t $session_name \; new-window -c $PWD
+    else
+      exec tmux new-session -t $session_name
+    end
   else
     debug "Starting new Tmux session $session_name"
-    exec tmux new-session -s $session_name
+    exec tmux new-session -s $session_name -c $PWD
   end
 end
 
@@ -63,9 +67,7 @@ if status is-interactive
     if test -f /usr/share/doc/find-the-command/ftc.fish
         source /usr/share/doc/find-the-command/ftc.fish
     end
-    exit
 end
-
 
 ## Export variable need for qt-theme
 # if type "qtile" >> /dev/null 2>&1
@@ -73,7 +75,8 @@ end
 # end
 
 ## Enviromental vars
-set -gx PYTHONDONTWRITEBYTECODE 1  # Python won’t try to write .pyc or .pyo files on the import of source modules
+set -gx PROTON_PASS_KEY_PROVIDER fs  # Use filesystem key provider (no keyring daemon needed)
+set -gx PYTHONDONTWRITEBYTECODE 1  # Python won't try to write .pyc or .pyo files on the import of source modules
 set -gx PYTHONUNBUFFERED 1  # Force stdin, stdout and stderr to be totally unbuffered.
 set -gx VIRTUAL_ENV_DISABLE_PROMPT 1  # Disable default virtualenv prompt
 set -gx PYTHONSTARTUP $HOME/.pythonrc  # Load pythonrc file
@@ -147,6 +150,22 @@ end
 set --export BUN_INSTALL "$HOME/.reflex/.bun"
 set --export PATH $BUN_INSTALL/bin $PATH
 
+# Homebrew
+if test -x /home/linuxbrew/.linuxbrew/bin/brew
+    /home/linuxbrew/.linuxbrew/bin/brew shellenv fish | source
+end
+
 # systemd on arch wsl
 set -gx XDG_RUNTIME_DIR /run/user/(id -u)
 set -gx DBUS_SESSION_BUS_ADDRESS unix:path=$XDG_RUNTIME_DIR/bus
+
+# pnpm
+set -gx PNPM_HOME "/home/archie/.local/share/pnpm"
+if not string match -q -- $PNPM_HOME $PATH
+  set -gx PATH "$PNPM_HOME" $PATH
+end
+# pnpm end
+
+# >>> grok installer >>>
+fish_add_path $HOME/.grok/bin
+# <<< grok installer <<<
