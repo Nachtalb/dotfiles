@@ -4,7 +4,7 @@
     signingkey = FB8B6CA09AE73612
 
 [core]
-    excludesfile = ~/.global_gitignore
+    excludesfile = ~/.config/git/ignore
     autocrlf = input
     pager = delta
 

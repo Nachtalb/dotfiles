@@ -86,6 +86,9 @@ set -gx GO111MODULE on
 set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
 set -gx MANROFFOPT "-c"
 set -gx NACHTALB_DOTFILES "1"
+if test -f ~/.config/git/config.local
+  set -gx GIT_CONFIG_GLOBAL ~/.config/git/config.local  # Machine-local git config, includes the shared one
+end
 
 # Set settings for https://github.com/franciscolourenco/done
 set -gx __done_min_cmd_duration 10000

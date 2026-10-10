@@ -41,3 +41,4 @@ doc/tags
 compile_commands.json
 *.bak
 .ccls-cache
+**/.claude/settings.local.json
