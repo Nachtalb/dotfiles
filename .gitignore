@@ -1,12 +1,6 @@
 fish_variables
-bin/black
-bin/mypy
 bin/ccopy
 bin/cpaste
-bin/isort
-bin/ruff
-bin/ruff-lsp
-bin/xdg-open
 !*.secret
 functions/*
 completions/*
