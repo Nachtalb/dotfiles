@@ -24,7 +24,7 @@ settings/*
 !functions/run.fish
 !functions/vpn.fish.secret
 !functions/hv.fish.secret
-!functions/gh.fish
+!functions/ghub.fish
 !functions/gl.fish
 !functions/vim.fish
 !functions/__history_double_exclamation.fish
@@ -40,7 +40,7 @@ settings/*
 # Completions
 !completions/fisher.fish
 !completions/bun.fish
-!completions/gh.fish
+!completions/ghub.fish
 !completions/gl.fish
 !completions/git.fish
 !completions/dotfiles.fish

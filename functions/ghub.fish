@@ -2,7 +2,7 @@ if not set -q GH_BASE_DIR
     set GH_BASE_DIR $HOME/src
 end
 
-function gh -d "manage git repos"
+function ghub -d "manage git repos"
   set git_host github.com
   set -l repo ""
 
@@ -11,7 +11,7 @@ function gh -d "manage git repos"
   else if [ (count $argv) -eq 2 ]
     set repo $argv[1]/$argv[2]
   else
-    echo "USAGE: gh <user>[/]<repo>"
+    echo "USAGE: ghub <user>[/]<repo>"
     return -1
   end
 
