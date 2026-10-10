@@ -58,3 +58,7 @@ abbr grv 'git remote -v'
 abbr gup 'git pull -r && git fetch -p origin && remove-merged-git-branches && git remote | grep -v origin | xargs -L1 git fetch -p'
 
 abbr ppy 'pyenv virtualenv (pyenv versions --skip-envs --skip-aliases --bare | sort -V | tail -n1) (basename $PWD) && pyenv local (basename $PWD) && pip install -U pip setuptools'
+
+abbr dcu 'docker compose up -d'
+abbr dcd 'docker compose down'
+abbr dcp 'docker compose pull'
