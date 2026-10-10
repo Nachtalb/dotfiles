@@ -1,6 +1,4 @@
 [python]
-pyenv_version_name = true
-pyenv_prefix = ''
 python_binary = [
     "python",
 ]
