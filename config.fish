@@ -50,7 +50,6 @@ if should_autostart_tmux
   start_tmux
 end
 
-set -gx JAVA_HOME /usr/lib/jvm/default
 # Hide welcome message
 set fish_greeting
 
@@ -58,8 +57,7 @@ if status is-interactive
     # Starship prompt
     if test -f "/usr/bin/starship"
         source ("/usr/bin/starship" init fish --print-full-init | psub)
-    end
-    if test -f "/usr/local/bin/starship"
+    else if test -f "/usr/local/bin/starship"
         source ("/usr/local/bin/starship" init fish --print-full-init | psub)
     end
 
@@ -90,10 +88,6 @@ if test -f ~/.config/git/config.local
   set -gx GIT_CONFIG_GLOBAL ~/.config/git/config.local  # Machine-local git config, includes the shared one
 end
 
-# Set settings for https://github.com/franciscolourenco/done
-set -gx __done_min_cmd_duration 10000
-set -gx __done_notification_urgency_level low
-
 set -gx VISUAL nvim
 set -gx EDITOR $VISUAL
 
@@ -120,9 +114,6 @@ if test -f /usr/share/sway/scripts/foot.sh
     set -gx TERMINAL_COMMAND  /usr/share/sway/scripts/foot.sh
 end
 
-# Do not show notification if terminal is focused
-set -U __done_sway_ignore_visible 1
-
 ## PATH EXPANSION
 # Expand $PATH
 set -l NewPaths \
@@ -145,13 +136,9 @@ set -gx GH_BASE_DIR $HOME/src
 set -gx GL_BASE_DIR $HOME/src
 set -gx GB_BASE_DIR $HOME/src
 
-if begin; type -q vpn-start; and not test -f ~/.config/vpn-stopped; end
-  vpn-start
-end
-
 # bun
 set --export BUN_INSTALL "$HOME/.reflex/.bun"
-set --export PATH $BUN_INSTALL/bin $PATH
+fish_add_path $BUN_INSTALL/bin
 
 # Homebrew
 if test -x /home/linuxbrew/.linuxbrew/bin/brew
@@ -172,3 +159,14 @@ end
 # >>> grok installer >>>
 fish_add_path $HOME/.grok/bin
 # <<< grok installer <<<
+
+# Remove duplicate PATH entries (Windows PATH from WSL repeats dirs with different case / trailing slashes)
+set -l keys (string trim --right --chars / -- $PATH | string lower)
+set -l seen
+set -l deduped
+for i in (seq (count $PATH))
+    contains -- $keys[$i] $seen; and continue
+    set -a seen $keys[$i]
+    set -a deduped $PATH[$i]
+end
+set -gx PATH $deduped
